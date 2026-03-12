@@ -1,0 +1,32 @@
+2025-11-01 07:02:14,514 [INFO] 🚀 Starting Plex Poster Updater
+2025-11-01 07:02:14,576 [INFO] 🔍 Scanning Transcoded TV Shows (48 items)...
+2025-11-01 07:02:15,251 [ERROR] ❌ Failed to upload poster for 666 Park Avenue: 'Show' object has no attribute 'setDefault'
+2025-11-01 07:02:16,120 [ERROR] ❌ Failed to upload poster for Season 1: 'Season' object has no attribute 'setDefault'
+2025-11-01 07:02:16,498 [WARNING] TMDb fetch failed for ID 885943: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885943?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:16,887 [WARNING] TMDb fetch failed for ID 885946: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885946?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:17,272 [WARNING] TMDb fetch failed for ID 885947: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885947?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:17,644 [WARNING] TMDb fetch failed for ID 885944: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885944?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:18,018 [WARNING] TMDb fetch failed for ID 885945: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885945?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:18,404 [WARNING] TMDb fetch failed for ID 885948: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885948?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:18,781 [WARNING] TMDb fetch failed for ID 885949: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885949?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:19,153 [WARNING] TMDb fetch failed for ID 885950: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885950?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:19,525 [WARNING] TMDb fetch failed for ID 885952: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885952?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:19,892 [WARNING] TMDb fetch failed for ID 885951: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885951?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:20,265 [WARNING] TMDb fetch failed for ID 885953: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885953?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:20,641 [WARNING] TMDb fetch failed for ID 885954: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885954?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:21,014 [WARNING] TMDb fetch failed for ID 885955: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885955?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:21,634 [ERROR] ❌ Failed to upload poster for 1000 Babies: 'Show' object has no attribute 'setDefault'
+2025-11-01 07:02:22,014 [WARNING] TMDb fetch failed for ID 406452: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/406452?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:22,409 [WARNING] TMDb fetch failed for ID 5530493: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5530493?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:22,779 [WARNING] TMDb fetch failed for ID 5685177: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5685177?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:23,142 [WARNING] TMDb fetch failed for ID 5685178: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5685178?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:23,514 [WARNING] TMDb fetch failed for ID 5685180: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5685180?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:23,930 [WARNING] TMDb fetch failed for ID 5685181: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5685181?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:24,482 [ERROR] ❌ Failed to upload poster for 1899: 'Show' object has no attribute 'setDefault'
+2025-11-01 07:02:25,244 [WARNING] TMDb fetch failed for ID 1837500: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1837500?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:25,625 [WARNING] TMDb fetch failed for ID 3915209: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3915209?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:26,015 [WARNING] TMDb fetch failed for ID 3915210: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3915210?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:26,395 [WARNING] TMDb fetch failed for ID 3915212: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3915212?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:26,786 [WARNING] TMDb fetch failed for ID 3915213: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3915213?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:27,170 [WARNING] TMDb fetch failed for ID 3915215: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3915215?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:02:27,566 [WARNING] TMDb fetch failed for ID 3915216: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3915216?api_key=488dbaa0bf23daf9ae9da9805775e3af

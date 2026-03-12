@@ -1,0 +1,6 @@
+2025-11-01 06:34:37,711 [INFO] 🚀 Starting Plex Poster Updater
+2025-11-01 06:35:03,887 [INFO] 🔍 Scanning TV Shows (167 items)...
+2025-11-01 06:36:27,078 [INFO] 📊 Summary: {'Already has poster': 167}
+2025-11-01 06:36:27,698 [INFO] 📁 Detailed log saved: poster_update_logs\plex_poster_updater_20251101_063437.log
+2025-11-01 06:36:28,256 [INFO] 📈 Summary CSV saved: poster_update_logs\poster_update_summary_20251101_063618.csv
+2025-11-01 06:36:28,899 [INFO] 🎉 Done!

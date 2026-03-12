@@ -1,0 +1,214 @@
+import requests
+from pathlib import Path
+from typing import Dict, Any, Optional
+import logging
+import os
+import subliminal
+from babelfish import Language
+from subliminal import download_best_subtitles, save_subtitles, scan_video
+from subliminal.video import Movie, Episode
+from subliminal.providers.opensubtitles import OpenSubtitlesProvider
+
+from utils.name_cleaner import clean_media_name
+
+
+class MediaDownloader:
+    def __init__(self, config: Dict[str, Any]):
+        self.config = config
+        self.logger = logging.getLogger(__name__)
+        self.session = requests.Session()
+
+        # Configure subliminal cache
+        subliminal.region.configure(
+            'dogpile.cache.dbm', arguments={'filename': 'subliminal.cache'}
+        )
+
+        # Configure subtitle providers
+        self.providers = {}
+
+        if self.config['download'].get('subtitles'):
+            opensub_conf = self.config['download'].get('opensubtitles', {})
+            if all(k in opensub_conf for k in ('username', 'password')):
+                # OpenSubtitles no longer needs user_agent in recent subliminal versions
+                self.providers['opensubtitles'] = OpenSubtitlesProvider(
+                    username=opensub_conf['username'],
+                    password=opensub_conf['password']
+                )
+            else:
+                self.logger.warning(
+                    "OpenSubtitles credentials not set. Skipping provider."
+                )
+
+            # Skip providers that require fcntl on Windows
+            if os.name != "nt":
+                self.providers['tvsubtitles'] = None  # placeholder
+
+    def download_artwork(self, metadata: Dict[str, Any], media_type: str) -> Dict[str, str]:
+        artwork_paths = {}
+        if not self.config['download']['artwork']:
+            return artwork_paths
+
+        try:
+            if media_type == 'movie' and metadata.get('poster_path'):
+                poster_url = f"https://image.tmdb.org/t/p/{self.config['download']['artwork_sizes']['poster']}{metadata['poster_path']}"
+                poster_path = self._download_image(poster_url, "poster.jpg")
+                if poster_path:
+                    artwork_paths['poster'] = str(poster_path)
+
+            if metadata.get('backdrop_path'):
+                backdrop_url = f"https://image.tmdb.org/t/p/{self.config['download']['artwork_sizes']['backdrop']}{metadata['backdrop_path']}"
+                backdrop_path = self._download_image(backdrop_url, "backdrop.jpg")
+                if backdrop_path:
+                    artwork_paths['backdrop'] = str(backdrop_path)
+
+        except Exception as e:
+            self.logger.error(f"Error downloading artwork: {e}")
+
+        return artwork_paths
+
+    def download_subtitles(self, file_path: Path, metadata: Dict[str, Any]) -> Optional[str]:
+        """Download subtitles for media file (movie or episode)"""
+        if not self.config['download']['subtitles']:
+            return None
+
+        try:
+            # --- 1. Clean the media filename ---
+            info = clean_media_name(file_path.name)
+            self.logger.debug(f"Cleaned metadata: {info}")
+
+            # --- 2. Build language set for subliminal ---
+            languages = set()
+            for lang_code in self.config['download']['subtitle_languages']:
+                try:
+                    lang = Language.fromietf(lang_code)
+                    languages.add(lang)
+                except Exception:
+                    self.logger.warning(f"Invalid language code: {lang_code}")
+            if not languages:
+                languages = {Language('eng')}  # Default to English
+
+            # --- 3. Initialize Movie or Episode object ---
+            '''
+            if metadata.get('media_type') == 'movie':
+                video = Movie(
+                    name=file_path.stem,
+                    title=info['metadata_title'],
+                    year=metadata['year']
+                )
+            else:  # TV show / anime
+                video = Episode(
+                    name=file_path.stem,
+                    series=info['metadata_title'],
+                    season=info['season'] or 1,
+                    episodes=info['episodes'][0] if info['episodes'] else 1,
+                    year=metadata['year']
+                )
+            '''
+            if metadata.get('media_type') == 'movie':
+                video = Movie(
+                    name=file_path.stem,
+                    title=metadata.get('title') or info.get('metadata_title'),
+                    year=metadata.get('year') or info.get('year')
+                )
+            elif metadata.get("media_type") in ['anime', 'tv_show']:  # TV show / anime
+                video = Episode(
+                    name=file_path.stem,
+                    series=metadata.get('title') or info.get('metadata_title'),
+                    season=metadata.get('season') or info.get('season'),
+                    episodes=metadata.get('episode') or info.get('episodes')[0],
+                    year=metadata.get('year') or info.get('year')
+                )
+            # --- 4. Download best subtitles ---
+            subtitles = download_best_subtitles(
+                [video],
+                languages,
+                providers=list(self.providers.keys())
+            )
+
+            if subtitles.get(video):
+                # Pick the first best subtitle
+                subtitle = list(subtitles[video].values())[0]
+                subtitle_path = file_path.with_suffix('.srt')
+                save_subtitles(video, [subtitle])
+
+                self.logger.info(f"Downloaded subtitles: {subtitle_path}")
+                return str(subtitle_path)
+
+            else:
+                self.logger.info(f"No subtitles found for {file_path.stem}")
+
+        except Exception as e:
+            self.logger.error(f"Error downloading subtitles for {file_path}: {e}")
+
+        return None
+
+    def download_subtitles2(self, file_path: Path, metadata: Dict[str, Any]) -> Optional[str]:
+        if not self.config['download']['subtitles']:
+            return None
+
+        try:
+            # 1. Scan video properly
+            video = scan_video(str(file_path))
+            self.logger.debug(f"Scanned video: {video}")
+
+            # 2. Build language set
+            languages = set()
+            for lang_code in self.config['download']['subtitle_languages']:
+                try:
+                    languages.add(Language.fromietf(lang_code))
+                except Exception:
+                    self.logger.warning(f"Invalid language code: {lang_code}")
+            if not languages:
+                languages = {Language('eng')}
+
+            # 3. Download subtitles
+            subtitles = download_best_subtitles(
+                [video],
+                languages,
+                providers=list(self.providers.keys())
+            )
+
+            if subtitles.get(video):
+                subtitle = list(subtitles[video].values())[0]
+                save_subtitles(video, [subtitle])
+                subtitle_path = file_path.with_suffix('.srt')
+                self.logger.info(f"Downloaded subtitles: {subtitle_path}")
+                return str(subtitle_path)
+            else:
+                self.logger.info(f"No subtitles found for {file_path.stem}")
+
+        except Exception as e:
+            self.logger.error(f"Error downloading subtitles for {file_path}: {e}")
+
+        return None
+
+    def _download_image(self, url: str, filename: str) -> Optional[Path]:
+        try:
+            response = self.session.get(url, timeout=30)
+            response.raise_for_status()
+
+            save_path = Path("artwork") / filename
+            save_path.parent.mkdir(exist_ok=True)
+
+            with open(save_path, 'wb') as f:
+                f.write(response.content)
+
+            self.logger.info(f"Downloaded artwork: {save_path}")
+            return save_path
+
+        except Exception as e:
+            self.logger.error(f"Error downloading image {url}: {e}")
+            return None
+
+    def download_all_media(self, media_info: Dict[str, Any], metadata: Dict[str, Any],
+                           file_path: Path) -> Dict[str, Any]:
+        results = {'artwork': {}, 'subtitles': None, 'success': False}
+        try:
+            results['artwork'] = self.download_artwork(metadata, media_info['media_type'])
+            if media_info['media_type'] in ['movie', 'tv_show', 'anime']:
+                results['subtitles'] = self.download_subtitles(file_path, metadata)
+            results['success'] = True
+        except Exception as e:
+            self.logger.error(f"Error downloading media files: {e}")
+            results['error'] = str(e)
+        return results

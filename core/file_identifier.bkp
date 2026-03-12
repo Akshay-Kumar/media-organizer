@@ -1,0 +1,906 @@
+import os
+import re
+from pathlib import Path
+from typing import Dict, Any, Optional
+import logging
+from guessit import guessit
+import mimetypes
+from utils.name_cleaner import clean_media_name
+from core.tvmaze_client import Episode
+
+
+class MediaFileIdentifier:
+    def __init__(self, config: Dict[str, Any]):
+        self.config = config
+        self.logger = logging.getLogger(__name__)
+        # Initialize mimetypes database
+        mimetypes.init()
+
+    def get_anime_keywords(self, keyword_type: str = 'all_anime_keywords') -> list:
+        common_anime_keywords = [
+            # Popular Shonen/Action
+            "inuyasha", "naruto", "bleach", "one piece", "attack on titan", "jujutsu",
+            "demon slayer", "my hero academia", "dragon ball", "dragonball", "gintama",
+            "hunter x hunter", "one punch man", "spy x family", "chainsaw man",
+            "fairytail", "fairy tail", "fullmetal alchemist", "fmab", "jojo",
+            "jojo's bizarre adventure", "mob psycho", "fire force", "black clover",
+            "blue exorcist", "ao no exorcist", "tokyo revengers", "vinland saga",
+            "hell's paradise", "jigokuraku", "record of ragnarok", "shuumatsu no valkyrie",
+            "dan da dan",
+
+            # Popular Isekai
+            "re:zero", "re zero", "konosuba", "kono subarashii", "mushoku tensei",
+            "jobless reincarnation", "overlord", "shield hero", "tate no yuusha",
+            "that time i got reincarnated as a slime", "tensura", "sword art online",
+            "sao", "no game no life", "log horizon", "isekai quartet",
+
+            # Popular Romance/Slice of Life
+            "your lie in april", "shigatsu wa kimi no uso", "clannad", "toradora",
+            "kaguya-sama", "love is war", "horimiya", "rent a girlfriend", "kanojo okarishimasu",
+            "fruits basket", "nisekoi", "quintessential quintuplets", "gotoubun no hanayome",
+            "oregairu", "my teen romantic comedy", "yuri on ice", "given",
+
+            # Popular Fantasy/Adventure
+            "berserk", "goblin slayer", "made in abyss", "the ancient magus' bride",
+            "mahoutsukai no yome", "little witch academia", "fate stay night", "fate zero",
+            "fate grand order", "fgo", "re:creators", "the rising of the shield hero",
+
+            # Popular Sci-Fi/Mecha
+            "evangelion", "neon genesis evangelion", "gurren lagann", "code geass",
+            "steins gate", "psycho-pass", "ghost in the shell", "gits", "cowboy bebop",
+            "trigun", "gundam", "macross", "darling in the franxx", "vivy",
+
+            # Popular Horror/Thriller
+            "another", "paranoia agent", "monster", "death note", "future diary",
+            "mirai nikki", "elfen lied", "higurashi", "when they cry", "promised neverland",
+            "yakusoku no neverland", "parasyte", "kiseijuu", "tokyo ghoul",
+
+            # Popular Comedy
+            "gintama", "daily lives of high school boys", "nichijou", "azumanga daioh",
+            "lucky star", "disastrous life of saiki k", "saiki kusuo", "grand blue",
+            "kaguya-sama", "love is war", "prison school", "kangoku gakuen",
+
+            # Sports Anime
+            "haikyuu", "kuroko no basket", "kuroko's basketball", "ace of diamond",
+            "daiya no ace", "yowamushi pedal", "yowapeda", "hajime no ippo",
+            "slam dunk", "eyes shield 21", "free", "iwatobi swim club",
+
+            # Music/Idol Anime
+            "love live", "idolm@ster", "idolmaster", "k-on", "beck", "your lie in april",
+            "nana", "carole & tuesday", "zombieland saga", "show by rock",
+
+            # Classic Anime
+            "sailor moon", "cardcaptor sakura", "ccs", "yu yu hakusho", "rurouni kenshin",
+            "samurai champloo", "cowboy bebop", "trigun", "outlaw star", "vision of escaflowne",
+            "escaflowne", "revolutionary girl utena", "shoujo kakumei utena",
+
+            # Recent Popular (2020+)
+            "jujutsu kaisen", "chainsaw man", "spy x family", "oshi no ko", "hell's paradise",
+            "frieren", "sousou no frieren", "buddy daddies", "trigun stampede", "vinland saga",
+            "lycoris recoil", "bocchi the rock", "call of the night", "yofukashi no uta",
+
+            # Studio Ghibli (for movies)
+            "studio ghibli", "spirited away", "sen to chihiro", "my neighbor totoro",
+            "tonari no totoro", "princess mononoke", "mononoke hime", "howl's moving castle",
+            "castle in the sky", "laputa", "kiki's delivery service", "nausicaä",
+
+            # Other Popular
+            "death parade", "erased", "boku dake ga inai machi", "violet evergarden",
+            "land of the lustrous", "houseki no kuni", "made in abyss", "the promised neverland",
+            "beastars", "dorohedoro", "keep your hands off eizouken", "eizouken ni wa te wo dasu na",
+
+            # Common Anime Terms (helps with detection)
+            "anime", "ova", "ona", "special", "bd", "bluray", "bdrip", "webdl", "fansub",
+            "subsplease", "erai-raws", "horriblesubs", "commie", "dual audio", "multi audio",
+            "japanese", "subbed", "dubbed", "uncensored", "bdmv", "remux", "teen titans",
+
+            # Genre Indicators
+            "shonen", "shoujo", "seinen", "josei", "isekai", "mecha", "mahou shoujo",
+            "magical girl", "slice of life", "sol", "romcom", "harem", "reverse harem",
+
+            # File/Release Patterns
+            "episode", "ep", "volume", "vol", "season", "s\\d", "e\\d", "cour", "part",
+            "\\[.*\\]", "\\(.*\\)", " - \\d{1,3}", "1080p", "720p", "4k", "2160p", "hevc", "x265"
+        ]
+
+        # Additional specialized lists for better categorization
+        shonen_anime = [
+            "naruto", "bleach", "one piece", "dragon ball", "my hero academia",
+            "demon slayer", "jujutsu kaisen", "chainsaw man", "hunter x hunter",
+            "one punch man", "fairytail", "black clover", "fire force", "blue exorcist",
+            "tokyo revengers", "vinland saga", "hell's paradise", "record of ragnarok"
+        ]
+
+        isekai_anime = [
+            "re:zero", "konosuba", "mushoku tensei", "overlord", "shield hero",
+            "that time i got reincarnated as a slime", "sword art online",
+            "no game no life", "log horizon", "isekai quartet", "reincarnated as a slime"
+        ]
+
+        romance_anime = [
+            "your lie in april", "clannad", "toradora", "kaguya-sama", "horimiya",
+            "rent a girlfriend", "fruits basket", "nisekoi", "quintessential quintuplets",
+            "oregairu", "yuri on ice", "given", "wotakoi", "love is war"
+        ]
+
+        classic_anime = [
+            "sailor moon", "cardcaptor sakura", "yu yu hakusho", "rurouni kenshin",
+            "cowboy bebop", "trigun", "evangelion", "gundam", "macross", "outlaw star",
+            "vision of escaflowne", "revolutionary girl utena", "serial experiments lain"
+        ]
+
+        movie_anime = [
+            "studio ghibli", "spirited away", "your name", "kimi no na wa",
+            "weathering with you", "tenki no ko", "a silent voice", "koe no katachi",
+            "i want to eat your pancreas", "pancreas", "josee the tiger and the fish",
+            "wolf children", "okami kodomo", "the girl who leapt through time",
+            "summer wars", "paprika", "perfect blue", "ghost in the shell"
+        ]
+
+        if keyword_type == 'all_anime_keywords':
+            return [*common_anime_keywords, *shonen_anime, *isekai_anime, *romance_anime, *classic_anime]
+        elif keyword_type == 'anime_movie_keywords':
+            return movie_anime
+
+    def is_media_file(self, file_path: Path) -> bool:
+        """Check if file is a media file using extension-based approach"""
+        if not file_path.is_file():
+            return False
+
+        # Use extension-based detection
+        media_extensions = self.get_media_extensions()
+        return file_path.suffix.lower() in media_extensions["all"]
+
+    def get_media_extensions(self) -> dict:
+        """Return grouped media file extensions"""
+        media_exts = {
+            "video": [
+                '.mp4', '.mkv', '.avi', '.mov', '.wmv', '.flv', '.webm', '.m4v',
+                '.mpg', '.mpeg', '.m2ts', '.ts', '.mts', '.vob', '.divx', '.xvid',
+                '.3gp', '.3g2', '.asf', '.rm', '.rmvb', '.viv', '.amv'
+            ],
+            "audio": [
+                '.mp3', '.flac', '.wav', '.aac', '.ogg', '.wma', '.m4a', '.alac',
+                '.aiff', '.ape', '.opus', '.dsd', '.pcm', '.mka', '.tta', '.ac3',
+                '.dts', '.ra', '.mid', '.midi', '.mod', '.xm'
+            ],
+            "image": [
+                '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp', '.svg',
+                '.ico', '.psd', '.raw', '.cr2', '.nef', '.arw'
+            ],
+            "subtitle": [
+                '.srt', '.sub', '.ass', '.ssa', '.vtt', '.idx', '.sup'
+            ]
+        }
+        # Add convenience "all" key
+        media_exts["all"] = sum(media_exts.values(), [])
+        return media_exts
+
+    def get_series_regex(self, regex_type: str = 'all'):
+        # Special prefixes for TV content (OP/ED/OVA/Specials)
+        SPECIAL_PREFIXES = [
+            r'^(?P<show>.*?) - (OP|ED|OVA|Special)(?P<num>[0-9]{1,2})[ _\-]+(?P<title>.*)$',
+            r'^(?P<show>.*?) \[(OP|ED|OVA|Special)(?P<num>[0-9]{1,2})\] (?P<title>.*)$',
+            r'^(?P<show>.*?) \((OP|ED|OVA|Special)(?P<num>[0-9]{1,2})\) (?P<title>.*)$'
+        ]
+
+        # Example SERIES_RX (can extend with your full regex list)
+        SERIES_RX = [
+            r'(^|(?P<show>.*?)[ _\.\-]+)s(?P<season>[0-9]{1,2})(e| e|ep| ep|-)(?P<ep>[0-9]{1,3})(([ _\.\-]|(e|ep)|[ '
+            r'_\.\-](e|ep))(?P<ep2>[0-9]{1,3}))?($|( | - |)(?P<title>.*?)$)',
+            r'^(?P<show>.*?) - (E|e|Ep|ep|EP)?(?P<ep>[0-9]{1,3})(-(?P<ep2>[0-9]{1,3}))?( - )?(?P<title>.*)$'
+        ]
+        if regex_type == 'SPECIAL_PREFIXES':
+            return SPECIAL_PREFIXES
+        elif regex_type == 'SERIES_RX':
+            return SERIES_RX
+        else:
+            return [*SERIES_RX, *SPECIAL_PREFIXES]
+
+    def identify(self, file_path: Path) -> Dict[str, Any]:
+        """Identify media type and extract normalized information using guessit"""
+        filename = file_path.name
+        result = {
+            'media_type': None,
+            'filename': filename,
+            'file_path': str(file_path),
+            'file_extension': file_path.suffix.lower(),
+            'guessit_info': {}
+        }
+
+        try:
+            # Clean the filename before processing
+            file_info = clean_media_name(filename)
+            cleaned_filename = file_info['metadata_title']
+            result['file_info'] = file_info
+
+            # Use guessit for advanced parsing on cleaned filename
+            guess = guessit(filename)
+            guess = self.parse_filename(guess, filename)
+            guess["original_filename"] = filename
+            guess["cleaned_filename"] = cleaned_filename
+
+            # Enhance with parent folder info (fills missing season/series)
+            if guess.get("type") == "episode":
+                # guess = self.smart_guess(guess)
+                guess = self.smart_guess_v2(guess)
+                guess = self._enhance_with_parent_info(guess, file_path)
+
+            # Pick the most reliable series/movie title
+            best_title = self._pick_best_title(guess, file_path)
+
+            if guess.get("type") == "episode":
+                guess['series'] = best_title
+
+            if guess.get('type') == 'episode' and not guess.get('episode_title'):
+                # Keep original title as episode title if different
+                if guess.get("title") and guess["title"] != best_title:
+                    guess["episode_title"] = guess["cleaned_filename"]
+                    guess['title'] = best_title
+            elif guess.get("type") == "movie" and not guess.get("movie_title"):
+                if guess.get("title") and guess.get("title") != best_title:
+                    guess["movie_title"] = guess["title"]
+                    guess["title"] = best_title
+
+            if guess.get("type") == "episode":
+                absolute_number = guess.get('absolute_number', guess.get("episode", 1))
+                if absolute_number is not None:
+                    guess['absolute_number'] = absolute_number
+                else:
+                    guess['absolute_number'] = guess.get("episode", 1)
+
+            result['guessit_info'] = guess
+
+            # --- Normalize and assign media types ---
+            if self._is_anime_movie(guess, cleaned_filename):
+                # Anime movie case
+                result['media_type'] = 'movie'
+                result.update(self._extract_movie_info(guess))
+
+            elif guess.get('type') == 'movie':
+                # Regular movie
+                result['media_type'] = 'movie'
+                result.update(self._extract_movie_info(guess))
+
+            elif guess.get('type') == 'episode':
+                # Anime vs TV show
+                if self._is_anime(guess):
+                    result['media_type'] = 'anime'
+                    result.update(self._extract_anime_info(guess))
+                else:
+                    result['media_type'] = 'tv_show'
+                    result.update(self._extract_tv_info(guess))
+
+                # Normalize: ensure both series and episode_title exist
+                if 'series' not in result or not result['series']:
+                    result['series'] = guess.get('title', 'Unknown Series')
+                if 'episode_title' not in result or not result['episode_title']:
+                    if guess.get('title') and guess.get('title') != result['series']:
+                        result['episode_title'] = guess['cleaned_filename']
+
+            elif any(key in guess for key in ['album', 'artist', 'track']):
+                # Music
+                result['media_type'] = 'music'
+                result.update(self._extract_music_info(guess))
+
+            elif guess.get("type") == "special":
+                result.update({
+                    'title': filename,
+                    'series': guess.get("series"),
+                    'season': guess.get("season"),
+                    'episode': guess.get("episode"),
+                    'episode_title': guess.get("title"),
+                    'media_type': guess.get("type", "special"),
+                    'year': None
+                })
+
+            else:
+                # Fallback to extension-based detection
+                result['media_type'] = self._fallback_identification(file_path)
+                result.update({
+                    'title': filename,
+                    'series': None,
+                    'season': None,
+                    'episode': None,
+                    'episode_title': None,
+                    'year': None
+                })
+
+        except Exception as e:
+            self.logger.error(f"Error identifying file {filename}: {e}")
+            result['media_type'] = self._fallback_identification(file_path)
+
+        return result
+
+    def get_extension(self, filename: str) -> str:
+        """Return lowercase file extension (including dot), or empty string if none."""
+        return os.path.splitext(filename)[1].lower()
+
+    def parse_filename(self, guess: Dict[str, Any], filename: str):
+
+        supported_ext = self.get_media_extensions()
+
+        # Check if valid media file using extension
+        if self.get_extension(filename) not in supported_ext["all"]:
+            return guess
+
+        # Check for specials / OP / ED / OVA
+        for rx in self.get_series_regex('SPECIAL_PREFIXES'):
+            match = re.match(rx, filename, re.IGNORECASE)
+            if match:
+                info = match.groupdict()
+                guess['season'] = 0
+                guess['episode'] = int(info.pop('num'))
+                guess['type'] = 'special'
+                guess['series'] = info.get('show', '') or guess.get("series")
+                guess['title'] = info.get('title', '') or guess.get("title")
+                return guess
+
+        # Check custom SERIES_RX
+        for rx in self.get_series_regex('SERIES_RX'):
+            match = re.match(rx, filename, re.IGNORECASE)
+            if match:
+                info = match.groupdict()
+                guess['type'] = 'episode'
+                guess['series'] = info.get('show', '') or guess.get("series")
+                guess['title'] = info.get('title', '') or guess.get("title")
+                return guess
+
+        # --- MUSIC DETECTION ---
+        if any(filename.lower().endswith(ext) for ext in supported_ext["audio"]):
+            # Common patterns like "Artist - Title" or "Track 01 - Title"
+            music_patterns = [
+                r'^(?P<artist>.+?)\s*-\s*(?P<title>.+)$',
+                r'^(?P<track>\d{1,2})\s*-\s*(?P<title>.+)$',
+                r'^(?P<title>.+?)\s*\((?P<artist>.+)\)$'
+            ]
+            for rx in music_patterns:
+                match = re.match(rx, filename, re.IGNORECASE)
+                if match:
+                    info = match.groupdict()
+                    guess['type'] = 'music'
+                    guess['artist'] = info.get('artist', '') or guess.get('artist', '')
+                    guess['album'] = info.get('album', '') or guess.get('album', '')
+                    guess['title'] = info.get('title', '') or guess.get('title', '')
+                    guess['track'] = info.get('track') or guess.get('track')
+                    return guess
+
+            # Fallback: mark as music with filename as title
+            guess['type'] = 'music'
+            guess['title'] = guess.get('title') or filename.rsplit('.', 1)[0]
+            return guess
+        # ------------------------
+
+        # If GuessIt does not provide type, classify as movie
+        if 'type' not in guess or guess['type'] not in ['episode', 'movie', 'music']:
+            guess['type'] = 'movie'
+
+        # Ensure series/title keys exist
+        if guess['type'] == 'episode':
+            guess['series'] = guess.get('series') or guess.get('show', '')
+            guess['title'] = guess.get('title', '') if guess.get('title') else ''
+        elif guess['type'] == 'movie':
+            guess['title'] = guess.get('title', '')
+            guess['series'] = None  # Movies have no series
+        elif guess['type'] == 'music':
+            guess['artist'] = guess.get('artist', '')
+            guess['title'] = guess.get('title', '')
+
+        return guess
+
+    def smart_guess(self, guess: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Smartly determine episode information:
+        - Prefer SxxExx if present
+        - Then NxNN format (1x05)
+        - Then absolute episode numbers (>=100), including ranges, ignoring junk numbers
+        """
+        filename = guess.get("original_filename", "")
+
+        # --- 1) Detect SxxExx pattern ---
+        m = re.search(r'\b[Ss](\d{1,2})[Ee](\d{1,3})\b', filename)
+        if m:
+            guess['season'] = int(m.group(1))
+            guess['episode'] = int(m.group(2))
+            guess['absolute_number'] = None
+            return guess
+
+        # --- 2) Detect NxNN format (1x05) ---
+        m = re.search(r'\b(\d{1,2})[xX](\d{1,2})\b', filename)
+        if m:
+            guess['season'] = int(m.group(1))
+            guess['episode'] = int(m.group(2))
+            guess['absolute_number'] = None
+            return guess
+
+        # --- 3) Detect absolute episode numbers (>=100) ---
+        # Match numbers 3-4 digits, optionally followed by v2/v3 etc.
+        numbers = re.findall(r'\b(\d{3,4})(?:v\d+)?\b', filename, re.IGNORECASE)
+
+        # Filter out junk numbers
+        junk_numbers = {1080, 720, 2160, 480, 216, 10, 12, 24, 30}
+        absolute_eps = [int(n) for n in numbers if int(n) >= 100 and int(n) not in junk_numbers]
+
+        if absolute_eps:
+            # Handle multiple numbers as a list
+            guess['absolute_number'] = absolute_eps if len(absolute_eps) > 1 else absolute_eps[0]
+            # For absolute episodes, set season to 0 and episode to the first number
+            guess['season'] = 0
+            guess['episode'] = absolute_eps[0]
+            return guess
+
+        # --- 4) No valid episode found ---
+        guess['season'] = guess.get('season')
+        guess['episode'] = guess.get('episode')
+        guess['absolute_number'] = guess.get('absolute_number')
+        return guess
+
+    def smart_guess_v2(self, guess: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Smartly determine episode information:
+        - Prefer SxxExx if present
+        - Then NxNN format (1x05)
+        - Then absolute episode number (>=100), ignoring common junk numbers
+        - Detect anime specials like OP/ED/OVA/SP
+        """
+        filename = guess.get("original_filename", "")
+
+        # --- 1) Detect SxxExx pattern ---
+        m = re.search(r'\b[Ss](\d{1,2})[Ee](\d{1,3})\b', filename)
+        if m:
+            guess["season"] = int(m.group(1))
+            guess["episode"] = int(m.group(2))
+            return guess
+
+        # --- 2) Detect NxNN format (1x05) ---
+        m = re.search(r'\b(\d{1,2})[xX](\d{1,2})\b', filename)
+        if m:
+            guess["season"] = int(m.group(1))
+            guess["episode"] = int(m.group(2))
+            return guess
+
+        # --- 3) Detect specials (OP, ED, OVA, SP, PV) ---
+        special_patterns = {
+            r'\bOP(\d*)\b': "Opening",
+            r'\bED(\d*)\b': "Ending",
+            r'\bOVA\b': "OVA",
+            r'\bSP(ecial)?\b': "Special",
+            r'\bPV\b': "Promo Video",
+        }
+        for pat, label in special_patterns.items():
+            m = re.search(pat, filename, re.IGNORECASE)
+            if m:
+                number = m.group(1) if len(m.groups()) > 0 else ""
+                guess["special"] = f"{label} {number}".strip()
+                guess["season"] = 0
+                return guess
+
+        # --- 4) Detect absolute episode number (>=100) ---
+        numbers = re.findall(r'\b\d{2,4}\b', filename)
+        for n in numbers:
+            num = int(n)
+            # Ignore common junk numbers (resolutions, bit depth, etc.)
+            if num >= 10 and num not in [1080, 720, 2160, 480, 216, 10]:
+                guess["absolute_number"] = num
+                guess["season"] = 0
+                guess["episode"] = num
+                return guess
+
+        return guess
+
+    def _normalize_anime_numbers(self, guess: Dict[str, Any], filename: str) -> Dict[str, Any]:
+        """
+        Normalize anime numbering: handle absolute episode numbers like 1143
+        misdetected as S11E43 by guessit.
+        """
+        # If it's anime and has suspicious season/episode
+        if guess.get("type") == "episode":
+            # Extract 3-4 digit numbers from filename
+            import re
+            numbers = re.findall(r"\b\d{3,4}\b", filename)
+
+            if numbers:
+                num = int(numbers[0])
+                # Heuristic: large numbers → absolute episode count
+                if num > 100:
+                    guess["absolute_number"] = num
+                    guess["season"] = 0
+                    guess["episode"] = num
+        return guess
+
+    def _pick_best_title(self, guess: Dict[str, Any], file_path: Path) -> str:
+        """
+        Decide the most reliable title between guessit output and parent directory.
+        """
+        filename_title = guess.get("title")
+        series_title = guess.get("series")
+
+        # If series exists and looks like a real name (not generic "Complete", "Season X")
+        if series_title and not any(word.lower() in series_title.lower() for word in ["complete", "season"]):
+            return series_title
+
+        # If filename title exists and is different from episode title
+        if filename_title and (filename_title != guess.get("episode_title", "")):
+            return filename_title
+
+        # Otherwise, try parent directory name
+        parent_guess = guessit(file_path.parent.name)
+        if parent_guess.get("title"):
+            return parent_guess["title"]
+
+        # Fallback: use filename without extension
+        return file_path.stem
+
+    def _enhance_with_parent_info(self, guess: Dict[str, Any], file_path: Path) -> Dict[str, Any]:
+        """Enhance guessit results with information from parent directories."""
+        # If it's an episode, we often need series info
+        needs_series = guess.get('type') == 'episode' and not guess.get('series')
+        # needs_season = guess.get('type') == 'episode' and not guess.get('season')
+        needs_year = not guess.get('year')
+
+        if not (needs_series or needs_year):
+            return guess
+
+        current_path = file_path.parent
+        max_levels = 3  # search up to 3 parent folders
+
+        for _ in range(max_levels):
+            if current_path.name:  # skip if root
+                parent_guess = guessit(current_path.name)
+
+                # Extract series title
+                if needs_series and parent_guess.get('title'):
+                    guess['series'] = parent_guess['title']
+                    self.logger.info(
+                        f"Extracted series name from parent directory '{current_path.name}': {guess['series']}"
+                    )
+                    needs_series = False
+
+                # Extract season number
+                '''
+                if needs_season and parent_guess.get('season'):
+                    guess['season'] = parent_guess['season']
+                    self.logger.info(
+                        f"Extracted season {guess['season']} from parent directory '{current_path.name}'"
+                    )
+                    needs_season = False
+                '''
+
+                # Extract year
+                if needs_year and parent_guess.get('year'):
+                    guess['year'] = parent_guess['year']
+                    needs_year = False
+
+                # Break early if everything resolved
+                if not (needs_series or needs_year):
+                    break
+
+            # Move up
+            current_path = current_path.parent
+            if current_path == current_path.parent:
+                break
+
+        return guess
+
+    def _clean_filename(self, filename: str) -> str:
+        """Remove junk characters and clean up filename for better parsing"""
+        if not filename:
+            return filename
+
+        # Common junk patterns in anime/media filenames
+        junk_patterns = [
+            # Release group tags
+            r'\[.*?\]',  # [SAD], [GroupName], [BD], etc.
+            r'\(.*?\)',  # (1080p), (x265), etc.
+            r'\{.*?\}',  # {Group}, {Codec}, etc.
+
+            # Quality and codec info
+            r'\b(?:BD|BR|BDRip|BluRay|Blu-Ray|WEB-DL|WEBRip|HDTV|DVDRip)\b',
+            r'\b(?:x264|x265|HEVC|H264|H265|AVC|VC-1)\b',
+            r'\b(?:AAC|AC3|DTS|FLAC|MP3|Opus|TrueHD|Atmos)\b',
+            r'\b(?:1080p|720p|480p|2160p|4K|UHD|HD|SD)\b',
+            r'\b(?:10bit|8bit|HDR|SDR|DV|DoVi)\b',
+
+            # Release info and hashes
+            r'\b(?:Dual|Dual-Audio|Multi-Audio|Multi-Sub)\b',
+            r'\b(?:Complete|Uncensored|Remastered|Director\'s Cut|Extended)\b',
+            r'\[[A-F0-9]{8,}\]',  # Hash codes like [84E9A4A1]
+            r'\b(?:REPACK|PROPER|READNFO|NFO)\b',
+
+            # Unwanted punctuation and separators
+            r'[\[\]{}()]',  # Remove all brackets
+            r' +',  # Multiple spaces
+            r'^[\._\-]+|[\._\-]+$',  # Leading/trailing dots, underscores, dashes
+        ]
+
+        cleaned = filename
+
+        # Remove junk patterns
+        for pattern in junk_patterns:
+            cleaned = re.sub(pattern, ' ', cleaned, flags=re.IGNORECASE)
+
+        # Remove common file extensions temporarily for cleaning
+        extension = ''
+        if '.' in cleaned:
+            cleaned, extension = cleaned.rsplit('.', 1)
+            extension = '.' + extension
+
+        # Clean up remaining junk
+        cleaned = re.sub(r'[^\w\s\-\.]', ' ', cleaned)  # Remove special chars
+        cleaned = re.sub(r'\s+', ' ', cleaned)  # Collapse multiple spaces
+        cleaned = cleaned.strip()  # Trim spaces
+
+        # Restore extension
+        if extension:
+            cleaned += extension
+
+        # Additional cleaning for common anime patterns
+        cleaned = self._clean_anime_specific_patterns(cleaned)
+
+        return cleaned if cleaned.strip() else filename  # Return original if empty
+
+    def _clean_anime_specific_patterns(self, filename: str) -> str:
+        """Clean anime-specific patterns while preserving important info"""
+        if not filename:
+            return filename
+
+        cleaned = filename
+
+        # Remove common anime release patterns but keep episode numbers
+        anime_patterns = [
+            # Remove group names but keep content
+            r'^\[[^\]]+\]\s*',  # [Group] at start
+            r'\s*\[[^\]]+\]$',  # [Group] at end
+
+            # Remove quality info but keep meaningful content
+            r'\b(?:BD|BDRip|BluRay)\b',
+            r'\b(?:x264|x265|HEVC)\b',
+            r'\b(?:AAC|FLAC|DTS)\b',
+
+            # Remove hashes and codes
+            r'\[[A-F0-9]{8,}\]',
+        ]
+
+        for pattern in anime_patterns:
+            cleaned = re.sub(pattern, ' ', cleaned, flags=re.IGNORECASE)
+
+        # Preserve episode numbers and important identifiers
+        cleaned = re.sub(r'\b(?:EP|Episode|ep| episode )\s*(\d+)', r'EP\1', cleaned)
+        cleaned = re.sub(r'\b(?:S|Season|s| season )\s*(\d+)', r'S\1', cleaned)
+
+        # Clean up spaces
+        cleaned = re.sub(r'\s+', ' ', cleaned)
+        cleaned = cleaned.strip()
+
+        return cleaned
+
+    def _is_anime_movie(self, guess_info: Dict[str, any], filename: str) -> bool:
+        """
+        Heuristically determine if the given media file is an anime movie.
+
+        Args:
+            guess_info (dict): Parsed metadata from guessit or similar.
+            filename (str): Original filename.
+
+        Returns:
+            bool: True if file is likely an anime movie, False otherwise.
+        """
+        if guess_info.get("type", "unknown") == "special":
+            return False
+
+        filename_lower = filename.lower()
+
+        # --- 1. Explicit movie indicators in filename ---
+        movie_indicators = [
+            r'\bmovie\b',
+            r'\bthe\s+movie\b',
+            r'\bfilm\b',
+            r'剧场版',  # Japanese
+            r'劇場版',  # Traditional Chinese
+            r'\bmovie\s*\d+\b',
+            r'\bfilm\s*\d+\b',
+            r'[-_\s]m\d+\b',
+            r'\bpart\s*\d+\b',
+            r'\bvol(?:ume)?\.?\s*\d+\b'
+        ]
+
+        for indicator in movie_indicators:
+            if re.search(indicator, filename_lower, re.IGNORECASE):
+                return True
+
+        # --- 2. Guessit hints ---
+        # If guessit says it's BluRay or similar format but lacks season/episode,
+        # it's often a standalone anime movie.
+        if (
+                guess_info.get("format")
+                and "bluray" in guess_info["format"].lower()
+                and not any(x in guess_info for x in ["season", "episode"])
+        ):
+            return True
+
+        # Guessit may directly tag the type as "movie"
+        if guess_info.get("type") == "movie":
+            return True
+
+        # --- 3. Anime-specific filename patterns ---
+        anime_movie_patterns = [
+            r"\[.*\].* - .*?\[BD",  # Group release with BD hint
+            r".*\[BD.*\].*\.(mkv|mp4|avi)$",
+            r"\.movie\.",  # e.g. naruto.movie.3
+            r"_movie_",  # e.g. one_piece_movie_6
+            r"\banime\s*movie\b",  # explicit marker
+        ]
+
+        for pattern in anime_movie_patterns:
+            if re.search(pattern, filename, re.IGNORECASE):
+                return True
+
+        # --- 4. Additional heuristic ---
+        # If filename contains "Movie" but also contains a season/episode marker, prefer TV
+        if "movie" in filename_lower and re.search(r"[Ss]\d{1,2}[Ee]\d{1,2}", filename_lower):
+            return False
+
+        # --- 5. Heuristic search based on known anime movie titles
+        anime_movie_keywords = self.get_anime_keywords('anime_movie_keywords')
+        # Check against our comprehensive list
+        for keyword in anime_movie_keywords:
+            if keyword in filename_lower:
+                return True
+
+        return False
+
+    def _is_anime(self, guess_info: Dict[str, Any]) -> bool:
+        title = guess_info.get("title", "").lower()
+        episode_title = guess_info.get("episode_title", "").lower()
+        filename = guess_info.get("original_filename", "").lower() if guess_info.get("original_filename") else ""
+
+        # --- 1. Strong filename indicators ---
+        strong_indicators = [
+            "anime", "ova", "ona", "special",
+            "fansub", "fansubs", "subsplease", "horriblesubs",
+            "commie", "erai-raws", "underwater",
+            "[dual audio", "japanese audio"
+        ]
+        if any(ind in filename for ind in strong_indicators):
+            return True
+
+        # --- 2. GuessIt metadata hints ---
+        if guess_info.get("country", "").lower() == "jp":
+            return True
+
+        genre = str(guess_info.get("genre", "")).lower()
+        if "animation" in genre and ("japanese" in filename or "anime" in filename):
+            return True
+
+        # --- 3. Heuristic matching ---
+        if self.is_anime_title(episode_title, 'all_anime_keywords'):
+            return True
+        if self.is_anime_title(title, 'all_anime_keywords'):
+            return True
+
+        # --- 4. Anime release patterns (restricted to known groups) ---
+        anime_patterns = [
+            r"ep\.?\d{1,3}",
+            r" - \d{1,3}(\s|\.|$)",
+            r"\[(HorribleSubs|Erai-raws|SubsPlease|Underwater|Commie)\]",
+            r"\[BD.*?\]", r"\[HEVC.*?\]", r"\[x26[45].*?\]",
+            r"\[FLAC.*?\]", r"\[Dual(\s|-)?Audio\]"
+        ]
+        if any(re.search(pat, filename, re.IGNORECASE) for pat in anime_patterns):
+            return True
+
+        # --- 5. Western content patterns ---
+        western_patterns = [
+            r"S\d{1,2}E\d{1,2}",
+            r"\d{3,4}p",
+            r"WEB[- ]?DL", r"WEBRip", r"BluRay", r"HDTV",
+            r"DDP\d", "Dolby", "Atmos", "HDR", "DV"
+        ]
+        western_count = sum(1 for pat in western_patterns if re.search(pat, filename, re.IGNORECASE))
+        if western_count >= 2:
+            return False
+
+        # --- 6. Explicit non-anime exceptions ---
+        non_anime_exceptions = [
+            "pixar", "disney", "dreamworks", "illumination",
+            "hbo", "netflix", "amazon", "hulu", "atvp"
+        ]
+        if any(exc in filename for exc in non_anime_exceptions):
+            return False
+
+        return False
+
+    # Helper function to check if something is anime
+    def is_anime_title(self, title: str, keyword_type: str) -> bool:
+        """Check if a title is likely to be anime based on keywords"""
+        title_lower = title.lower()
+
+        # Check against our comprehensive list
+        for keyword in self.get_anime_keywords(keyword_type):
+            if keyword in title_lower:
+                return True
+
+        # Check for Japanese naming patterns
+        japanese_patterns = [
+            r'\bno\b', r'\bwa\b', r'\bga\b', r'\bwo\b', r'\bni\b',  # Japanese particles
+            r'\\[.*\\]', r'\\(.*\\)',  # Common anime release brackets
+            r's\\d{1,2}e\\d{1,2}', r'ep\\d{1,3}',  # Episode patterns
+        ]
+
+        for pattern in japanese_patterns:
+            if re.search(pattern, title_lower):
+                return True
+
+        return False
+
+    def _extract_movie_info(self, guess: Dict[str, Any]) -> Dict[str, Any]:
+        """Extract movie information from guessit results"""
+        return {
+            'title': guess.get('title', 'Unknown'),
+            'year': guess.get('year'),
+            'quality': guess.get('screen_size'),
+            'source': guess.get('source'),
+            'resolution': guess.get('screen_size'),
+            'video_codec': guess.get('video_codec'),
+            'audio_codec': guess.get('audio_codec')
+        }
+
+    def _extract_tv_info(self, guess: Dict[str, Any]) -> Dict[str, Any]:
+        """Extract TV show information from guessit results"""
+        return {
+            'series': guess.get('title', 'Unknown Series'),
+            'season': guess.get('season', 1),
+            'episode': guess.get('episode', 1),
+            'episode_title': guess.get('episode_title'),
+            'quality': guess.get('screen_size'),
+            'source': guess.get('source'),
+            'video_codec': guess.get('video_codec')
+        }
+
+    def _extract_anime_info(self, guess: Dict[str, Any]) -> Dict[str, Any]:
+        """Extract anime information from guessit results"""
+        return {
+            'series': guess.get('title', 'Unknown Anime'),
+            'season': guess.get('season', 1),
+            'episode': guess.get('episode', 1),
+            'episode_title': guess.get('episode_title'),
+            'release_group': guess.get('release_group'),
+            'quality': guess.get('screen_size'),
+            'source': guess.get('source'),
+            'video_codec': guess.get('video_codec')
+        }
+
+    def _extract_music_info(self, guess: Dict[str, Any]) -> Dict[str, Any]:
+        """Extract music information from guessit results"""
+        return {
+            'artist': guess.get('artist', 'Unknown Artist'),
+            'album': guess.get('album', 'Unknown Album'),
+            'title': guess.get('title', 'Unknown Track'),
+            'track': guess.get('track', 1),
+            'disc': guess.get('disc', 1),
+            'year': guess.get('year'),
+            'bitrate': guess.get('bitrate'),
+            'codec': guess.get('audio_codec')
+        }
+
+    def _fallback_identification(self, file_path: Path) -> str:
+        """Fallback identification using file extension"""
+        extension = file_path.suffix.lower()
+
+        video_extensions = ['.mp4', '.mkv', '.avi', '.mov', '.wmv', '.flv', '.webm', '.m4v', '.mpg', '.mpeg']
+        audio_extensions = ['.mp3', '.flac', '.wav', '.aac', '.ogg', '.wma', '.m4a', '.alac', '.opus']
+        image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp']
+
+        if extension in video_extensions:
+            return 'movie'  # Default to movie for video files
+        elif extension in audio_extensions:
+            return 'music'
+        elif extension in image_extensions:
+            return 'image'
+        else:
+            return 'unknown'
+
+    def get_mime_type(self, file_path: Path) -> str:
+        """Get MIME type using mimetypes library (fallback without magic)"""
+        mime_type, _ = mimetypes.guess_type(str(file_path))
+        return mime_type or 'application/octet-stream'

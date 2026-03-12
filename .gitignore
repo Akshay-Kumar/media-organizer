@@ -1,0 +1,16 @@
+artwork
+backups
+config
+locks
+logs
+venv
+.idea
+cachefile.dbm.dat
+cachefile.dbm.dir
+subliminal.cache.dat
+subliminal.cache.dir
+file_operations.json
+junk_words.json
+media_organizer_py.bat
+processing_report.json
+release_groups.json

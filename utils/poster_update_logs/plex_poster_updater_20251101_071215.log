@@ -1,0 +1,1055 @@
+2025-11-01 07:12:15,354 [INFO] 🚀 Starting Plex Poster Updater
+2025-11-01 07:12:18,680 [INFO] 🔍 Scanning Transcoded TV Shows (48 items)...
+2025-11-01 07:13:25,463 [INFO] ✅ Poster uploaded for 666 Park Avenue
+2025-11-01 07:13:41,547 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:13:45,567 [WARNING] TMDb fetch failed for ID 885943: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885943?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:13:49,862 [WARNING] TMDb fetch failed for ID 885946: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885946?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:13:55,519 [WARNING] TMDb fetch failed for ID 885947: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885947?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:00,263 [WARNING] TMDb fetch failed for ID 885944: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885944?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:00,651 [WARNING] TMDb fetch failed for ID 885945: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885945?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:01,026 [WARNING] TMDb fetch failed for ID 885948: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885948?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:01,407 [WARNING] TMDb fetch failed for ID 885949: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885949?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:01,786 [WARNING] TMDb fetch failed for ID 885950: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885950?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:02,163 [WARNING] TMDb fetch failed for ID 885952: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885952?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:02,551 [WARNING] TMDb fetch failed for ID 885951: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885951?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:02,923 [WARNING] TMDb fetch failed for ID 885953: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885953?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:03,306 [WARNING] TMDb fetch failed for ID 885954: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885954?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:03,695 [WARNING] TMDb fetch failed for ID 885955: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/885955?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:04,081 [INFO] ✅ Poster uploaded for 1000 Babies
+2025-11-01 07:14:04,467 [WARNING] TMDb fetch failed for ID 406452: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/406452?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:04,858 [WARNING] TMDb fetch failed for ID 5530493: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5530493?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:05,235 [WARNING] TMDb fetch failed for ID 5685177: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5685177?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:05,616 [WARNING] TMDb fetch failed for ID 5685178: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5685178?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:05,988 [WARNING] TMDb fetch failed for ID 5685180: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5685180?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:06,375 [WARNING] TMDb fetch failed for ID 5685181: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5685181?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:06,817 [INFO] ✅ Poster uploaded for 1899
+2025-11-01 07:14:07,575 [WARNING] TMDb fetch failed for ID 1837500: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1837500?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:07,956 [WARNING] TMDb fetch failed for ID 3915209: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3915209?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:08,341 [WARNING] TMDb fetch failed for ID 3915210: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3915210?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:08,740 [WARNING] TMDb fetch failed for ID 3915212: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3915212?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:09,119 [WARNING] TMDb fetch failed for ID 3915213: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3915213?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:09,507 [WARNING] TMDb fetch failed for ID 3915215: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3915215?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:09,899 [WARNING] TMDb fetch failed for ID 3915216: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3915216?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:10,282 [WARNING] TMDb fetch failed for ID 3915217: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3915217?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:10,800 [INFO] ✅ Poster uploaded for Alien: Earth
+2025-11-01 07:14:11,193 [WARNING] TMDb fetch failed for ID 243129: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/243129?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:11,594 [WARNING] TMDb fetch failed for ID 5324625: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5324625?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:11,969 [WARNING] TMDb fetch failed for ID 6231083: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/6231083?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:12,345 [WARNING] TMDb fetch failed for ID 6231084: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/6231084?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:12,722 [WARNING] TMDb fetch failed for ID 6231085: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/6231085?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:13,104 [WARNING] TMDb fetch failed for ID 6231086: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/6231086?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:13,482 [WARNING] TMDb fetch failed for ID 6231388: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/6231388?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:13,866 [WARNING] TMDb fetch failed for ID 6231389: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/6231389?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:14,259 [WARNING] TMDb fetch failed for ID 6231390: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/6231390?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:14,796 [INFO] ✅ Poster uploaded for Andhera
+2025-11-01 07:14:15,195 [WARNING] TMDb fetch failed for ID 384761: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/384761?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:15,581 [WARNING] TMDb fetch failed for ID 5224571: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5224571?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:15,947 [WARNING] TMDb fetch failed for ID 6449417: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/6449417?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:16,327 [WARNING] TMDb fetch failed for ID 6449418: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/6449418?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:16,694 [WARNING] TMDb fetch failed for ID 6449419: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/6449419?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:17,075 [WARNING] TMDb fetch failed for ID 6449421: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/6449421?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:17,442 [WARNING] TMDb fetch failed for ID 6449422: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/6449422?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:17,806 [WARNING] TMDb fetch failed for ID 6449423: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/6449423?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:18,174 [WARNING] TMDb fetch failed for ID 6449424: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/6449424?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:18,951 [INFO] ✅ Poster uploaded for Arrow
+2025-11-01 07:14:19,503 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:14:19,897 [WARNING] TMDb fetch failed for ID 64111: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/64111?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:21,139 [INFO] ✅ Poster uploaded for Lone Gunmen
+2025-11-01 07:14:22,014 [WARNING] TMDb fetch failed for ID 64116: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/64116?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:22,894 [INFO] ✅ Poster uploaded for Damaged
+2025-11-01 07:14:23,769 [WARNING] TMDb fetch failed for ID 64115: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/64115?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:24,151 [WARNING] TMDb fetch failed for ID 64117: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/64117?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:24,529 [WARNING] TMDb fetch failed for ID 64118: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/64118?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:24,901 [WARNING] TMDb fetch failed for ID 64119: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/64119?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:25,280 [WARNING] TMDb fetch failed for ID 64120: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/64120?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:26,085 [INFO] ✅ Poster uploaded for Trust But Verify
+2025-11-01 07:14:27,431 [INFO] ✅ Poster uploaded for Vertigo
+2025-11-01 07:14:28,724 [INFO] ✅ Poster uploaded for Betrayal
+2025-11-01 07:14:30,023 [INFO] ✅ Poster uploaded for The Odyssey
+2025-11-01 07:14:31,806 [INFO] ✅ Poster uploaded for Dead to Rights
+2025-11-01 07:14:33,123 [INFO] ✅ Poster uploaded for The Huntress Returns
+2025-11-01 07:14:33,997 [WARNING] TMDb fetch failed for ID 64128: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/64128?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:34,790 [INFO] ✅ Poster uploaded for Unfinished Business
+2025-11-01 07:14:36,435 [WARNING] TMDb fetch failed for ID 64132: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/64132?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:36,807 [WARNING] TMDb fetch failed for ID 64133: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/64133?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:37,353 [INFO] ✅ Poster uploaded for Season 2
+2025-11-01 07:14:37,758 [WARNING] TMDb fetch failed for ID 64135: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/64135?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:38,154 [WARNING] TMDb fetch failed for ID 64136: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/64136?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:38,903 [WARNING] TMDb fetch failed for ID 64138: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/64138?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:39,771 [INFO] ✅ Poster uploaded for League of Assassins
+2025-11-01 07:14:41,060 [INFO] ✅ Poster uploaded for Keep Your Enemies Closer
+2025-11-01 07:14:42,356 [INFO] ✅ Poster uploaded for State v. Queen
+2025-11-01 07:14:43,238 [WARNING] TMDb fetch failed for ID 968620: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/968620?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:43,616 [WARNING] TMDb fetch failed for ID 968872: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/968872?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:43,991 [WARNING] TMDb fetch failed for ID 970267: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/970267?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:44,374 [WARNING] TMDb fetch failed for ID 970444: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/970444?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:44,752 [WARNING] TMDb fetch failed for ID 970714: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/970714?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:45,137 [WARNING] TMDb fetch failed for ID 970941: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/970941?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:45,507 [WARNING] TMDb fetch failed for ID 971805: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/971805?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:45,887 [WARNING] TMDb fetch failed for ID 972032: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/972032?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:46,258 [WARNING] TMDb fetch failed for ID 972713: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/972713?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:46,643 [WARNING] TMDb fetch failed for ID 973062: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/973062?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:47,013 [WARNING] TMDb fetch failed for ID 973063: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/973063?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:47,396 [WARNING] TMDb fetch failed for ID 974437: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/974437?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:47,782 [WARNING] TMDb fetch failed for ID 974438: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/974438?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:48,159 [WARNING] TMDb fetch failed for ID 974439: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/974439?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:48,538 [WARNING] TMDb fetch failed for ID 974440: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/974440?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:48,917 [WARNING] TMDb fetch failed for ID 974441: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/974441?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:49,412 [INFO] ✅ Poster uploaded for Season 3
+2025-11-01 07:14:49,807 [WARNING] TMDb fetch failed for ID 1000643: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1000643?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:50,217 [WARNING] TMDb fetch failed for ID 1001380: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1001380?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:50,597 [WARNING] TMDb fetch failed for ID 1005647: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1005647?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:51,003 [WARNING] TMDb fetch failed for ID 1005648: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1005648?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:51,386 [WARNING] TMDb fetch failed for ID 1005649: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1005649?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:51,760 [WARNING] TMDb fetch failed for ID 1010735: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1010735?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:52,156 [WARNING] TMDb fetch failed for ID 1010736: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1010736?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:52,538 [WARNING] TMDb fetch failed for ID 1010737: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1010737?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:52,915 [WARNING] TMDb fetch failed for ID 1018202: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1018202?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:53,303 [WARNING] TMDb fetch failed for ID 1019251: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1019251?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:53,686 [WARNING] TMDb fetch failed for ID 1030773: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1030773?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:54,069 [WARNING] TMDb fetch failed for ID 1030774: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1030774?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:54,444 [WARNING] TMDb fetch failed for ID 1037874: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1037874?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:54,850 [WARNING] TMDb fetch failed for ID 1037875: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1037875?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:55,231 [WARNING] TMDb fetch failed for ID 1037876: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1037876?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:55,617 [WARNING] TMDb fetch failed for ID 1037877: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1037877?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:55,993 [WARNING] TMDb fetch failed for ID 1039996: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1039996?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:56,371 [WARNING] TMDb fetch failed for ID 1046435: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1046435?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:56,751 [WARNING] TMDb fetch failed for ID 1046436: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1046436?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:57,142 [WARNING] TMDb fetch failed for ID 1047619: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1047619?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:57,514 [WARNING] TMDb fetch failed for ID 1051237: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1051237?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:57,895 [WARNING] TMDb fetch failed for ID 1051238: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1051238?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:58,279 [WARNING] TMDb fetch failed for ID 1051240: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1051240?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:58,837 [INFO] ✅ Poster uploaded for Season 4
+2025-11-01 07:14:59,228 [WARNING] TMDb fetch failed for ID 1161191: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1161191?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:14:59,610 [WARNING] TMDb fetch failed for ID 1163985: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1163985?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:00,992 [WARNING] TMDb fetch failed for ID 1165645: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1165645?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:01,385 [WARNING] TMDb fetch failed for ID 1183647: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1183647?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:01,761 [WARNING] TMDb fetch failed for ID 1183648: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1183648?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:02,145 [WARNING] TMDb fetch failed for ID 1183649: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1183649?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:02,533 [WARNING] TMDb fetch failed for ID 1183650: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1183650?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:03,451 [WARNING] TMDb fetch failed for ID 1218749: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1218749?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:03,826 [WARNING] TMDb fetch failed for ID 1226541: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1226541?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:04,206 [WARNING] TMDb fetch failed for ID 1226542: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1226542?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:04,586 [WARNING] TMDb fetch failed for ID 1244500: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1244500?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:04,970 [WARNING] TMDb fetch failed for ID 1247537: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1247537?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:05,344 [WARNING] TMDb fetch failed for ID 1261472: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1261472?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:05,730 [WARNING] TMDb fetch failed for ID 1263507: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1263507?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:06,105 [WARNING] TMDb fetch failed for ID 1263508: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1263508?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:06,490 [WARNING] TMDb fetch failed for ID 1267682: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1267682?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:06,886 [WARNING] TMDb fetch failed for ID 1275919: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1275919?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:07,266 [WARNING] TMDb fetch failed for ID 1279729: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1279729?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:07,641 [WARNING] TMDb fetch failed for ID 1288332: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1288332?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:08,024 [WARNING] TMDb fetch failed for ID 1288333: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1288333?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:08,406 [WARNING] TMDb fetch failed for ID 1293512: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1293512?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:08,799 [WARNING] TMDb fetch failed for ID 1293513: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1293513?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:09,184 [WARNING] TMDb fetch failed for ID 1293514: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1293514?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:09,634 [WARNING] TMDb fetch failed for ID 1293515: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1293515?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:10,029 [WARNING] TMDb fetch failed for ID 1295788: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1295788?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:10,511 [INFO] ✅ Poster uploaded for Ash vs Evil Dead
+2025-11-01 07:15:10,890 [WARNING] TMDb fetch failed for ID 65657: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/65657?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:11,289 [WARNING] TMDb fetch failed for ID 1095530: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1095530?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:11,673 [WARNING] TMDb fetch failed for ID 1131009: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1131009?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:12,083 [WARNING] TMDb fetch failed for ID 1131010: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1131010?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:12,460 [WARNING] TMDb fetch failed for ID 1131011: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1131011?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:12,834 [WARNING] TMDb fetch failed for ID 1131012: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1131012?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:13,232 [WARNING] TMDb fetch failed for ID 1131013: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1131013?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:13,613 [WARNING] TMDb fetch failed for ID 1131014: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1131014?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:13,993 [WARNING] TMDb fetch failed for ID 1131015: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1131015?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:14,374 [WARNING] TMDb fetch failed for ID 1131016: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1131016?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:14,761 [WARNING] TMDb fetch failed for ID 1131017: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1131017?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:15,385 [INFO] ✅ Poster uploaded for Attack on Titan
+2025-11-01 07:15:16,530 [INFO] ✅ Poster uploaded for Ilse's Notebook: Memoirs of a Recon Corps Member
+2025-11-01 07:15:17,403 [WARNING] TMDb fetch failed for ID 1029390: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1029390?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:17,785 [WARNING] TMDb fetch failed for ID 1029391: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1029391?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:18,163 [WARNING] TMDb fetch failed for ID 1029395: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1029395?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:18,564 [WARNING] TMDb fetch failed for ID 1688444: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1688444?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:18,940 [WARNING] TMDb fetch failed for ID 2794624: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2794624?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:19,314 [WARNING] TMDb fetch failed for ID 2794627: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2794627?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:19,714 [WARNING] TMDb fetch failed for ID 2794628: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2794628?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:20,202 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:15:20,610 [WARNING] TMDb fetch failed for ID 65480: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/65480?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:20,986 [WARNING] TMDb fetch failed for ID 65490: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/65490?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:21,364 [WARNING] TMDb fetch failed for ID 65473: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/65473?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:21,742 [WARNING] TMDb fetch failed for ID 65474: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/65474?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:22,474 [INFO] ✅ Poster uploaded for First Battle: The Struggle for Trost (1)
+2025-11-01 07:15:23,356 [WARNING] TMDb fetch failed for ID 65475: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/65475?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:24,146 [INFO] ✅ Poster uploaded for Small Blade: The Struggle for Trost (3)
+2025-11-01 07:15:25,387 [INFO] ✅ Poster uploaded for I Can Hear His Heartbeat: The Struggle for Trost (4)
+2025-11-01 07:15:26,738 [INFO] ✅ Poster uploaded for Whereabouts of His Left Arm: The Struggle for Trost (5)
+2025-11-01 07:15:27,628 [WARNING] TMDb fetch failed for ID 65496: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/65496?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:28,402 [INFO] ✅ Poster uploaded for Idol: The Struggle for Trost (7)
+2025-11-01 07:15:29,698 [INFO] ✅ Poster uploaded for Wound: The Struggle for Trost (8)
+2025-11-01 07:15:30,954 [INFO] ✅ Poster uploaded for Primal Desire: The Struggle for Trost (9)
+2025-11-01 07:15:32,435 [INFO] ✅ Poster uploaded for Can't Look Into His Eyes Yet: Eve of the Counterattack (1)
+2025-11-01 07:15:33,312 [WARNING] TMDb fetch failed for ID 65481: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/65481?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:34,033 [INFO] ✅ Poster uploaded for What Needs to be Done Now: Eve of the Counterattack (3)
+2025-11-01 07:15:35,272 [INFO] ✅ Poster uploaded for Female Titan: The 57th Exterior Scouting Mission (1)
+2025-11-01 07:15:36,523 [INFO] ✅ Poster uploaded for Forest of Giant Trees: The 57th Exterior Scouting Mission (2)
+2025-11-01 07:15:37,762 [INFO] ✅ Poster uploaded for Bite: The 57th Exterior Scouting Mission (3)
+2025-11-01 07:15:39,046 [INFO] ✅ Poster uploaded for Erwin Smith: The 57th Exterior Scouting Mission (4)
+2025-11-01 07:15:40,265 [INFO] ✅ Poster uploaded for Crushing Blow: The 57th Exterior Scouting Mission (5)
+2025-11-01 07:15:41,497 [INFO] ✅ Poster uploaded for The Defeated: The 57th Exterior Scouting Mission (6)
+2025-11-01 07:15:43,170 [INFO] ✅ Poster uploaded for Mercy: Assault on Stohess (2)
+2025-11-01 07:15:44,366 [INFO] ✅ Poster uploaded for Wall: Assault on Stohess (3)
+2025-11-01 07:15:45,345 [INFO] ✅ Poster uploaded for Season 2
+2025-11-01 07:15:45,735 [WARNING] TMDb fetch failed for ID 1265623: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1265623?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:46,139 [WARNING] TMDb fetch failed for ID 1299003: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1299003?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:46,518 [WARNING] TMDb fetch failed for ID 1299005: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1299005?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:46,897 [WARNING] TMDb fetch failed for ID 1299006: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1299006?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:47,273 [WARNING] TMDb fetch failed for ID 1299007: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1299007?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:47,652 [WARNING] TMDb fetch failed for ID 1313603: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1313603?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:48,048 [WARNING] TMDb fetch failed for ID 1313875: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1313875?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:48,434 [WARNING] TMDb fetch failed for ID 1318849: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1318849?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:48,811 [WARNING] TMDb fetch failed for ID 1321437: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1321437?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:49,200 [WARNING] TMDb fetch failed for ID 1323836: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1323836?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:49,576 [WARNING] TMDb fetch failed for ID 1324673: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1324673?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:49,971 [WARNING] TMDb fetch failed for ID 1324674: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1324674?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:50,481 [INFO] ✅ Poster uploaded for Season 3
+2025-11-01 07:15:50,878 [WARNING] TMDb fetch failed for ID 1518847: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1518847?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:51,251 [WARNING] TMDb fetch failed for ID 1528757: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1528757?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:51,625 [WARNING] TMDb fetch failed for ID 1530238: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1530238?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:51,995 [WARNING] TMDb fetch failed for ID 1530239: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1530239?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:52,378 [WARNING] TMDb fetch failed for ID 1552112: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1552112?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:52,748 [WARNING] TMDb fetch failed for ID 1554047: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1554047?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:53,116 [WARNING] TMDb fetch failed for ID 1554048: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1554048?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:53,482 [WARNING] TMDb fetch failed for ID 1554578: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1554578?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:53,869 [WARNING] TMDb fetch failed for ID 1554579: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1554579?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:54,250 [WARNING] TMDb fetch failed for ID 1554580: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1554580?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:54,637 [WARNING] TMDb fetch failed for ID 1554581: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1554581?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:55,002 [WARNING] TMDb fetch failed for ID 1595000: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1595000?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:55,371 [WARNING] TMDb fetch failed for ID 1595358: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1595358?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:55,743 [WARNING] TMDb fetch failed for ID 1762610: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1762610?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:56,111 [WARNING] TMDb fetch failed for ID 1762611: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1762611?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:56,475 [WARNING] TMDb fetch failed for ID 1762612: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1762612?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:56,849 [WARNING] TMDb fetch failed for ID 1762613: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1762613?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:57,220 [WARNING] TMDb fetch failed for ID 1762614: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1762614?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:57,595 [WARNING] TMDb fetch failed for ID 1762615: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1762615?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:57,963 [WARNING] TMDb fetch failed for ID 1762616: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1762616?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:58,345 [WARNING] TMDb fetch failed for ID 1762617: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1762617?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:58,720 [WARNING] TMDb fetch failed for ID 1762618: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1762618?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:15:59,897 [INFO] ✅ Poster uploaded for Season 4
+2025-11-01 07:16:00,305 [WARNING] TMDb fetch failed for ID 1840420: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1840420?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:00,681 [WARNING] TMDb fetch failed for ID 2440181: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2440181?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:01,049 [WARNING] TMDb fetch failed for ID 2548771: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2548771?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:01,423 [WARNING] TMDb fetch failed for ID 2548772: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2548772?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:01,793 [WARNING] TMDb fetch failed for ID 2548773: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2548773?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:02,299 [WARNING] TMDb fetch failed for ID 2548774: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2548774?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:02,684 [WARNING] TMDb fetch failed for ID 2548775: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2548775?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:03,079 [WARNING] TMDb fetch failed for ID 2548776: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2548776?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:03,466 [WARNING] TMDb fetch failed for ID 2548777: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2548777?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:03,842 [WARNING] TMDb fetch failed for ID 2548778: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2548778?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:04,226 [WARNING] TMDb fetch failed for ID 2548779: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2548779?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:04,599 [WARNING] TMDb fetch failed for ID 2548780: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2548780?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:04,994 [WARNING] TMDb fetch failed for ID 2548781: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2548781?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:05,369 [WARNING] TMDb fetch failed for ID 2548782: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2548782?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:05,771 [WARNING] TMDb fetch failed for ID 2548783: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2548783?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:06,156 [WARNING] TMDb fetch failed for ID 2548784: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2548784?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:06,540 [WARNING] TMDb fetch failed for ID 2833844: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2833844?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:06,922 [WARNING] TMDb fetch failed for ID 3411711: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3411711?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:07,297 [WARNING] TMDb fetch failed for ID 3416103: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3416103?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:07,710 [WARNING] TMDb fetch failed for ID 3416104: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3416104?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:08,091 [WARNING] TMDb fetch failed for ID 3416105: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3416105?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:08,485 [WARNING] TMDb fetch failed for ID 3416106: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3416106?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:08,881 [WARNING] TMDb fetch failed for ID 3416107: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3416107?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:09,265 [WARNING] TMDb fetch failed for ID 3416108: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3416108?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:09,642 [WARNING] TMDb fetch failed for ID 3416109: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3416109?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:10,019 [WARNING] TMDb fetch failed for ID 3416110: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3416110?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:10,403 [WARNING] TMDb fetch failed for ID 3508325: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3508325?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:10,776 [WARNING] TMDb fetch failed for ID 3508327: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3508327?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:11,304 [INFO] ✅ Poster uploaded for Better Call Saul
+2025-11-01 07:16:12,883 [INFO] ✅ Poster uploaded for Season 2
+2025-11-01 07:16:13,268 [WARNING] TMDb fetch failed for ID 1164133: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1164133?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:13,647 [WARNING] TMDb fetch failed for ID 1164134: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1164134?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:14,032 [WARNING] TMDb fetch failed for ID 1174270: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1174270?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:14,419 [WARNING] TMDb fetch failed for ID 1174271: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1174271?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:14,808 [WARNING] TMDb fetch failed for ID 1177127: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1177127?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:15,183 [WARNING] TMDb fetch failed for ID 1177128: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1177128?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:15,563 [WARNING] TMDb fetch failed for ID 1177129: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1177129?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:15,943 [WARNING] TMDb fetch failed for ID 1177130: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1177130?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:16,518 [INFO] ✅ Poster uploaded for Season 3
+2025-11-01 07:16:16,906 [WARNING] TMDb fetch failed for ID 1257266: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1257266?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:17,282 [WARNING] TMDb fetch failed for ID 1296541: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1296541?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:17,660 [WARNING] TMDb fetch failed for ID 1302563: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1302563?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:18,032 [WARNING] TMDb fetch failed for ID 1302564: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1302564?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:18,411 [WARNING] TMDb fetch failed for ID 1302565: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1302565?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:18,795 [WARNING] TMDb fetch failed for ID 1302566: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1302566?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:19,175 [WARNING] TMDb fetch failed for ID 1302567: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1302567?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:19,557 [WARNING] TMDb fetch failed for ID 1319840: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1319840?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:19,945 [WARNING] TMDb fetch failed for ID 1319841: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1319841?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:20,330 [WARNING] TMDb fetch failed for ID 1327789: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1327789?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:20,954 [INFO] ✅ Poster uploaded for Season 4
+2025-11-01 07:16:21,342 [WARNING] TMDb fetch failed for ID 1499168: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1499168?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:21,729 [WARNING] TMDb fetch failed for ID 1523720: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1523720?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:22,101 [WARNING] TMDb fetch failed for ID 1523721: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1523721?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:22,487 [WARNING] TMDb fetch failed for ID 1542337: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1542337?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:22,889 [WARNING] TMDb fetch failed for ID 1542338: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1542338?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:23,274 [WARNING] TMDb fetch failed for ID 1542346: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1542346?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:23,655 [WARNING] TMDb fetch failed for ID 1543105: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1543105?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:24,030 [WARNING] TMDb fetch failed for ID 1543104: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1543104?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:24,415 [WARNING] TMDb fetch failed for ID 1562084: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1562084?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:24,792 [WARNING] TMDb fetch failed for ID 1562085: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1562085?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:25,773 [INFO] ✅ Poster uploaded for Season 5
+2025-11-01 07:16:26,162 [WARNING] TMDb fetch failed for ID 1990318: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1990318?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:26,540 [WARNING] TMDb fetch failed for ID 2069293: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2069293?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:26,923 [WARNING] TMDb fetch failed for ID 2069294: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2069294?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:27,309 [WARNING] TMDb fetch failed for ID 2069295: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2069295?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:27,683 [WARNING] TMDb fetch failed for ID 2069296: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2069296?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:28,067 [WARNING] TMDb fetch failed for ID 2069297: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2069297?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:28,442 [WARNING] TMDb fetch failed for ID 2069298: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2069298?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:28,825 [WARNING] TMDb fetch failed for ID 2069299: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2069299?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:29,215 [WARNING] TMDb fetch failed for ID 2069300: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2069300?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:29,591 [WARNING] TMDb fetch failed for ID 2069301: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2069301?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:30,074 [INFO] ✅ Poster uploaded for Season 6
+2025-11-01 07:16:30,469 [WARNING] TMDb fetch failed for ID 3497576: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3497576?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:30,842 [WARNING] TMDb fetch failed for ID 3497578: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3497578?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:31,212 [WARNING] TMDb fetch failed for ID 3499861: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3499861?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:31,586 [WARNING] TMDb fetch failed for ID 3641942: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3641942?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:31,976 [WARNING] TMDb fetch failed for ID 3641946: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3641946?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:32,353 [WARNING] TMDb fetch failed for ID 3641948: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3641948?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:32,854 [INFO] ✅ Poster uploaded for Beyond
+2025-11-01 07:16:33,356 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:16:33,775 [WARNING] TMDb fetch failed for ID 1220886: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1220886?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:34,148 [WARNING] TMDb fetch failed for ID 1246023: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1246023?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:34,531 [WARNING] TMDb fetch failed for ID 1249784: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1249784?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:34,933 [WARNING] TMDb fetch failed for ID 1251233: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1251233?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:35,305 [WARNING] TMDb fetch failed for ID 1251234: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1251234?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:35,684 [WARNING] TMDb fetch failed for ID 1251235: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1251235?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:36,060 [WARNING] TMDb fetch failed for ID 1251236: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1251236?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:36,436 [WARNING] TMDb fetch failed for ID 1251237: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1251237?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:36,834 [WARNING] TMDb fetch failed for ID 1251238: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1251238?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:37,215 [WARNING] TMDb fetch failed for ID 1251239: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1251239?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:37,815 [INFO] ✅ Poster uploaded for Breaking Bad
+2025-11-01 07:16:38,269 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:16:39,010 [INFO] ✅ Poster uploaded for Pilot
+2025-11-01 07:16:40,061 [INFO] ✅ Poster uploaded for Cardcaptor Sakura
+2025-11-01 07:16:40,566 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:16:40,975 [WARNING] TMDb fetch failed for ID 810331: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810331?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:41,366 [WARNING] TMDb fetch failed for ID 810333: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810333?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:41,747 [WARNING] TMDb fetch failed for ID 810335: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810335?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:42,129 [WARNING] TMDb fetch failed for ID 810338: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810338?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:42,520 [WARNING] TMDb fetch failed for ID 810339: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810339?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:42,913 [WARNING] TMDb fetch failed for ID 810341: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810341?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:43,297 [WARNING] TMDb fetch failed for ID 810310: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810310?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:43,674 [WARNING] TMDb fetch failed for ID 810311: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810311?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:44,060 [WARNING] TMDb fetch failed for ID 810312: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810312?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:44,448 [WARNING] TMDb fetch failed for ID 810313: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810313?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:44,827 [WARNING] TMDb fetch failed for ID 810314: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810314?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:45,203 [WARNING] TMDb fetch failed for ID 810315: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810315?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:45,588 [WARNING] TMDb fetch failed for ID 810316: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810316?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:45,969 [WARNING] TMDb fetch failed for ID 810317: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810317?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:46,348 [WARNING] TMDb fetch failed for ID 810318: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810318?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:46,731 [WARNING] TMDb fetch failed for ID 810319: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810319?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:47,138 [WARNING] TMDb fetch failed for ID 810320: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810320?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:47,514 [WARNING] TMDb fetch failed for ID 810321: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810321?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:47,887 [WARNING] TMDb fetch failed for ID 810322: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810322?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:48,291 [WARNING] TMDb fetch failed for ID 810323: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810323?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:48,666 [WARNING] TMDb fetch failed for ID 810324: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810324?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:49,051 [WARNING] TMDb fetch failed for ID 810345: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810345?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:49,429 [WARNING] TMDb fetch failed for ID 810325: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810325?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:49,806 [WARNING] TMDb fetch failed for ID 810326: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810326?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:50,182 [WARNING] TMDb fetch failed for ID 810327: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810327?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:50,572 [WARNING] TMDb fetch failed for ID 810328: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810328?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:50,962 [WARNING] TMDb fetch failed for ID 810329: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810329?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:51,341 [WARNING] TMDb fetch failed for ID 810330: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810330?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:51,712 [WARNING] TMDb fetch failed for ID 810332: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810332?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:52,089 [WARNING] TMDb fetch failed for ID 810334: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810334?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:52,476 [WARNING] TMDb fetch failed for ID 810336: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810336?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:52,850 [WARNING] TMDb fetch failed for ID 810337: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810337?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:53,230 [WARNING] TMDb fetch failed for ID 810340: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810340?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:53,608 [WARNING] TMDb fetch failed for ID 810342: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810342?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:53,982 [WARNING] TMDb fetch failed for ID 810346: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810346?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:54,563 [INFO] ✅ Poster uploaded for Season 2
+2025-11-01 07:16:54,962 [WARNING] TMDb fetch failed for ID 810299: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810299?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:55,339 [WARNING] TMDb fetch failed for ID 810300: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810300?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:55,715 [WARNING] TMDb fetch failed for ID 810301: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810301?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:56,093 [WARNING] TMDb fetch failed for ID 810298: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810298?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:56,475 [WARNING] TMDb fetch failed for ID 810302: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810302?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:56,847 [WARNING] TMDb fetch failed for ID 810303: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810303?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:57,240 [WARNING] TMDb fetch failed for ID 810304: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810304?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:57,624 [WARNING] TMDb fetch failed for ID 810305: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810305?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:58,008 [WARNING] TMDb fetch failed for ID 810306: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810306?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:58,390 [WARNING] TMDb fetch failed for ID 810307: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810307?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:58,774 [WARNING] TMDb fetch failed for ID 810308: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/810308?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:59,238 [WARNING] TMDb fetch failed for ID 96699: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/96699?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:16:59,628 [WARNING] TMDb fetch failed for ID 1416448: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1416448?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:00,003 [WARNING] TMDb fetch failed for ID 1734068: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1734068?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:00,383 [WARNING] TMDb fetch failed for ID 1734069: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1734069?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:00,773 [WARNING] TMDb fetch failed for ID 1734070: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1734070?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:01,153 [WARNING] TMDb fetch failed for ID 1734071: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1734071?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:01,527 [WARNING] TMDb fetch failed for ID 1734072: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1734072?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:01,912 [WARNING] TMDb fetch failed for ID 1734073: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1734073?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:02,318 [WARNING] TMDb fetch failed for ID 1734074: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1734074?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:02,696 [WARNING] TMDb fetch failed for ID 1734075: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1734075?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:03,086 [WARNING] TMDb fetch failed for ID 1734076: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1734076?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:03,488 [WARNING] TMDb fetch failed for ID 1734077: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1734077?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:04,041 [INFO] ✅ Poster uploaded for The Day of the Jackal
+2025-11-01 07:17:04,436 [WARNING] TMDb fetch failed for ID 333582: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/333582?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:04,827 [WARNING] TMDb fetch failed for ID 4311888: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4311888?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:05,216 [WARNING] TMDb fetch failed for ID 5665231: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5665231?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:05,598 [WARNING] TMDb fetch failed for ID 5665232: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5665232?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:05,989 [WARNING] TMDb fetch failed for ID 5665233: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5665233?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:06,367 [WARNING] TMDb fetch failed for ID 5665234: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5665234?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:06,755 [WARNING] TMDb fetch failed for ID 5665235: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5665235?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:07,140 [WARNING] TMDb fetch failed for ID 5665236: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5665236?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:07,525 [WARNING] TMDb fetch failed for ID 5665237: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5665237?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:07,922 [WARNING] TMDb fetch failed for ID 5665238: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5665238?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:08,292 [WARNING] TMDb fetch failed for ID 5665239: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5665239?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:09,051 [INFO] ✅ Poster uploaded for Death Note
+2025-11-01 07:17:09,846 [WARNING] TMDb fetch failed for ID 970179: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/970179?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:10,226 [WARNING] TMDb fetch failed for ID 998584: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998584?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:10,597 [WARNING] TMDb fetch failed for ID 998585: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998585?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:10,979 [WARNING] TMDb fetch failed for ID 998586: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998586?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:11,355 [WARNING] TMDb fetch failed for ID 998587: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998587?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:11,745 [WARNING] TMDb fetch failed for ID 998588: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998588?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:12,110 [WARNING] TMDb fetch failed for ID 998589: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998589?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:12,492 [WARNING] TMDb fetch failed for ID 998590: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998590?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:12,898 [WARNING] TMDb fetch failed for ID 998591: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998591?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:13,283 [WARNING] TMDb fetch failed for ID 998592: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998592?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:13,659 [WARNING] TMDb fetch failed for ID 998593: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998593?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:14,033 [WARNING] TMDb fetch failed for ID 998594: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998594?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:14,422 [WARNING] TMDb fetch failed for ID 998595: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998595?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:14,802 [WARNING] TMDb fetch failed for ID 998596: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998596?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:15,181 [WARNING] TMDb fetch failed for ID 998597: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998597?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:15,566 [WARNING] TMDb fetch failed for ID 998598: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998598?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:15,935 [WARNING] TMDb fetch failed for ID 998599: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998599?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:16,336 [WARNING] TMDb fetch failed for ID 998600: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998600?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:16,716 [WARNING] TMDb fetch failed for ID 998601: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/998601?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:17,085 [WARNING] TMDb fetch failed for ID 1138547: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1138547?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:17,464 [WARNING] TMDb fetch failed for ID 1138548: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1138548?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:17,855 [WARNING] TMDb fetch failed for ID 1138549: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1138549?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:18,226 [WARNING] TMDb fetch failed for ID 1138550: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1138550?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:18,596 [WARNING] TMDb fetch failed for ID 1138551: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1138551?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:18,982 [WARNING] TMDb fetch failed for ID 1138552: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1138552?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:19,355 [WARNING] TMDb fetch failed for ID 1138553: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1138553?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:19,728 [WARNING] TMDb fetch failed for ID 1146035: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1146035?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:20,113 [WARNING] TMDb fetch failed for ID 1146036: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1146036?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:20,513 [WARNING] TMDb fetch failed for ID 1146038: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1146038?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:20,892 [WARNING] TMDb fetch failed for ID 1146039: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1146039?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:21,274 [WARNING] TMDb fetch failed for ID 1146040: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1146040?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:21,650 [WARNING] TMDb fetch failed for ID 1146041: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1146041?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:22,047 [WARNING] TMDb fetch failed for ID 1146042: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1146042?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:22,417 [WARNING] TMDb fetch failed for ID 1146044: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1146044?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:22,787 [WARNING] TMDb fetch failed for ID 1146045: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1146045?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:23,168 [WARNING] TMDb fetch failed for ID 1146046: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1146046?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:23,550 [WARNING] TMDb fetch failed for ID 1146047: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1146047?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:24,211 [INFO] ✅ Poster uploaded for Demon Slayer: Kimetsu no Yaiba
+2025-11-01 07:17:24,739 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:17:25,147 [WARNING] TMDb fetch failed for ID 1675448: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1675448?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:25,524 [WARNING] TMDb fetch failed for ID 1732614: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1732614?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:25,896 [WARNING] TMDb fetch failed for ID 1732615: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1732615?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:26,263 [WARNING] TMDb fetch failed for ID 1732616: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1732616?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:26,645 [WARNING] TMDb fetch failed for ID 1732617: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1732617?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:27,016 [WARNING] TMDb fetch failed for ID 1732618: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1732618?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:27,396 [WARNING] TMDb fetch failed for ID 1732619: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1732619?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:27,768 [WARNING] TMDb fetch failed for ID 1732620: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1732620?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:28,137 [WARNING] TMDb fetch failed for ID 1732621: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1732621?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:28,523 [WARNING] TMDb fetch failed for ID 1732622: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1732622?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:28,925 [WARNING] TMDb fetch failed for ID 1732623: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1732623?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:29,299 [WARNING] TMDb fetch failed for ID 1732624: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1732624?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:29,684 [WARNING] TMDb fetch failed for ID 1798119: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1798119?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:30,300 [WARNING] TMDb fetch failed for ID 1798120: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1798120?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:30,674 [WARNING] TMDb fetch failed for ID 1798121: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1798121?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:31,040 [WARNING] TMDb fetch failed for ID 1798122: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1798122?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:31,412 [WARNING] TMDb fetch failed for ID 1798123: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1798123?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:31,806 [WARNING] TMDb fetch failed for ID 1798124: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1798124?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:32,177 [WARNING] TMDb fetch failed for ID 1798125: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1798125?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:32,562 [WARNING] TMDb fetch failed for ID 1798126: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1798126?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:32,932 [WARNING] TMDb fetch failed for ID 1798127: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1798127?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:33,309 [WARNING] TMDb fetch failed for ID 1798128: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1798128?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:33,686 [WARNING] TMDb fetch failed for ID 1798129: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1798129?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:34,063 [WARNING] TMDb fetch failed for ID 1798130: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1798130?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:34,441 [WARNING] TMDb fetch failed for ID 1798131: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1798131?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:34,815 [WARNING] TMDb fetch failed for ID 1798132: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1798132?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:35,195 [WARNING] TMDb fetch failed for ID 181846: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/181846?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:35,602 [WARNING] TMDb fetch failed for ID 3191736: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3191736?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:35,984 [WARNING] TMDb fetch failed for ID 3274419: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3274419?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:36,361 [WARNING] TMDb fetch failed for ID 3274456: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3274456?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:36,730 [WARNING] TMDb fetch failed for ID 3274457: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3274457?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:37,110 [WARNING] TMDb fetch failed for ID 3274458: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3274458?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:37,485 [WARNING] TMDb fetch failed for ID 3274459: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3274459?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:37,866 [WARNING] TMDb fetch failed for ID 3274460: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3274460?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:39,143 [INFO] ✅ Poster uploaded for Season 3
+2025-11-01 07:17:39,541 [WARNING] TMDb fetch failed for ID 3274431: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3274431?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:39,925 [WARNING] TMDb fetch failed for ID 3274433: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3274433?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:40,314 [WARNING] TMDb fetch failed for ID 3274434: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3274434?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:40,707 [WARNING] TMDb fetch failed for ID 3274435: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3274435?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:41,094 [WARNING] TMDb fetch failed for ID 3394859: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3394859?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:41,464 [WARNING] TMDb fetch failed for ID 3394860: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3394860?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:41,846 [WARNING] TMDb fetch failed for ID 3394861: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3394861?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:42,218 [WARNING] TMDb fetch failed for ID 3394862: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3394862?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:42,587 [WARNING] TMDb fetch failed for ID 3394863: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3394863?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:42,955 [WARNING] TMDb fetch failed for ID 3394864: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3394864?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:43,337 [WARNING] TMDb fetch failed for ID 3394865: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3394865?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:43,714 [WARNING] TMDb fetch failed for ID 243774: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/243774?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:44,108 [WARNING] TMDb fetch failed for ID 4354754: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4354754?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:44,491 [WARNING] TMDb fetch failed for ID 4354755: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4354755?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:44,857 [WARNING] TMDb fetch failed for ID 4354756: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4354756?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:45,238 [WARNING] TMDb fetch failed for ID 4354757: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4354757?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:45,640 [WARNING] TMDb fetch failed for ID 4354758: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4354758?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:46,025 [WARNING] TMDb fetch failed for ID 4354759: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4354759?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:46,409 [WARNING] TMDb fetch failed for ID 4354760: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4354760?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:46,780 [WARNING] TMDb fetch failed for ID 4354761: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4354761?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:47,158 [WARNING] TMDb fetch failed for ID 4354762: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4354762?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:47,541 [WARNING] TMDb fetch failed for ID 345811: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/345811?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:47,935 [WARNING] TMDb fetch failed for ID 5201466: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5201466?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:48,303 [WARNING] TMDb fetch failed for ID 5337549: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5337549?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:48,675 [WARNING] TMDb fetch failed for ID 5337550: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5337550?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:49,057 [WARNING] TMDb fetch failed for ID 5337551: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5337551?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:49,434 [WARNING] TMDb fetch failed for ID 5337553: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5337553?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:49,814 [WARNING] TMDb fetch failed for ID 5337554: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5337554?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:50,192 [WARNING] TMDb fetch failed for ID 5337555: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5337555?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:50,574 [WARNING] TMDb fetch failed for ID 5337557: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5337557?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:55,028 [INFO] ✅ Poster uploaded for Dexter: Original Sin
+2025-11-01 07:17:55,408 [WARNING] TMDb fetch failed for ID 327790: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/327790?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:55,802 [WARNING] TMDb fetch failed for ID 4217475: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4217475?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:56,190 [WARNING] TMDb fetch failed for ID 5498875: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5498875?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:56,586 [WARNING] TMDb fetch failed for ID 5498876: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5498876?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:56,978 [WARNING] TMDb fetch failed for ID 5603386: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5603386?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:57,365 [WARNING] TMDb fetch failed for ID 5603387: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5603387?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:57,851 [INFO] ✅ Poster uploaded for Dhootha
+2025-11-01 07:17:58,346 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:17:58,733 [WARNING] TMDb fetch failed for ID 3695226: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3695226?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:59,105 [WARNING] TMDb fetch failed for ID 4962184: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4962184?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:59,474 [WARNING] TMDb fetch failed for ID 4962185: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4962185?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:17:59,887 [WARNING] TMDb fetch failed for ID 4962186: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4962186?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:00,269 [WARNING] TMDb fetch failed for ID 4962187: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4962187?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:00,641 [WARNING] TMDb fetch failed for ID 4962188: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4962188?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:01,045 [WARNING] TMDb fetch failed for ID 4962190: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4962190?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:01,421 [WARNING] TMDb fetch failed for ID 4962192: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4962192?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:01,932 [INFO] ✅ Poster uploaded for Dominion
+2025-11-01 07:18:02,697 [WARNING] TMDb fetch failed for ID 975240: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/975240?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:03,092 [WARNING] TMDb fetch failed for ID 989328: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/989328?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:03,472 [WARNING] TMDb fetch failed for ID 989327: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/989327?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:03,855 [WARNING] TMDb fetch failed for ID 989326: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/989326?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:04,228 [WARNING] TMDb fetch failed for ID 989325: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/989325?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:04,614 [WARNING] TMDb fetch failed for ID 993014: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/993014?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:04,986 [WARNING] TMDb fetch failed for ID 989324: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/989324?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:05,369 [WARNING] TMDb fetch failed for ID 993200: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/993200?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:05,956 [INFO] ✅ Poster uploaded for Season 2
+2025-11-01 07:18:06,351 [WARNING] TMDb fetch failed for ID 1066143: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1066143?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:06,728 [WARNING] TMDb fetch failed for ID 1066144: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1066144?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:07,107 [WARNING] TMDb fetch failed for ID 1066145: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1066145?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:07,488 [WARNING] TMDb fetch failed for ID 1066146: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1066146?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:07,866 [WARNING] TMDb fetch failed for ID 1066147: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1066147?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:08,226 [WARNING] TMDb fetch failed for ID 1066148: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1066148?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:08,608 [WARNING] TMDb fetch failed for ID 1083278: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1083278?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:08,978 [WARNING] TMDb fetch failed for ID 1083279: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1083279?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:09,352 [WARNING] TMDb fetch failed for ID 1092741: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1092741?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:09,734 [WARNING] TMDb fetch failed for ID 1092742: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1092742?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:10,112 [WARNING] TMDb fetch failed for ID 1092743: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1092743?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:10,504 [WARNING] TMDb fetch failed for ID 1092744: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1092744?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:10,875 [WARNING] TMDb fetch failed for ID 1112190: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1112190?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:11,736 [INFO] ✅ Poster uploaded for Dragon Ball Z
+2025-11-01 07:18:12,548 [WARNING] TMDb fetch failed for ID 969581: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969581?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:12,924 [WARNING] TMDb fetch failed for ID 969582: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969582?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:13,306 [WARNING] TMDb fetch failed for ID 969583: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969583?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:13,683 [WARNING] TMDb fetch failed for ID 969584: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969584?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:14,072 [WARNING] TMDb fetch failed for ID 969585: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969585?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:14,461 [WARNING] TMDb fetch failed for ID 969586: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969586?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:14,840 [WARNING] TMDb fetch failed for ID 969587: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969587?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:15,233 [WARNING] TMDb fetch failed for ID 969588: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969588?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:15,610 [WARNING] TMDb fetch failed for ID 969589: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969589?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:15,983 [WARNING] TMDb fetch failed for ID 969590: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969590?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:16,357 [WARNING] TMDb fetch failed for ID 969591: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969591?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:16,764 [WARNING] TMDb fetch failed for ID 969592: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969592?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:17,141 [WARNING] TMDb fetch failed for ID 969593: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969593?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:17,516 [WARNING] TMDb fetch failed for ID 969594: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969594?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:17,899 [WARNING] TMDb fetch failed for ID 969595: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969595?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:18,289 [WARNING] TMDb fetch failed for ID 969596: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969596?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:18,666 [WARNING] TMDb fetch failed for ID 969597: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969597?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:19,052 [WARNING] TMDb fetch failed for ID 969598: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969598?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:19,438 [WARNING] TMDb fetch failed for ID 969599: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969599?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:19,825 [WARNING] TMDb fetch failed for ID 969600: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969600?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:20,198 [WARNING] TMDb fetch failed for ID 969601: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969601?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:20,601 [WARNING] TMDb fetch failed for ID 969602: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969602?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:20,981 [WARNING] TMDb fetch failed for ID 969603: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969603?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:21,369 [WARNING] TMDb fetch failed for ID 969604: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969604?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:21,745 [WARNING] TMDb fetch failed for ID 969605: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969605?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:22,121 [WARNING] TMDb fetch failed for ID 969606: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969606?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:22,495 [WARNING] TMDb fetch failed for ID 969607: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969607?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:22,868 [WARNING] TMDb fetch failed for ID 969608: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969608?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:23,237 [WARNING] TMDb fetch failed for ID 969609: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969609?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:23,616 [WARNING] TMDb fetch failed for ID 969610: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969610?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:23,993 [WARNING] TMDb fetch failed for ID 969611: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969611?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:24,378 [WARNING] TMDb fetch failed for ID 969612: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969612?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:24,763 [WARNING] TMDb fetch failed for ID 969613: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969613?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:25,138 [WARNING] TMDb fetch failed for ID 969614: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969614?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:25,521 [WARNING] TMDb fetch failed for ID 969615: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/969615?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:26,563 [WARNING] TMDb fetch failed for ID 59761: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/59761?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:27,967 [INFO] ✅ Poster uploaded for Season 5
+2025-11-01 07:18:29,364 [INFO] ✅ Poster uploaded for Season 7
+2025-11-01 07:18:30,868 [INFO] ✅ Poster uploaded for Season 9
+2025-11-01 07:18:31,704 [INFO] ✅ Poster uploaded for Fantastic Four
+2025-11-01 07:18:32,832 [INFO] ✅ Poster uploaded for The Origin of the Fantastic Four (1)
+2025-11-01 07:18:34,205 [INFO] ✅ Poster uploaded for The Origin of the Fantastic Four (2)
+2025-11-01 07:18:36,505 [INFO] ✅ Poster uploaded for Now Comes the Sub-Mariner
+2025-11-01 07:18:38,618 [INFO] ✅ Poster uploaded for Incursion of the Skrull
+2025-11-01 07:18:40,575 [INFO] ✅ Poster uploaded for The Silver Surfer and the Coming of Galactus (1)
+2025-11-01 07:18:41,816 [INFO] ✅ Poster uploaded for The Silver Surfer and the Coming of Galactus (2)
+2025-11-01 07:18:43,119 [INFO] ✅ Poster uploaded for Super Skrull
+2025-11-01 07:18:44,463 [INFO] ✅ Poster uploaded for The Mask of Doom (1)
+2025-11-01 07:18:46,376 [INFO] ✅ Poster uploaded for The Mask of Doom (2)
+2025-11-01 07:18:47,595 [INFO] ✅ Poster uploaded for The Mask of Doom (3)
+2025-11-01 07:18:48,915 [INFO] ✅ Poster uploaded for Mole Man
+2025-11-01 07:18:50,837 [INFO] ✅ Poster uploaded for Behold the Negative Zone
+2025-11-01 07:18:52,703 [INFO] ✅ Poster uploaded for Season 2
+2025-11-01 07:18:53,449 [INFO] ✅ Poster uploaded for And a Blind Man Shall Lead Them
+2025-11-01 07:18:54,776 [INFO] ✅ Poster uploaded for Inhumans Saga (1): And the Wind Cries Medusa
+2025-11-01 07:18:55,653 [WARNING] TMDb fetch failed for ID 222151: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/222151?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:18:56,385 [INFO] ✅ Poster uploaded for Inhumans Saga (3): Beware the Hidden Land
+2025-11-01 07:18:58,115 [INFO] ✅ Poster uploaded for To Battle the Living Planet
+2025-11-01 07:18:59,438 [INFO] ✅ Poster uploaded for Prey of the Black Panther
+2025-11-01 07:19:00,338 [WARNING] TMDb fetch failed for ID 222137: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/222137?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:01,724 [INFO] ✅ Poster uploaded for Nightmare in Green
+2025-11-01 07:19:02,949 [INFO] ✅ Poster uploaded for Behold, a Distant Star
+2025-11-01 07:19:04,172 [INFO] ✅ Poster uploaded for Hopelessly Impossible
+2025-11-01 07:19:05,419 [WARNING] TMDb fetch failed for ID 222148: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/222148?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:05,967 [INFO] ✅ Poster uploaded for FROM
+2025-11-01 07:19:06,362 [WARNING] TMDb fetch failed for ID 192632: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/192632?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:06,748 [WARNING] TMDb fetch failed for ID 3460128: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3460128?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:07,126 [WARNING] TMDb fetch failed for ID 323757: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/323757?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:07,543 [WARNING] TMDb fetch failed for ID 4153764: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4153764?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:07,937 [WARNING] TMDb fetch failed for ID 4267662: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4267662?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:08,312 [WARNING] TMDb fetch failed for ID 4267663: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4267663?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:08,685 [WARNING] TMDb fetch failed for ID 4267664: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4267664?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:09,059 [WARNING] TMDb fetch failed for ID 4267665: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4267665?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:09,438 [WARNING] TMDb fetch failed for ID 4267666: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4267666?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:09,818 [WARNING] TMDb fetch failed for ID 4267667: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4267667?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:10,211 [WARNING] TMDb fetch failed for ID 4267668: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4267668?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:10,583 [WARNING] TMDb fetch failed for ID 4267669: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4267669?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:10,963 [WARNING] TMDb fetch failed for ID 4267670: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4267670?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:11,522 [INFO] ✅ Poster uploaded for Ghost Adventures
+2025-11-01 07:19:12,324 [WARNING] TMDb fetch failed for ID 559365: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/559365?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:12,703 [WARNING] TMDb fetch failed for ID 559366: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/559366?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:13,101 [WARNING] TMDb fetch failed for ID 559367: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/559367?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:13,470 [WARNING] TMDb fetch failed for ID 559368: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/559368?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:13,841 [WARNING] TMDb fetch failed for ID 559369: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/559369?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:14,207 [WARNING] TMDb fetch failed for ID 559370: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/559370?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:14,579 [WARNING] TMDb fetch failed for ID 559371: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/559371?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:14,974 [WARNING] TMDb fetch failed for ID 559372: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/559372?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:15,598 [INFO] ✅ Poster uploaded for Haven
+2025-11-01 07:19:16,123 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:19:16,513 [WARNING] TMDb fetch failed for ID 773292: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/773292?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:16,890 [WARNING] TMDb fetch failed for ID 773291: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/773291?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:17,270 [WARNING] TMDb fetch failed for ID 773299: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/773299?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:17,649 [WARNING] TMDb fetch failed for ID 773298: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/773298?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:18,034 [WARNING] TMDb fetch failed for ID 773300: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/773300?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:18,415 [WARNING] TMDb fetch failed for ID 773301: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/773301?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:18,780 [WARNING] TMDb fetch failed for ID 773302: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/773302?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:19,160 [WARNING] TMDb fetch failed for ID 773303: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/773303?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:19,535 [WARNING] TMDb fetch failed for ID 773295: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/773295?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:19,907 [WARNING] TMDb fetch failed for ID 773296: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/773296?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:20,294 [WARNING] TMDb fetch failed for ID 773297: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/773297?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:20,672 [WARNING] TMDb fetch failed for ID 773293: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/773293?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:21,041 [WARNING] TMDb fetch failed for ID 773294: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/773294?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:21,593 [INFO] ✅ Poster uploaded for Heroes
+2025-11-01 07:19:22,118 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:19:22,859 [INFO] ✅ Poster uploaded for Genesis
+2025-11-01 07:19:24,090 [INFO] ✅ Poster uploaded for Don't Look Back
+2025-11-01 07:19:24,980 [WARNING] TMDb fetch failed for ID 83813: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/83813?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:25,704 [INFO] ✅ Poster uploaded for Collision
+2025-11-01 07:19:26,951 [INFO] ✅ Poster uploaded for Hiros
+2025-11-01 07:19:28,199 [INFO] ✅ Poster uploaded for Better Halves
+2025-11-01 07:19:29,451 [INFO] ✅ Poster uploaded for Nothing to Hide
+2025-11-01 07:19:31,074 [INFO] ✅ Poster uploaded for Seven Minutes to Midnight
+2025-11-01 07:19:32,320 [INFO] ✅ Poster uploaded for Homecoming
+2025-11-01 07:19:33,569 [INFO] ✅ Poster uploaded for Six Months Ago
+2025-11-01 07:19:34,797 [INFO] ✅ Poster uploaded for Fallout
+2025-11-01 07:19:35,682 [WARNING] TMDb fetch failed for ID 955373: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/955373?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:36,435 [INFO] ✅ Poster uploaded for The Fix
+2025-11-01 07:19:37,823 [INFO] ✅ Poster uploaded for Distractions
+2025-11-01 07:19:39,180 [INFO] ✅ Poster uploaded for Run!
+2025-11-01 07:19:40,059 [WARNING] TMDb fetch failed for ID 84900: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/84900?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:40,768 [INFO] ✅ Poster uploaded for Company Man
+2025-11-01 07:19:41,655 [WARNING] TMDb fetch failed for ID 972708: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/972708?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:43,175 [INFO] ✅ Poster uploaded for The Hard Part
+2025-11-01 07:19:44,047 [WARNING] TMDb fetch failed for ID 84101: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/84101?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:44,800 [INFO] ✅ Poster uploaded for How to Stop an Exploding Man
+2025-11-01 07:19:45,798 [INFO] ✅ Poster uploaded for Season 2
+2025-11-01 07:19:46,181 [WARNING] TMDb fetch failed for ID 84128: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/84128?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:46,932 [INFO] ✅ Poster uploaded for Lizards
+2025-11-01 07:19:48,182 [INFO] ✅ Poster uploaded for Kindred
+2025-11-01 07:19:49,063 [WARNING] TMDb fetch failed for ID 84169: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/84169?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:50,175 [INFO] ✅ Poster uploaded for The Line
+2025-11-01 07:19:52,171 [WARNING] TMDb fetch failed for ID 84187: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/84187?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:52,947 [INFO] ✅ Poster uploaded for Powerless
+2025-11-01 07:19:53,966 [INFO] ✅ Poster uploaded for Season 3
+2025-11-01 07:19:54,711 [INFO] ✅ Poster uploaded for The Second Coming
+2025-11-01 07:19:55,941 [INFO] ✅ Poster uploaded for The Butterfly Effect
+2025-11-01 07:19:57,191 [INFO] ✅ Poster uploaded for One of Us, One of Them
+2025-11-01 07:19:58,073 [WARNING] TMDb fetch failed for ID 955374: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/955374?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:19:58,822 [INFO] ✅ Poster uploaded for Angels and Monsters
+2025-11-01 07:20:00,067 [INFO] ✅ Poster uploaded for Dying of the Light
+2025-11-01 07:20:00,956 [WARNING] TMDb fetch failed for ID 955375: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/955375?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:01,807 [INFO] ✅ Poster uploaded for Villains
+2025-11-01 07:20:02,688 [WARNING] TMDb fetch failed for ID 84309: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/84309?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:03,401 [INFO] ✅ Poster uploaded for The Eclipse (1)
+2025-11-01 07:20:04,612 [INFO] ✅ Poster uploaded for The Eclipse (2)
+2025-11-01 07:20:05,876 [INFO] ✅ Poster uploaded for Our Father
+2025-11-01 07:20:07,099 [INFO] ✅ Poster uploaded for Dual
+2025-11-01 07:20:08,343 [INFO] ✅ Poster uploaded for A Clear and Present Danger
+2025-11-01 07:20:09,974 [INFO] ✅ Poster uploaded for Building 26
+2025-11-01 07:20:11,260 [INFO] ✅ Poster uploaded for Cold Wars
+2025-11-01 07:20:12,143 [WARNING] TMDb fetch failed for ID 84428: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/84428?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:12,864 [INFO] ✅ Poster uploaded for Shades of Gray
+2025-11-01 07:20:14,138 [INFO] ✅ Poster uploaded for Cold Snap
+2025-11-01 07:20:15,019 [WARNING] TMDb fetch failed for ID 955376: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/955376?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:15,408 [WARNING] TMDb fetch failed for ID 84514: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/84514?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:16,141 [INFO] ✅ Poster uploaded for 1961
+2025-11-01 07:20:17,023 [WARNING] TMDb fetch failed for ID 84530: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/84530?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:17,404 [WARNING] TMDb fetch failed for ID 84540: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/84540?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:18,057 [INFO] ✅ Poster uploaded for Season 4
+2025-11-01 07:20:18,815 [INFO] ✅ Poster uploaded for Orientation
+2025-11-01 07:20:19,685 [WARNING] TMDb fetch failed for ID 955377: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/955377?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:20,550 [INFO] ✅ Poster uploaded for Ink
+2025-11-01 07:20:21,818 [INFO] ✅ Poster uploaded for Acceptance
+2025-11-01 07:20:23,069 [INFO] ✅ Poster uploaded for Hysterical Blindness
+2025-11-01 07:20:24,303 [INFO] ✅ Poster uploaded for Tabula Rasa
+2025-11-01 07:20:25,550 [INFO] ✅ Poster uploaded for Strange Attractors
+2025-11-01 07:20:26,808 [INFO] ✅ Poster uploaded for Once Upon a Time in Texas
+2025-11-01 07:20:28,065 [INFO] ✅ Poster uploaded for Shadowboxing
+2025-11-01 07:20:29,392 [INFO] ✅ Poster uploaded for Brother's Keeper
+2025-11-01 07:20:30,607 [INFO] ✅ Poster uploaded for Thanksgiving
+2025-11-01 07:20:31,842 [INFO] ✅ Poster uploaded for The Fifth Stage
+2025-11-01 07:20:33,467 [WARNING] TMDb fetch failed for ID 955378: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/955378?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:34,963 [INFO] ✅ Poster uploaded for The Wall
+2025-11-01 07:20:36,172 [INFO] ✅ Poster uploaded for Brave New World
+2025-11-01 07:20:37,293 [INFO] ✅ Poster uploaded for Heroes Reborn
+2025-11-01 07:20:38,078 [WARNING] TMDb fetch failed for ID 1075114: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1075114?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:38,453 [WARNING] TMDb fetch failed for ID 1098904: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1098904?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:38,828 [WARNING] TMDb fetch failed for ID 1108686: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1108686?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:39,204 [WARNING] TMDb fetch failed for ID 1108687: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1108687?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:39,578 [WARNING] TMDb fetch failed for ID 1110005: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1110005?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:39,952 [WARNING] TMDb fetch failed for ID 1110006: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1110006?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:40,357 [WARNING] TMDb fetch failed for ID 1110007: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1110007?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:40,741 [WARNING] TMDb fetch failed for ID 1110008: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1110008?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:41,113 [WARNING] TMDb fetch failed for ID 1133223: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1133223?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:41,488 [WARNING] TMDb fetch failed for ID 1133224: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1133224?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:42,039 [INFO] ✅ Poster uploaded for High School of the Dead
+2025-11-01 07:20:42,810 [WARNING] TMDb fetch failed for ID 939788: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/939788?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:43,186 [WARNING] TMDb fetch failed for ID 939789: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/939789?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:43,555 [WARNING] TMDb fetch failed for ID 939790: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/939790?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:43,942 [WARNING] TMDb fetch failed for ID 939791: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/939791?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:44,324 [WARNING] TMDb fetch failed for ID 939792: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/939792?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:44,707 [WARNING] TMDb fetch failed for ID 939793: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/939793?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:45,083 [WARNING] TMDb fetch failed for ID 939794: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/939794?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:45,463 [WARNING] TMDb fetch failed for ID 939795: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/939795?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:45,841 [WARNING] TMDb fetch failed for ID 939796: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/939796?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:46,245 [WARNING] TMDb fetch failed for ID 939797: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/939797?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:46,631 [WARNING] TMDb fetch failed for ID 939798: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/939798?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:47,011 [WARNING] TMDb fetch failed for ID 939799: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/939799?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:47,562 [INFO] ✅ Poster uploaded for KochiKame
+2025-11-01 07:20:47,947 [WARNING] TMDb fetch failed for ID 175127: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/175127?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:48,361 [WARNING] TMDb fetch failed for ID 2616878: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2616878?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:48,744 [WARNING] TMDb fetch failed for ID 2616879: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2616879?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:49,130 [WARNING] TMDb fetch failed for ID 2616880: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2616880?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:49,520 [WARNING] TMDb fetch failed for ID 2616990: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2616990?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:49,900 [WARNING] TMDb fetch failed for ID 2616991: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2616991?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:50,279 [WARNING] TMDb fetch failed for ID 2616992: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2616992?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:50,665 [WARNING] TMDb fetch failed for ID 2616993: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2616993?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:51,039 [WARNING] TMDb fetch failed for ID 2616996: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2616996?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:51,408 [WARNING] TMDb fetch failed for ID 2616998: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2616998?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:51,784 [WARNING] TMDb fetch failed for ID 2616999: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2616999?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:52,162 [WARNING] TMDb fetch failed for ID 2617000: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617000?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:52,553 [WARNING] TMDb fetch failed for ID 2617001: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617001?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:52,940 [WARNING] TMDb fetch failed for ID 2617002: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617002?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:53,320 [WARNING] TMDb fetch failed for ID 2617003: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617003?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:53,708 [WARNING] TMDb fetch failed for ID 2617004: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617004?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:54,084 [WARNING] TMDb fetch failed for ID 2617005: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617005?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:54,465 [WARNING] TMDb fetch failed for ID 2617006: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617006?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:54,840 [WARNING] TMDb fetch failed for ID 2617007: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617007?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:55,214 [WARNING] TMDb fetch failed for ID 2617008: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617008?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:55,588 [WARNING] TMDb fetch failed for ID 2617009: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617009?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:55,959 [WARNING] TMDb fetch failed for ID 2617011: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617011?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:56,332 [WARNING] TMDb fetch failed for ID 2617012: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617012?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:56,713 [WARNING] TMDb fetch failed for ID 2617013: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617013?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:57,096 [WARNING] TMDb fetch failed for ID 2617014: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617014?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:57,470 [WARNING] TMDb fetch failed for ID 2617015: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617015?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:57,843 [WARNING] TMDb fetch failed for ID 2617016: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617016?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:58,220 [WARNING] TMDb fetch failed for ID 2617017: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617017?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:58,596 [WARNING] TMDb fetch failed for ID 2617018: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617018?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:58,969 [WARNING] TMDb fetch failed for ID 2617019: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617019?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:59,347 [WARNING] TMDb fetch failed for ID 2617020: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617020?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:20:59,723 [WARNING] TMDb fetch failed for ID 2617021: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617021?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:00,112 [WARNING] TMDb fetch failed for ID 2617022: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617022?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:00,497 [WARNING] TMDb fetch failed for ID 2617023: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617023?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:00,876 [WARNING] TMDb fetch failed for ID 2617024: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617024?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:01,248 [WARNING] TMDb fetch failed for ID 2617025: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617025?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:01,638 [WARNING] TMDb fetch failed for ID 2617026: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617026?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:02,020 [WARNING] TMDb fetch failed for ID 2617027: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617027?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:02,398 [WARNING] TMDb fetch failed for ID 2617028: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617028?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:02,773 [WARNING] TMDb fetch failed for ID 2617029: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617029?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:03,146 [WARNING] TMDb fetch failed for ID 2617030: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617030?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:03,523 [WARNING] TMDb fetch failed for ID 2617031: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617031?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:03,901 [WARNING] TMDb fetch failed for ID 2617033: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617033?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:04,280 [WARNING] TMDb fetch failed for ID 2617035: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617035?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:04,674 [WARNING] TMDb fetch failed for ID 2617036: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617036?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:05,051 [WARNING] TMDb fetch failed for ID 2617042: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617042?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:05,435 [WARNING] TMDb fetch failed for ID 2617064: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617064?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:05,811 [WARNING] TMDb fetch failed for ID 2617065: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617065?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:06,189 [WARNING] TMDb fetch failed for ID 2617066: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617066?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:06,577 [WARNING] TMDb fetch failed for ID 2617068: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617068?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:06,955 [WARNING] TMDb fetch failed for ID 2617070: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617070?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:07,330 [WARNING] TMDb fetch failed for ID 2617072: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617072?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:07,709 [WARNING] TMDb fetch failed for ID 2617092: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2617092?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:08,273 [INFO] ✅ Poster uploaded for Marvel's Inhumans
+2025-11-01 07:21:08,736 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:21:09,130 [WARNING] TMDb fetch failed for ID 1279700: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1279700?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:09,515 [WARNING] TMDb fetch failed for ID 1332116: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1332116?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:09,896 [WARNING] TMDb fetch failed for ID 1367789: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1367789?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:10,273 [WARNING] TMDb fetch failed for ID 1367945: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1367945?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:10,660 [WARNING] TMDb fetch failed for ID 1367946: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1367946?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:11,045 [WARNING] TMDb fetch failed for ID 1367947: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1367947?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:11,424 [WARNING] TMDb fetch failed for ID 1367948: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1367948?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:11,811 [WARNING] TMDb fetch failed for ID 1367949: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1367949?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:12,371 [INFO] ✅ Poster uploaded for Marvel's Luke Cage
+2025-11-01 07:21:12,864 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:21:13,255 [WARNING] TMDb fetch failed for ID 1045315: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1045315?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:13,662 [WARNING] TMDb fetch failed for ID 1221122: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1221122?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:14,046 [WARNING] TMDb fetch failed for ID 1221123: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1221123?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:14,487 [WARNING] TMDb fetch failed for ID 1221124: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1221124?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:14,893 [WARNING] TMDb fetch failed for ID 1221125: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1221125?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:15,278 [WARNING] TMDb fetch failed for ID 1221126: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1221126?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:15,659 [WARNING] TMDb fetch failed for ID 1221127: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1221127?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:16,044 [WARNING] TMDb fetch failed for ID 1221128: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1221128?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:16,432 [WARNING] TMDb fetch failed for ID 1221129: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1221129?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:16,819 [WARNING] TMDb fetch failed for ID 1221130: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1221130?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:17,192 [WARNING] TMDb fetch failed for ID 1221131: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1221131?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:17,571 [WARNING] TMDb fetch failed for ID 1221132: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1221132?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:17,964 [WARNING] TMDb fetch failed for ID 1221133: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1221133?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:18,609 [INFO] ✅ Poster uploaded for My Hero Academia
+2025-11-01 07:21:19,235 [INFO] ✅ Poster uploaded for Season 6
+2025-11-01 07:21:19,643 [WARNING] TMDb fetch failed for ID 3849353: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3849353?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:20,031 [WARNING] TMDb fetch failed for ID 3979192: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3979192?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:20,421 [WARNING] TMDb fetch failed for ID 3979194: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3979194?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:20,805 [WARNING] TMDb fetch failed for ID 3979195: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3979195?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:21,179 [WARNING] TMDb fetch failed for ID 3979196: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3979196?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:21,560 [WARNING] TMDb fetch failed for ID 3979197: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3979197?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:21,958 [WARNING] TMDb fetch failed for ID 3979198: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3979198?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:22,344 [WARNING] TMDb fetch failed for ID 3979200: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3979200?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:22,720 [WARNING] TMDb fetch failed for ID 3979201: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3979201?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:23,103 [WARNING] TMDb fetch failed for ID 3979202: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3979202?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:23,477 [WARNING] TMDb fetch failed for ID 3979203: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3979203?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:23,862 [WARNING] TMDb fetch failed for ID 3979205: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3979205?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:24,253 [WARNING] TMDb fetch failed for ID 4079458: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4079458?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:24,627 [WARNING] TMDb fetch failed for ID 4118108: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4118108?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:25,005 [WARNING] TMDb fetch failed for ID 4118281: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4118281?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:25,382 [WARNING] TMDb fetch failed for ID 4118287: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4118287?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:25,760 [WARNING] TMDb fetch failed for ID 4118292: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4118292?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:26,133 [WARNING] TMDb fetch failed for ID 4118300: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4118300?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:26,507 [WARNING] TMDb fetch failed for ID 4118317: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4118317?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:26,891 [WARNING] TMDb fetch failed for ID 4118322: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4118322?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:27,282 [WARNING] TMDb fetch failed for ID 4118327: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4118327?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:27,663 [WARNING] TMDb fetch failed for ID 4118330: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4118330?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:28,046 [WARNING] TMDb fetch failed for ID 4118334: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4118334?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:28,440 [WARNING] TMDb fetch failed for ID 4118337: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4118337?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:28,824 [WARNING] TMDb fetch failed for ID 4118341: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4118341?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:29,377 [INFO] ✅ Poster uploaded for Ninja Kamui
+2025-11-01 07:21:30,138 [WARNING] TMDb fetch failed for ID 5092624: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5092624?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:30,643 [INFO] ✅ Poster uploaded for The Outsider (2020)
+2025-11-01 07:21:31,620 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:21:32,013 [WARNING] TMDb fetch failed for ID 1954876: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1954876?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:32,397 [WARNING] TMDb fetch failed for ID 1954877: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1954877?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:32,784 [WARNING] TMDb fetch failed for ID 2008372: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2008372?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:33,159 [WARNING] TMDb fetch failed for ID 2008373: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2008373?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:33,533 [WARNING] TMDb fetch failed for ID 2008374: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2008374?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:33,922 [WARNING] TMDb fetch failed for ID 2008375: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2008375?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:34,305 [WARNING] TMDb fetch failed for ID 2008376: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2008376?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:34,687 [WARNING] TMDb fetch failed for ID 2008377: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2008377?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:35,068 [WARNING] TMDb fetch failed for ID 2008378: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2008378?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:35,447 [WARNING] TMDb fetch failed for ID 2008379: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2008379?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:36,025 [INFO] ✅ Poster uploaded for The Penguin
+2025-11-01 07:21:37,207 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:21:37,587 [WARNING] TMDb fetch failed for ID 4034175: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4034175?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:38,186 [INFO] ✅ Poster uploaded for Ranneeti: Balakot & Beyond
+2025-11-01 07:21:38,572 [WARNING] TMDb fetch failed for ID 389051: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/389051?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:38,963 [WARNING] TMDb fetch failed for ID 5288936: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5288936?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:39,338 [WARNING] TMDb fetch failed for ID 5302175: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5302175?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:39,720 [WARNING] TMDb fetch failed for ID 5302176: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5302176?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:40,094 [WARNING] TMDb fetch failed for ID 5302177: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5302177?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:40,489 [WARNING] TMDb fetch failed for ID 5302178: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5302178?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:40,863 [WARNING] TMDb fetch failed for ID 5302179: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5302179?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:41,237 [WARNING] TMDb fetch failed for ID 5302182: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5302182?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:41,614 [WARNING] TMDb fetch failed for ID 5302285: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5302285?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:41,986 [WARNING] TMDb fetch failed for ID 5302286: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/5302286?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:42,640 [INFO] ✅ Poster uploaded for Rick and Morty
+2025-11-01 07:21:43,521 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:21:43,902 [WARNING] TMDb fetch failed for ID 973400: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/973400?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:44,285 [WARNING] TMDb fetch failed for ID 973401: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/973401?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:44,660 [WARNING] TMDb fetch failed for ID 973402: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/973402?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:45,044 [WARNING] TMDb fetch failed for ID 973403: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/973403?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:45,423 [WARNING] TMDb fetch failed for ID 973404: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/973404?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:45,805 [WARNING] TMDb fetch failed for ID 973405: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/973405?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:46,184 [WARNING] TMDb fetch failed for ID 973406: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/973406?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:46,562 [WARNING] TMDb fetch failed for ID 973407: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/973407?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:46,936 [WARNING] TMDb fetch failed for ID 973462: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/973462?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:47,320 [WARNING] TMDb fetch failed for ID 973676: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/973676?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:47,698 [WARNING] TMDb fetch failed for ID 974721: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/974721?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:48,198 [INFO] ✅ Poster uploaded for Season 2
+2025-11-01 07:21:48,587 [WARNING] TMDb fetch failed for ID 1061750: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1061750?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:48,971 [WARNING] TMDb fetch failed for ID 1091840: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1091840?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:49,350 [WARNING] TMDb fetch failed for ID 1091841: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1091841?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:49,738 [WARNING] TMDb fetch failed for ID 1091844: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1091844?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:50,107 [WARNING] TMDb fetch failed for ID 1091843: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1091843?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:50,493 [WARNING] TMDb fetch failed for ID 1091842: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1091842?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:50,871 [WARNING] TMDb fetch failed for ID 1106242: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1106242?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:51,251 [WARNING] TMDb fetch failed for ID 1106721: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1106721?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:51,625 [WARNING] TMDb fetch failed for ID 1109175: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1109175?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:52,011 [WARNING] TMDb fetch failed for ID 1109176: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1109176?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:52,774 [WARNING] TMDb fetch failed for ID 1298227: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1298227?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:53,149 [WARNING] TMDb fetch failed for ID 1302008: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1302008?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:53,539 [WARNING] TMDb fetch failed for ID 1340487: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1340487?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:53,927 [WARNING] TMDb fetch failed for ID 1345587: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1345587?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:54,305 [WARNING] TMDb fetch failed for ID 1345588: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1345588?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:54,680 [WARNING] TMDb fetch failed for ID 1345589: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1345589?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:55,058 [WARNING] TMDb fetch failed for ID 1345590: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1345590?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:55,442 [WARNING] TMDb fetch failed for ID 1345591: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1345591?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:55,848 [WARNING] TMDb fetch failed for ID 1360245: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1360245?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:56,248 [WARNING] TMDb fetch failed for ID 1360246: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1360246?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:57,015 [WARNING] TMDb fetch failed for ID 1947767: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1947767?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:57,394 [WARNING] TMDb fetch failed for ID 1979602: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1979602?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:57,769 [WARNING] TMDb fetch failed for ID 1979603: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1979603?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:58,143 [WARNING] TMDb fetch failed for ID 1979604: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1979604?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:58,512 [WARNING] TMDb fetch failed for ID 1979605: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1979605?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:58,894 [WARNING] TMDb fetch failed for ID 2226346: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2226346?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:59,276 [WARNING] TMDb fetch failed for ID 2226348: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2226348?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:21:59,649 [WARNING] TMDb fetch failed for ID 2226349: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2226349?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:00,026 [WARNING] TMDb fetch failed for ID 2226351: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2226351?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:00,399 [WARNING] TMDb fetch failed for ID 2226352: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2226352?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:00,790 [WARNING] TMDb fetch failed for ID 188470: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/188470?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:01,178 [WARNING] TMDb fetch failed for ID 2839344: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2839344?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:01,554 [WARNING] TMDb fetch failed for ID 2991268: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2991268?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:02,026 [WARNING] TMDb fetch failed for ID 2991270: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2991270?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:02,408 [WARNING] TMDb fetch failed for ID 2991269: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2991269?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:02,795 [WARNING] TMDb fetch failed for ID 2991271: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2991271?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:03,169 [WARNING] TMDb fetch failed for ID 2991272: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2991272?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:03,555 [WARNING] TMDb fetch failed for ID 2991273: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2991273?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:03,934 [WARNING] TMDb fetch failed for ID 2991274: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2991274?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:04,315 [WARNING] TMDb fetch failed for ID 2991275: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2991275?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:04,693 [WARNING] TMDb fetch failed for ID 2991276: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2991276?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:05,457 [WARNING] TMDb fetch failed for ID 3891529: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3891529?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:05,837 [WARNING] TMDb fetch failed for ID 3891525: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3891525?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:06,212 [WARNING] TMDb fetch failed for ID 3854678: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3854678?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:06,588 [WARNING] TMDb fetch failed for ID 3891527: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3891527?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:06,967 [WARNING] TMDb fetch failed for ID 3891511: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3891511?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:07,339 [WARNING] TMDb fetch failed for ID 3891531: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3891531?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:07,729 [WARNING] TMDb fetch failed for ID 3891510: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3891510?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:08,104 [WARNING] TMDb fetch failed for ID 3891530: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3891530?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:08,483 [WARNING] TMDb fetch failed for ID 3891528: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3891528?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:08,859 [WARNING] TMDb fetch failed for ID 3891509: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3891509?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:09,241 [WARNING] TMDb fetch failed for ID 354041: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/354041?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:09,631 [WARNING] TMDb fetch failed for ID 4678377: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4678377?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:10,011 [WARNING] TMDb fetch failed for ID 4694201: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4694201?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:10,385 [WARNING] TMDb fetch failed for ID 4694202: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4694202?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:10,762 [WARNING] TMDb fetch failed for ID 4694203: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4694203?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:11,165 [WARNING] TMDb fetch failed for ID 4694204: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4694204?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:11,543 [WARNING] TMDb fetch failed for ID 4694205: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4694205?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:11,920 [WARNING] TMDb fetch failed for ID 4694207: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4694207?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:12,294 [WARNING] TMDb fetch failed for ID 4694208: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4694208?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:12,678 [WARNING] TMDb fetch failed for ID 4694209: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4694209?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:13,053 [WARNING] TMDb fetch failed for ID 4694210: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4694210?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:13,580 [INFO] ✅ Poster uploaded for Rocket Boys
+2025-11-01 07:22:14,075 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:22:14,477 [WARNING] TMDb fetch failed for ID 3329059: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3329059?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:14,854 [WARNING] TMDb fetch failed for ID 3473499: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3473499?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:15,227 [WARNING] TMDb fetch failed for ID 3473501: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3473501?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:15,612 [WARNING] TMDb fetch failed for ID 3473502: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3473502?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:16,006 [WARNING] TMDb fetch failed for ID 3473503: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3473503?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:16,391 [WARNING] TMDb fetch failed for ID 3473504: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3473504?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:16,768 [WARNING] TMDb fetch failed for ID 3473505: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3473505?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:17,139 [WARNING] TMDb fetch failed for ID 3473506: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3473506?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:17,904 [INFO] ✅ Poster uploaded for Season 2
+2025-11-01 07:22:18,292 [WARNING] TMDb fetch failed for ID 3800908: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3800908?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:18,663 [WARNING] TMDb fetch failed for ID 4300083: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4300083?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:19,035 [WARNING] TMDb fetch failed for ID 4300088: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4300088?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:19,444 [WARNING] TMDb fetch failed for ID 4300093: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4300093?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:19,816 [WARNING] TMDb fetch failed for ID 4300097: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4300097?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:20,197 [WARNING] TMDb fetch failed for ID 4300101: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4300101?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:20,584 [WARNING] TMDb fetch failed for ID 4300103: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4300103?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:20,993 [WARNING] TMDb fetch failed for ID 4300105: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4300105?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:21,485 [INFO] ✅ Poster uploaded for Second Chance (2016)
+2025-11-01 07:22:21,959 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:22:22,348 [WARNING] TMDb fetch failed for ID 1136941: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1136941?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:22,719 [WARNING] TMDb fetch failed for ID 1149674: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1149674?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:23,098 [WARNING] TMDb fetch failed for ID 1149675: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/1149675?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:23,666 [INFO] ✅ Poster uploaded for Secret Invasion
+2025-11-01 07:22:24,050 [WARNING] TMDb fetch failed for ID 171711: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/171711?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:24,447 [WARNING] TMDb fetch failed for ID 2553098: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2553098?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:24,834 [WARNING] TMDb fetch failed for ID 4327492: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4327492?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:25,216 [WARNING] TMDb fetch failed for ID 4327493: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4327493?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:25,598 [WARNING] TMDb fetch failed for ID 4340159: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4340159?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:25,977 [WARNING] TMDb fetch failed for ID 4340161: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4340161?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:26,356 [WARNING] TMDb fetch failed for ID 4340162: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4340162?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:27,029 [INFO] ✅ Poster uploaded for She-Hulk: Attorney at Law
+2025-11-01 07:22:27,416 [WARNING] TMDb fetch failed for ID 163259: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/163259?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:27,817 [WARNING] TMDb fetch failed for ID 2431708: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/2431708?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:28,200 [WARNING] TMDb fetch failed for ID 3722642: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3722642?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:28,574 [WARNING] TMDb fetch failed for ID 3722646: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3722646?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:28,950 [WARNING] TMDb fetch failed for ID 3722651: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3722651?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:29,344 [WARNING] TMDb fetch failed for ID 3722655: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3722655?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:29,727 [WARNING] TMDb fetch failed for ID 3722660: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3722660?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:30,101 [WARNING] TMDb fetch failed for ID 3722666: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3722666?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:30,506 [WARNING] TMDb fetch failed for ID 3722671: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3722671?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:30,882 [WARNING] TMDb fetch failed for ID 3722677: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3722677?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:31,366 [INFO] ✅ Poster uploaded for Silverpoint
+2025-11-01 07:22:31,863 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:22:32,248 [WARNING] TMDb fetch failed for ID 3548926: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3548926?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:32,634 [WARNING] TMDb fetch failed for ID 3548940: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3548940?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:33,018 [WARNING] TMDb fetch failed for ID 3548941: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3548941?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:33,402 [WARNING] TMDb fetch failed for ID 3599419: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3599419?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:33,779 [WARNING] TMDb fetch failed for ID 3599429: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3599429?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:34,157 [WARNING] TMDb fetch failed for ID 3599432: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3599432?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:34,529 [WARNING] TMDb fetch failed for ID 3599435: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3599435?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:34,906 [WARNING] TMDb fetch failed for ID 3599437: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3599437?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:35,287 [WARNING] TMDb fetch failed for ID 3599442: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3599442?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:35,720 [WARNING] TMDb fetch failed for ID 3599443: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3599443?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:36,106 [WARNING] TMDb fetch failed for ID 3599445: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3599445?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:36,483 [WARNING] TMDb fetch failed for ID 3599446: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3599446?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:36,878 [WARNING] TMDb fetch failed for ID 3599448: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/3599448?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:37,279 [WARNING] TMDb fetch failed for ID 340221: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/340221?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:37,668 [WARNING] TMDb fetch failed for ID 4425714: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4425714?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:38,054 [WARNING] TMDb fetch failed for ID 4425717: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4425717?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:38,429 [WARNING] TMDb fetch failed for ID 4444086: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4444086?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:38,811 [WARNING] TMDb fetch failed for ID 4444089: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4444089?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:39,186 [WARNING] TMDb fetch failed for ID 4450100: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4450100?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:39,566 [WARNING] TMDb fetch failed for ID 4450193: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4450193?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:39,950 [WARNING] TMDb fetch failed for ID 4450268: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4450268?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:40,333 [WARNING] TMDb fetch failed for ID 4450271: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4450271?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:40,734 [WARNING] TMDb fetch failed for ID 4450272: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4450272?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:41,103 [WARNING] TMDb fetch failed for ID 4450273: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4450273?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:41,474 [WARNING] TMDb fetch failed for ID 4450274: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4450274?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:41,852 [WARNING] TMDb fetch failed for ID 4450278: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4450278?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:42,220 [WARNING] TMDb fetch failed for ID 4450281: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/4450281?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:42,742 [INFO] ✅ Poster uploaded for Static Shock
+2025-11-01 07:22:43,249 [INFO] ✅ Poster uploaded for Season 1
+2025-11-01 07:22:44,072 [INFO] ✅ Poster uploaded for Shock to the System
+2025-11-01 07:22:45,602 [INFO] ✅ Poster uploaded for Aftershock
+2025-11-01 07:22:46,891 [INFO] ✅ Poster uploaded for The Breed
+2025-11-01 07:22:48,286 [INFO] ✅ Poster uploaded for Grounded
+2025-11-01 07:22:49,529 [INFO] ✅ Poster uploaded for They're Playing My Song
+2025-11-01 07:22:50,904 [INFO] ✅ Poster uploaded for The New Kid
+2025-11-01 07:22:51,797 [WARNING] TMDb fetch failed for ID 70635: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/70635?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:22:52,608 [INFO] ✅ Poster uploaded for Sons of the Fathers
+2025-11-01 07:22:53,930 [INFO] ✅ Poster uploaded for Winds of Change
+2025-11-01 07:22:55,187 [INFO] ✅ Poster uploaded for Bent Out of Shape
+2025-11-01 07:22:56,457 [INFO] ✅ Poster uploaded for Junior
+2025-11-01 07:22:57,999 [INFO] ✅ Poster uploaded for Replay
+2025-11-01 07:22:59,276 [INFO] ✅ Poster uploaded for Tantrum
+2025-11-01 07:23:01,679 [INFO] ✅ Poster uploaded for The Big Leagues
+2025-11-01 07:23:02,558 [WARNING] TMDb fetch failed for ID 70658: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/70658?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:23:03,335 [INFO] ✅ Poster uploaded for Brother-Sister Act
+2025-11-01 07:23:04,221 [WARNING] TMDb fetch failed for ID 70660: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/70660?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:23:05,081 [INFO] ✅ Poster uploaded for Frozen Out
+2025-11-01 07:23:07,179 [INFO] ✅ Poster uploaded for Bad Stretch
+2025-11-01 07:23:08,429 [INFO] ✅ Poster uploaded for Attack of the Living Brain Puppets
+2025-11-01 07:23:09,684 [INFO] ✅ Poster uploaded for Duped
+2025-11-01 07:23:10,551 [WARNING] TMDb fetch failed for ID 70667: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/70667?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:23:11,081 [INFO] ✅ Poster uploaded for Season 3
+2025-11-01 07:23:11,474 [WARNING] TMDb fetch failed for ID 70642: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/70642?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:23:12,382 [INFO] ✅ Poster uploaded for Gear
+2025-11-01 07:23:13,650 [INFO] ✅ Poster uploaded for Static in Africa
+2025-11-01 07:23:14,981 [INFO] ✅ Poster uploaded for Shebang
+2025-11-01 07:23:15,849 [WARNING] TMDb fetch failed for ID 70646: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/70646?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:23:16,217 [WARNING] TMDb fetch failed for ID 70647: 404 Client Error: Not Found for url: https://api.themoviedb.org/3/tv/70647?api_key=488dbaa0bf23daf9ae9da9805775e3af
+2025-11-01 07:23:17,354 [INFO] ✅ Poster uploaded for A League of Their Own (2)
+2025-11-01 07:23:18,648 [INFO] ✅ Poster uploaded for Showtime
