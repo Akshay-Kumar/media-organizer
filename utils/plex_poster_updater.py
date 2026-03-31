@@ -9,6 +9,7 @@ import pandas as pd
 import tmdbsimple as tmdb
 from plexapi.server import PlexServer
 from tqdm import tqdm
+from logger import add_pid_to_log_records
 
 # --- Fix Windows console emoji issues ---
 if sys.stdout.encoding != 'utf-8':
@@ -44,6 +45,7 @@ logging.basicConfig(
         logging.StreamHandler(sys.stdout)
     ]
 )
+add_pid_to_log_records()
 
 
 # --- TMDb Search ---

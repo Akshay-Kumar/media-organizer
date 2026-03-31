@@ -125,12 +125,10 @@ class TitleMatcher:
         return score, adjustment
 
     def title_similarity2(self, query: str, candidate: str, weights: Dict[str, int],
-                         content_type: str = "movie") -> float:
+                          content_type: str = "movie") -> float:
         def remove_years(text: str) -> str:
-            # Remove any (YYYY), -YYYY, or standalone YYYY patterns
             return re.sub(r"[\(\[\{\-]?(19\d{2}|20[0-2]\d)[\)\]\}\-]?", "", text)
 
-        # Remove years only if matching a movie
         if content_type == "movie":
             query = remove_years(query)
             candidate = remove_years(candidate)
@@ -138,23 +136,33 @@ class TitleMatcher:
         query_norm = self.normalize_title(query)
         candidate_norm = self.normalize_title(candidate)
 
-        # Compute fuzzy similarity
-        token_set = fuzz.token_set_ratio(query_norm, candidate_norm)
+        if not query_norm or not candidate_norm:
+            return 0.0
+
+        query_tokens = query_norm.split()
+        candidate_tokens = candidate_norm.split()
+        query_set = set(query_tokens)
+        candidate_set = set(candidate_tokens)
+
+        ratio_score = fuzz.ratio(query_norm, candidate_norm)
         token_sort = fuzz.token_sort_ratio(query_norm, candidate_norm)
         partial = fuzz.partial_ratio(query_norm, candidate_norm)
 
-        # Weighted average
-        combined_score = (token_set * 0.5) + (token_sort * 0.3) + (partial * 0.2)
+        combined_score = (ratio_score * 0.55) + (token_sort * 0.30) + (partial * 0.15)
 
-        # Boost for perfect normalized match
         if query_norm == candidate_norm:
             combined_score += weights.get("title_match_boost", 0)
 
-        if content_type == "movie" and combined_score < 90:
-            combined_score = combined_score * 0.5
+        if query_set < candidate_set or candidate_set < query_set:
+            combined_score -= 20
 
+        if len(query_tokens) == 1 and len(candidate_tokens) > 1 and query_norm != candidate_norm:
+            combined_score -= 15
 
-        return min(100, combined_score)
+        if abs(len(query_tokens) - len(candidate_tokens)) >= 1:
+            combined_score -= abs(len(query_tokens) - len(candidate_tokens)) * 4
+
+        return max(0, min(100, combined_score))
 
     def title_similarity(self, query: str, candidate: str, weights: Dict[str, int]) -> float:
         query_norm = self.normalize_title(query)
@@ -181,7 +189,7 @@ class TitleMatcher:
     ) -> Tuple[float, Dict[str, float]]:
         weights = self._get_weights(content_type)
 
-        base_score = self.title_similarity2(file_title, candidate["title"], weights)
+        base_score = self.title_similarity2(file_title, candidate["title"], weights, content_type=content_type)
         debug_info = {"base_title_score": base_score}
 
         if base_score < 40:

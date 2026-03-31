@@ -44,6 +44,17 @@ STOP_EMOJI = "🛑"
 EXPLOSION_EMOJI = "💥"
 
 
+def acquire_file_lock(file_path: Path):
+    lock_file = file_path.with_suffix(file_path.suffix + ".lock")
+    lock_fp = open(lock_file, 'a+', encoding='utf-8')
+    try:
+        portalocker.lock(lock_fp, portalocker.LOCK_EX | portalocker.LOCK_NB)
+        return lock_fp
+    except portalocker.exceptions.LockException:
+        lock_fp.close()
+        return None
+
+
 def acquire_single_instance_lock(lock_path: Path):
     """
     Acquire a non-blocking global lock so only one organizer instance runs at a time.
@@ -290,6 +301,14 @@ class MediaOrganizer:
     def process_file(self, file_path: Path, pbar: Optional[tqdm] = None, info_hash: str = None) -> Dict[str, Any]:
         """Process a single media file through all steps with progress updates"""
         file_start_time = time.time()
+        file_lock = acquire_file_lock(file_path)
+        if not file_lock:
+            self.logger.info(f"Skipping {file_path.name} (already being processed by another instance)")
+            return {
+                'original_path': str(file_path),
+                'success': False,
+                'errors': ['File locked by another process']
+            }
         result = {
             'original_path': str(file_path),
             'file_info': FileUtils.get_file_info(file_path),
@@ -413,6 +432,8 @@ class MediaOrganizer:
             result['processing_time'] = time.time() - file_start_time
             result['end_time'] = datetime.now().isoformat()
             self.performance_logger.info(f"File processed in {result['processing_time']:.2f}s: {file_path.name}")
+            if file_lock:
+                release_lock(file_lock)
 
         return result
 
@@ -866,8 +887,9 @@ def main():
     lock_path = Path(config.get('runtime', {}).get('instance_lock_file', 'locks/media_organizer.lock'))
 
     try:
-        lock_fp = acquire_single_instance_lock(lock_path)
-        logging.info(f"Acquired organizer instance lock: {lock_path}")
+        if config.get("runtime", {}).get("single_instance", False):
+            lock_fp = acquire_single_instance_lock(lock_path)
+            logging.info(f"Acquired organizer instance lock: {lock_path}")
     except portalocker.exceptions.LockException:
         logging.info(
             "Another MediaOrganizer instance is already running. "

@@ -118,6 +118,17 @@ def parse_media_info(filepath: str) -> dict:
         info["anime_special_type"] = anime_special_type
         info["type"] = "special"
 
+    # test block to derive season number and episode numbers from file path
+    if info.get("season", None) is None:
+        season_info = guessit(filepath)
+        if season_info.get("season"):
+            info["season"] = season_info.get("season")
+    if info.get("episode", None) is None:
+        episode_info = guessit(filepath)
+        if episode_info.get("episode"):
+            info["episode"] = episode_info.get("episode")
+
+
     return info
 
 

@@ -10,6 +10,8 @@ import time
 import os
 from xml.etree import ElementTree as ET
 
+from opensubtitlescom import OpenSubtitles
+
 
 class HealthChecker:
     def __init__(self, config: Dict[str, Any]):
@@ -41,7 +43,7 @@ class HealthChecker:
                 'response_time': None
             }
 
-        # TVDB check
+        # TVDB: 401 is acceptable here because root isn't an authenticated resource
         try:
             start_time = time.time()
             response = requests.get(
@@ -62,16 +64,18 @@ class HealthChecker:
                 'response_time': None
             }
 
-        # AniList check
+        # AniList: must be POST to GraphQL endpoint
         try:
             start_time = time.time()
-            response = requests.get(
+            response = requests.post(
                 "https://graphql.anilist.co",
-                timeout=10
+                json={"query": "query { Media(id: 1) { id } }"},
+                timeout=10,
             )
             response_time = time.time() - start_time
+            # Viewer may require auth; if you want unauthenticated health, use a public query instead
             results['anilist'] = {
-                'status': response.status_code == 200,
+                'status': response.status_code in (200, 400),  # endpoint reachable
                 'response_time': round(response_time, 3),
                 'status_code': response.status_code
             }
@@ -82,13 +86,14 @@ class HealthChecker:
                 'response_time': None
             }
 
-        # MusicBrainz check
+        # MusicBrainz: valid search endpoint + required User-Agent
         try:
             start_time = time.time()
             response = requests.get(
-                "https://musicbrainz.org/ws/2/artist/",
-                params={'fmt': 'json', 'limit': 1},
-                timeout=10
+                "https://musicbrainz.org/ws/2/artist",
+                params={"query": "artist:Beatles", "fmt": "json", "limit": 1},
+                headers={"User-Agent": self.config.get('api_keys', {}).get('musicbrainz')},
+                timeout=10,
             )
             response_time = time.time() - start_time
             results['musicbrainz'] = {
@@ -103,20 +108,22 @@ class HealthChecker:
                 'response_time': None
             }
 
-        # OpenSubtitles check (if configured)
-        if 'opensubtitles' in self.config.get('api_keys', {}):
+        # OpenSubtitles: use a stricter User-Agent format
+        opensub_conf = self.config.get('download', {}).get('opensubtitles', {})
+        if 'opensubtitles' in self.config.get('download', {}):
             try:
+                user_agent = opensub_conf.get('user_agent', 'media-organizer 1.0')
+                client = OpenSubtitles(user_agent, opensub_conf['api_key'])
+                resp = client.login(opensub_conf['username'], opensub_conf['password'])
                 start_time = time.time()
-                response = requests.get(
-                    "https://api.opensubtitles.com/api/v1/info",
-                    headers={'User-Agent': 'media-organizer/1.0'},
-                    timeout=10
-                )
+
+                login_ok = bool(resp and resp.get("token"))
+
                 response_time = time.time() - start_time
                 results['opensubtitles'] = {
-                    'status': response.status_code in [200, 401],
+                    'status': login_ok,
                     'response_time': round(response_time, 3),
-                    'status_code': response.status_code
+                    'status_code': 200 if login_ok else None
                 }
             except Exception as e:
                 results['opensubtitles'] = {

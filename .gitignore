@@ -14,3 +14,4 @@ junk_words.json
 media_organizer_py.bat
 processing_report.json
 release_groups.json
+*.pyc

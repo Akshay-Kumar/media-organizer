@@ -204,7 +204,7 @@ class TVDBClient:
         if not series_results:
             return None
 
-        series_title = series_results.get("slug")
+        series_title = series_results.get("name") or series_results.get("slug")
         episodes_data = self.tvdb_v4_official.get_series_episodes(int(tvdb_id))
         episodes = list(episodes_data.get("episodes", None)) if episodes_data else None
 

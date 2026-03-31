@@ -5,6 +5,16 @@ import yaml
 import os
 from typing import Optional, Dict, Any
 
+def add_pid_to_log_records():
+    old_factory = logging.getLogRecordFactory()
+
+    def record_factory(*args, **kwargs):
+        record = old_factory(*args, **kwargs)
+        record.pid = os.getpid()
+        return record
+
+    logging.setLogRecordFactory(record_factory)
+
 
 def setup_logging(
         config_path: str = 'config/logging.conf',
@@ -43,6 +53,15 @@ def setup_logging(
                         handler_file.parent.mkdir(parents=True, exist_ok=True)
 
             logging.config.dictConfig(config)
+            add_pid_to_log_records()
+            old_factory = logging.getLogRecordFactory()
+
+            def record_factory(*args, **kwargs):
+                record = old_factory(*args, **kwargs)
+                record.pid = os.getpid()
+                return record
+
+            logging.setLogRecordFactory(record_factory)
             logger = logging.getLogger(__name__)
             logger.info(f"Logging configured successfully from {config_path}")
             return True
@@ -50,16 +69,22 @@ def setup_logging(
         except Exception as e:
             print(f"Error loading logging configuration: {e}")
             # Fall back to basic configuration
-            logging.basicConfig(level=default_level)
+            logging.basicConfig(
+                level=default_level,
+                format='%(asctime)s - [PID:%(pid)s] - %(name)s - %(levelname)s - %(message)s',
+                datefmt='%Y-%m-%d %H:%M:%S'
+            )
+            add_pid_to_log_records()
             logging.error(f"Failed to load logging config: {e}")
             return False
     else:
         # Use basic configuration if config file doesn't exist
         logging.basicConfig(
             level=default_level,
-            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            format='%(asctime)s - [PID:%(pid)s] - %(name)s - %(levelname)s - %(message)s',
             datefmt='%Y-%m-%d %H:%M:%S'
         )
+        add_pid_to_log_records()
         logging.warning(f"Logging config file not found: {config_path}. Using basic configuration.")
         return False
 
@@ -132,7 +157,7 @@ def create_file_handler(
 
     if formatter is None:
         formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s',
+            '%(asctime)s - [PID:%(pid)s] - %(name)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s',
             datefmt='%Y-%m-%d %H:%M:%S'
         )
     handler.setFormatter(formatter)
@@ -159,7 +184,7 @@ def create_console_handler(
 
     if formatter is None:
         formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            '%(asctime)s - [PID:%(pid)s] - %(name)s - %(levelname)s - %(message)s',
             datefmt='%Y-%m-%d %H:%M:%S'
         )
     handler.setFormatter(formatter)
@@ -226,12 +251,12 @@ def setup_basic_logging(level: int = logging.INFO) -> None:
 
     # Create formatters
     standard_formatter = logging.Formatter(
-        '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        '%(asctime)s - [PID:%(pid)s] - %(name)s - %(levelname)s - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
     )
 
     detailed_formatter = logging.Formatter(
-        '%(asctime)s - %(name)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s',
+        '%(asctime)s - [PID:%(pid)s] - %(name)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
     )
 

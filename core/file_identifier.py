@@ -626,7 +626,7 @@ class MediaFileIdentifier:
                         raw_data.pop(key)
 
                 if str(raw_data.get("title")).strip().lower() == str(title).strip().lower() \
-                        and title != search_title:
+                        and title not in search_title:
                     raw_data["title"] = search_title
 
             if raw_data.get("type") == "episode" and new_guess:
@@ -692,7 +692,13 @@ class MediaFileIdentifier:
                 return 0.0, None, None
 
             # tvdb_results = self.metadata_fetcher.tvdb_client.search_series(title)
-            tvdb_results = self.metadata_fetcher.tvdb_client.tvdb_v4_official.search(query=title)
+            # tvdb_results = self.metadata_fetcher.tvdb_client.tvdb_v4_official.search(query=title)
+
+            # test to add year in series search
+            if year:
+                tvdb_results = self.metadata_fetcher.tvdb_client.tvdb_v4_official.search(f"{title} ({year})")
+            else:
+                tvdb_results = self.metadata_fetcher.tvdb_client.tvdb_v4_official.search(f"{title}")
 
             if tvdb_results:
                 if isinstance(tvdb_results, list):
@@ -1020,7 +1026,7 @@ class MediaFileIdentifier:
             if final_score == 0 or not final_title:
                 # Try parent directories for better title
                 for parent in file_path.parents:
-                    if parent.name.lower() not in ["complete", "season", "downloads"]:
+                    if parent.name.lower() not in ["complete", "season", "downloads", "tv shows", "anime shows", "data", "tdarr_temp"]:
                         e_score, e_title, e_tvdb_id = self.validate_series_name(parent.name, year)
                         if e_score > 0 or e_title:
                             path_data["title"] = e_title
@@ -1580,7 +1586,7 @@ class MediaFileIdentifier:
 
         # Check against anime keywords
         for keyword in self.get_anime_keywords.get(keyword_type, []):
-            if keyword.lower() in title_lower:
+            if title_lower in keyword.lower():
                 return True
 
         # Check Japanese naming patterns
