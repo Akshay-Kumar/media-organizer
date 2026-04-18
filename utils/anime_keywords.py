@@ -12,7 +12,7 @@ def get_anime_keywords() -> dict:
             "hell's paradise", "jigokuraku", "record of ragnarok", "shuumatsu no valkyrie",
             "dan da dan", "boku no hero academia", "boku no hero", "my-hero-academia", "kaijuu",
             "Kaijū 8 Gō", "kaijū 8 gō", "kaijuu no 8", "Kaiju No. 8", "Sword of the Demon Hunter",
-            "Kijin Gentosho", "Dr. Stone",
+            "Kijin Gentosho", "Dr. Stone", "dr stone", "That Time I Got Reincarnated as a Slime",
 
             # Popular Isekai
             "re:zero", "re zero", "konosuba", "kono subarashii", "mushoku tensei",

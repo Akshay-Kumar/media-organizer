@@ -626,7 +626,7 @@ class MediaFileIdentifier:
                         raw_data.pop(key)
 
                 if str(raw_data.get("title")).strip().lower() == str(title).strip().lower() \
-                        and title not in search_title:
+                        and title.strip().lower() not in search_title.strip().lower():
                     raw_data["title"] = search_title
 
             if raw_data.get("type") == "episode" and new_guess:

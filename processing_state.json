@@ -1,7 +1,9 @@
 {
-  "processed_files": [],
-  "total_processed": 0,
-  "timestamp": "2026-03-31T16:55:00.997503",
-  "successful": 0,
+  "processed_files": [
+    "D:\\Downloads\\Complete\\Project.Hail.Mary.2026.iNTERNAL.1080p.10bit.WEBRip.2CH.x265.HEVC-PSA\\Project.Hail.Mary.2026.iNTERNAL.1080p.10bit.WEBRip.2CH.x265.HEVC-PSA.mkv"
+  ],
+  "total_processed": 1,
+  "timestamp": "2026-04-18T04:42:59.274253",
+  "successful": 1,
   "failed": 0
 }
