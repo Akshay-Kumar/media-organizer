@@ -12,12 +12,12 @@ from guessit import guessit
 from rapidfuzz import fuzz
 from unicodedata import normalize
 
-import utils.torrent_metadata
+from utils import torrent_metadata
+from utils.torrent_metadata import TorrentMetadata
 from core.TitleMatcher import TitleMatcher
 from core.language import Language
 from core.media_parser import MediaParser
 from core.metadata_fetcher import MetadataFetcher
-from utils import torrent_metadata
 from utils.anime_keywords import get_anime_keywords
 from utils.media_extensions import get_media_extensions
 from utils.name_cleaner import clean_media_name, validate_episode_title, validate_season_and_episode_number, \
@@ -34,6 +34,7 @@ class MediaFileIdentifier:
         self.media_matcher = media_parser
         self.get_media_extensions = get_media_extensions()
         self.get_anime_keywords = get_anime_keywords()
+        self.torrent_metadata = TorrentMetadata(self.config)
         # Initialize mimetypes database
         mimetypes.init()
 
@@ -868,7 +869,7 @@ class MediaFileIdentifier:
         # get metadat from organizerr
         if info_hash:
             try:
-                t_metadata = utils.torrent_metadata.enrich_media_from_torrent(info_hash=info_hash.strip().lower())
+                t_metadata = self.torrent_metadata.enrich_media_from_torrent(info_hash.strip().lower())
                 logging.info(f"Organizerr: Obtained torrent metadata: {dict(t_metadata)}")
             except Exception as e:
                 logging.error(f"Organizerr: Could not obtain torrent metadata: {e}")
