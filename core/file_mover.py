@@ -5,9 +5,12 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, Optional, List
+from xmlrpc.client import boolean
+
 import portalocker
 from core.file_identifier import MediaFileIdentifier
 from utils.file_utils import FileUtils
+from utils.torrent_metadata import TorrentMetadata
 
 
 class FileMover:
@@ -26,6 +29,7 @@ class FileMover:
         self.operations_file = Path(self.operations_cfg.get('operations_file', 'file_operations.json'))
         self.operations_enabled = bool(self.operations_cfg.get('enabled', True))
         self.operations_file.parent.mkdir(parents=True, exist_ok=True)
+        self.torrent_metadata = TorrentMetadata(self.config)
 
         self.operations_lock_file = Path(
             self.operations_cfg.get('operations_lock_file', f"{self.operations_file}.lock")
@@ -298,6 +302,13 @@ class FileMover:
                 )
             finally:
                 try:
+                    # post file operation to organizerr api
+                    success = False
+                    if operation.get('info_hash', None) is not None:
+                        success = self.torrent_metadata.send_file_operation(operation)
+
+                    if not success:
+                        self.logger.error(f"Failed to send file operation: {operation}")
                     portalocker.unlock(lock_fp)
                 finally:
                     lock_fp.close()
