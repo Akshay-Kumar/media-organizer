@@ -869,7 +869,7 @@ class MediaFileIdentifier:
         # get metadat from organizerr
         if info_hash:
             try:
-                t_metadata = self.torrent_metadata.enrich_media_from_torrent(info_hash.strip().lower())
+                t_metadata = self.torrent_metadata.fetch_torrent_metadata_by_hash(info_hash.strip().lower())
                 logging.info(f"Organizerr: Obtained torrent metadata: {dict(t_metadata)}")
             except Exception as e:
                 logging.error(f"Organizerr: Could not obtain torrent metadata: {e}")
@@ -1706,7 +1706,7 @@ class MediaFileIdentifier:
 
             year = guess.get("year")
             try:
-                guess["year"] = int(year) if year else None
+                guess["year"] = int(year) if year is not None else None
             except (ValueError, TypeError):
                 guess["year"] = None
 
@@ -1737,14 +1737,14 @@ class MediaFileIdentifier:
             # Season number
             season = guess.get("season")
             try:
-                guess["season"] = int(season) if season else 1
+                guess["season"] = int(season) if season is not None else 1
             except (ValueError, TypeError):
                 guess["season"] = 1
 
             # Episode number
             episode = guess.get("episode")
             try:
-                guess["episode"] = int(episode) if episode else 1
+                guess["episode"] = int(episode) if episode is not None else 1
             except (ValueError, TypeError):
                 guess["episode"] = 1
         except (ValueError, TypeError) as exp:
@@ -1770,14 +1770,14 @@ class MediaFileIdentifier:
             # Season number, special episode/season numbers are always 0
             season = guess.get("season")
             try:
-                guess["season"] = int(season) if season else 0
+                guess["season"] = int(season) if season is not None else 0
             except (ValueError, TypeError):
                 guess["season"] = 0
 
             # Episode number
             episode = guess.get("episode")
             try:
-                guess["episode"] = int(episode) if episode else 0
+                guess["episode"] = int(episode) if episode is not None else 0
             except (ValueError, TypeError):
                 guess["episode"] = 0
         except (ValueError, TypeError) as exp:
@@ -1792,7 +1792,7 @@ class MediaFileIdentifier:
             guess["title"] = self.str_sanitize(guess.get("title")) or "Unknown Movie"
             year = guess.get("year")
             try:
-                guess["year"] = int(year) if year else None
+                guess["year"] = int(year) if year is not None else None
             except (ValueError, TypeError):
                 guess["year"] = None
             guess["quality"] = guess.get("screen_size")
@@ -1837,21 +1837,21 @@ class MediaFileIdentifier:
             # Normalize track number
             track = guess.get("track")
             try:
-                guess["track"] = int(track) if track else 1
+                guess["track"] = int(track) if track is not None else 1
             except (ValueError, TypeError):
                 guess["track"] = 1
 
             # Normalize disc number
             disc = guess.get("disc")
             try:
-                guess["disc"] = int(disc) if disc else 1
+                guess["disc"] = int(disc) if disc is not None else 1
             except (ValueError, TypeError):
                 guess["disc"] = 1
 
             # Year normalization
             year = guess.get("year")
             try:
-                guess["year"] = int(year) if year else None
+                guess["year"] = int(year) if year is not None else None
             except (ValueError, TypeError):
                 guess["year"] = None
         except (ValueError, TypeError) as exp:

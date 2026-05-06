@@ -129,7 +129,7 @@ class TVDBClient:
     def search_episode(self, series_name: str, season: int, episode: int) -> Optional[Dict[str, Any]]:
         """Find an episode by series name, season, and episode number."""
         page = 1
-        limit = 1
+        limit = 10
         lang = 'eng'
         series_name = self.remove_year_from_title(series_name)
         series_results = self.search_series(series_name, language=lang, limit=limit)
@@ -138,12 +138,18 @@ class TVDBClient:
 
         # Normalize for best match
         query_norm = series_name.lower().replace(":", "").strip()
+        query_norm = self.normalize_title(query_norm)
 
         # Pick the best matching series
         best_match = None
         for result in series_results:
-            slug = result.get("slug", "").lower().replace(":", "").strip() if result.get("slug") else None
             title = result.get("name", "").lower().replace(":", "").strip() if result.get("name") else None
+            title = self.normalize_title(title)
+
+            slug = result.get("slug", "").lower().replace(":", "").strip() if result.get("slug") else None
+            if slug:
+                slug = self.normalize_title(slug)
+
             aliases = list(result.get("aliases")) if result.get("aliases") else None
 
             if slug:
@@ -159,6 +165,8 @@ class TVDBClient:
             if aliases:
                 for alias in aliases:
                     alias = alias.lower().replace(":", "").strip()
+                    if alias:
+                        alias = self.normalize_title(alias)
                     if alias == query_norm:
                         best_match = result
                         break
@@ -198,7 +206,7 @@ class TVDBClient:
     def search_episode2(self, tvdb_id: str, season: int, episode: int) -> Optional[Dict[str, Any]]:
         """Find an episode by series tvdb_id, season, and episode number."""
         page = 1
-        limit = 1
+        limit = 10
         lang = 'eng'
         series_results = self.tvdb_v4_official.get_series(id=int(tvdb_id))
         if not series_results:
@@ -237,6 +245,7 @@ class TVDBClient:
         max_pages = 1
         limit = 10
         lang = 'eng'
+
         series_name = self.remove_year_from_title(series_name)
         series_results = self.search_series(series_name, language=lang, limit=limit)
         if not series_results:
@@ -244,12 +253,15 @@ class TVDBClient:
 
         # Normalize for best match
         query_norm = series_name.lower().replace(":", "").strip()
+        query_norm = self.normalize_title(query_norm)
 
         # 1. Pick the best matching series
         best_match = None
         for result in series_results:
             slug = result.get("slug", "").lower().replace(":", "").strip() if result.get("slug") else None
+            slug = self.normalize_title(slug)
             title = result.get("name", "").lower().replace(":", "").strip() if result.get("name") else None
+            title = self.normalize_title(title)
 
             if slug:
                 if slug == query_norm:
@@ -310,3 +322,12 @@ class TVDBClient:
     def remove_year_from_title(self, title: str) -> str:
         # Removes patterns like "(2023)" or "(1999)"
         return re.sub(r'\s*\(\d{4}\)\s*$', '', title).strip()
+
+    def normalize_title(self, name):
+        # replace separators with space
+        name = re.sub(r'[-_.]', ' ', name)
+        # lowercase
+        name = name.lower()
+        # remove extra spaces
+        name = re.sub(r'\s+', ' ', name).strip()
+        return name

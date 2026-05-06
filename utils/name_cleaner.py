@@ -504,10 +504,10 @@ def validate_season_and_episode_number(guess_data: dict, clean_media: dict, file
         return guess_data
 
     def is_valid_season(value):
-        return isinstance(value, int) and 0 < value < 100
+        return isinstance(value, int) and 0 <= value <= 100
 
     def is_valid_episode(value):
-        return isinstance(value, int) and 0 < value < 3000
+        return isinstance(value, int) and 0 <= value <= 3000
 
     # Normalize multi-episode guesses
     if isinstance(guess_data.get("episode"), list):
@@ -517,10 +517,10 @@ def validate_season_and_episode_number(guess_data: dict, clean_media: dict, file
     clean_season = clean_media.get("season")
 
     # Drop invalid or "year-like" seasons
-    if not is_valid_season(season) or (season and 1900 <= season <= 2100):
+    if not is_valid_season(season) or (season is not None and 1900 <= season <= 2100):
         season = None
 
-    if clean_season and (not season or season != int(clean_season)):
+    if clean_season is not None and (season is None or season != int(clean_season)):
         season = int(clean_season)
 
     episode = guess_data.get("episode")
@@ -531,16 +531,16 @@ def validate_season_and_episode_number(guess_data: dict, clean_media: dict, file
     if not is_valid_episode(episode):
         episode = None
 
-    if clean_episodes and (not episode or episode not in clean_episodes):
+    if clean_episodes and (episode is None  or episode not in clean_episodes):
         episode = clean_episodes[0]
 
     # Try extracting leading episode number from filename if missing
-    if not episode and file_path:
+    if episode is None and file_path:
         match = re.match(r'^\D*(\d{1,3})\D', str(file_path.name))
         if match:
             episode = int(match.group(1))
 
-    if not season:
+    if season is None:
         season = 1
 
     guess_data["season"] = season

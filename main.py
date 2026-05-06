@@ -25,6 +25,7 @@ from utils.config_loader import ConfigLoader
 from utils.file_utils import FileUtils
 from utils.health_check import HealthChecker
 from core.library_scanner import LibraryScanner
+from utils.torrent_metadata import TorrentMetadata
 
 CELEBRATION_EMOJI = "🎉"
 H_LINE_EMOJI = "═"
@@ -54,48 +55,12 @@ def acquire_file_lock(file_path: Path):
         lock_fp.close()
         return None
 
-
-def acquire_single_instance_lock(lock_path: Path):
-    """
-    Acquire a non-blocking global lock so only one organizer instance runs at a time.
-    Returns the open lock file handle if successful.
-    Raises portalocker.exceptions.LockException if another instance is already running.
-    """
-    lock_path.parent.mkdir(parents=True, exist_ok=True)
-    lock_fp = open(lock_path, 'a+', encoding='utf-8')
-    portalocker.lock(lock_fp, portalocker.LOCK_EX | portalocker.LOCK_NB)
-    return lock_fp
-
-
-def release_lock(lock_fp):
-    """Release a portalocker lock safely."""
-    if lock_fp:
-        try:
-            portalocker.unlock(lock_fp)
-        finally:
-            lock_fp.close()
-
-
 class MediaOrganizer:
     def __init__(self, config: Dict[str, Any]):
         self.config = ConfigLoader.validate_config(config)
         self.logger = logging.getLogger(__name__)
         self.audit_logger = logging.getLogger('audit')
         self.performance_logger = logging.getLogger('performance')
-
-        state_cfg = self.config.get('state_persistence', {})
-        self.state_file = Path(state_cfg.get('state_file', 'processing_state.json'))
-        self.state_file.parent.mkdir(parents=True, exist_ok=True)
-        self.state_lock_file = Path(state_cfg.get('lock_file', f"{self.state_file}.lock"))
-        self.state_lock_file.parent.mkdir(parents=True, exist_ok=True)
-
-        report_cfg = self.config.get('reporting', {})
-        self.report_file = Path(report_cfg.get('report_file', 'processing_report.json'))
-        self.report_file.parent.mkdir(parents=True, exist_ok=True)
-        self.report_lock_file = Path(report_cfg.get('lock_file', f"{self.report_file}.lock"))
-        self.report_lock_file.parent.mkdir(parents=True, exist_ok=True)
-
-        self.processing_state = self._load_processing_state()
 
         self.logger.debug("Configuration loaded and validated")
         self.audit_logger.info(f"Plex paths: {self.config['plex_paths']}")
@@ -109,22 +74,13 @@ class MediaOrganizer:
         self.validator = MediaValidator(self.config)
         self.health_checker = HealthChecker(self.config)
         self.library_scanner = LibraryScanner(self.config)
+        self.torrent_metadata = TorrentMetadata(self.config)
 
         self.processed_files = []
         self.start_time = time.time()
         self.logger.info("MediaOrganizer initialized successfully")
 
         self._run_health_check()
-
-    def _with_state_lock(self):
-        lock_fp = open(self.state_lock_file, 'a+', encoding='utf-8')
-        portalocker.lock(lock_fp, portalocker.LOCK_EX)
-        return lock_fp
-
-    def _with_report_lock(self):
-        lock_fp = open(self.report_lock_file, 'a+', encoding='utf-8')
-        portalocker.lock(lock_fp, portalocker.LOCK_EX)
-        return lock_fp
 
     def _run_health_check(self):
         """Run system health check"""
@@ -140,138 +96,6 @@ class MediaOrganizer:
         if normalized_api_ok and not all(normalized_api_ok):
             self.logger.warning("Some API services are unavailable")
         self.logger.debug(f"Health check: {health}")
-
-    def _default_processing_state(self) -> Dict[str, Any]:
-        return {
-            'processed_files': [],
-            'total_processed': 0,
-            'start_time': datetime.now().isoformat()
-        }
-
-    def _load_processing_state(self) -> Dict[str, Any]:
-        """Load processing state from file safely."""
-        if not self.config.get('state_persistence', {}).get('enabled', True):
-            return self._default_processing_state()
-
-        if not self.state_file.exists():
-            return self._default_processing_state()
-
-        lock_fp = None
-        try:
-            lock_fp = self._with_state_lock()
-            with open(self.state_file, 'r', encoding='utf-8') as f:
-                state = json.load(f)
-
-            self.logger.info(
-                f"Loaded processing state: {len(state.get('processed_files', []))} previously processed files"
-            )
-            return state
-        except Exception as e:
-            self.logger.warning(f"Failed to load processing state: {e}")
-            return self._default_processing_state()
-        finally:
-            if lock_fp:
-                release_lock(lock_fp)
-
-    def _save_processing_state(self):
-        """Save current processing state safely."""
-        if not self.config.get('state_persistence', {}).get('enabled', True):
-            return
-
-        lock_fp = None
-        try:
-            state = {
-                'processed_files': [r['original_path'] for r in self.processed_files],
-                'total_processed': len(self.processed_files),
-                'timestamp': datetime.now().isoformat(),
-                'successful': sum(1 for r in self.processed_files if r.get('success', False)),
-                'failed': len(self.processed_files) - sum(1 for r in self.processed_files if r.get('success', False))
-            }
-
-            self.state_file.parent.mkdir(parents=True, exist_ok=True)
-
-            lock_fp = self._with_state_lock()
-
-            temp_file = self.state_file.with_suffix(self.state_file.suffix + ".tmp")
-            with open(temp_file, 'w', encoding='utf-8') as f:
-                json.dump(state, f, indent=2, ensure_ascii=False)
-                f.flush()
-                os.fsync(f.fileno())
-
-            os.replace(temp_file, self.state_file)
-            self.logger.debug("Processing state saved")
-
-        except Exception as e:
-            self.logger.error(f"Failed to save processing state: {e}")
-        finally:
-            if lock_fp:
-                release_lock(lock_fp)
-
-    def _append_or_write_report(self, report: Dict[str, Any]) -> None:
-        """
-        Save report based on config:
-        - append_mode = true  -> append to JSON array
-        - append_mode = false -> overwrite file with single report object
-        """
-        report_cfg = self.config.get('reporting', {})
-        append_mode = bool(report_cfg.get('append_mode', False))
-        max_reports = int(report_cfg.get('max_reports', 1000))
-
-        lock_fp = None
-        try:
-            lock_fp = self._with_report_lock()
-
-            if not append_mode:
-                temp_file = self.report_file.with_suffix(self.report_file.suffix + ".tmp")
-                with open(temp_file, 'w', encoding='utf-8') as f:
-                    json.dump(report, f, indent=2, ensure_ascii=False, default=str)
-                    f.flush()
-                    os.fsync(f.fileno())
-
-                os.replace(temp_file, self.report_file)
-                self.logger.info(f"{DOCUMENT_EMOJI} Detailed report saved to: {self.report_file}")
-                return
-
-            existing_reports = []
-            if self.report_file.exists():
-                try:
-                    with open(self.report_file, 'r', encoding='utf-8') as f:
-                        content = f.read().strip()
-                        if content:
-                            parsed = json.loads(content)
-                            if isinstance(parsed, list):
-                                existing_reports = parsed
-                            elif isinstance(parsed, dict):
-                                existing_reports = [parsed]
-                            else:
-                                self.logger.warning(
-                                    "Existing processing_report.json is neither object nor list. Resetting report history."
-                                )
-                except Exception as e:
-                    self.logger.warning(f"Failed to read existing report history: {e}. Resetting report history.")
-
-            existing_reports.append(report)
-
-            if max_reports > 0 and len(existing_reports) > max_reports:
-                existing_reports = existing_reports[-max_reports:]
-
-            temp_file = self.report_file.with_suffix(self.report_file.suffix + ".tmp")
-            with open(temp_file, 'w', encoding='utf-8') as f:
-                json.dump(existing_reports, f, indent=2, ensure_ascii=False, default=str)
-                f.flush()
-                os.fsync(f.fileno())
-
-            os.replace(temp_file, self.report_file)
-            self.logger.info(
-                f"{DOCUMENT_EMOJI} Detailed report appended to: {self.report_file} "
-                f"(total saved reports: {len(existing_reports)})"
-            )
-
-        except Exception as e:
-            self.logger.error(f"Failed to save report: {e}")
-        finally:
-            if lock_fp:
-                release_lock(lock_fp)
 
     def estimate_remaining_time(self, start_time: float, processed: int, total: int) -> str:
         """Estimate remaining processing time"""
@@ -326,6 +150,7 @@ class MediaOrganizer:
             min_size = self.config.get('processing', {}).get('min_file_size_mb', 1) * 1024 * 1024
             max_size = self.config.get('processing', {}).get('max_file_size_mb', 102400) * 1024 * 1024
             max_sample_size = self.config.get('processing', {}).get('max_sample_file_size_mb', 15) * 1024 * 1024
+            file_hash = result.get("file_info", {}).get("hash")
 
             if not FileUtils.is_valid_media_file(file_path, min_size, max_size, max_sample_size):
                 result['errors'].append('Invalid media file')
@@ -358,12 +183,23 @@ class MediaOrganizer:
                 media_type = media_info.get('media_type', 'media')
                 pbar.set_description(f"🌐 Fetching {media_type} metadata...")
 
+            # METADATA
+            self.torrent_metadata.send_progress_update(info_hash, file_hash, "metadata", 0)
             metadata = self.metadata_fetcher.fetch_metadata(media_info)
+
             if not metadata:
                 result['warnings'].append('Could not fetch metadata, using filename-based naming')
                 metadata = media_info.copy()
+                self.torrent_metadata.send_progress_update(
+                    info_hash, file_hash, "metadata", 100, status="completed"
+                )
+
+                result['warnings'].append("Metadata fetch failed")
+            else:
+                self.torrent_metadata.send_progress_update(info_hash, file_hash, "metadata", 100, status="completed")
 
             metadata['media_type'] = media_info.get('media_type')
+            metadata['file_info'] = result.get('file_info')
             result['metadata'] = metadata
 
             if pbar:
@@ -376,48 +212,129 @@ class MediaOrganizer:
                 pbar.set_description(f"🚚 Copying to Plex...")
 
             destination = self.mover.prepare_destination(media_info, metadata, new_name_info)
+
             copy_result = self.mover.move_file(file_path, destination, metadata, info_hash)
             result['move_result'] = copy_result
+
+            if not copy_result.get("success"):
+                result['errors'].append("Copy failed")
+
+                self.torrent_metadata.send_progress_update(
+                    info_hash,
+                    file_hash,
+                    stage="completed",
+                    progress=100,
+                    status="failed",
+                    success=False
+                )
+
+                return result
 
             if self.config.get('download', {}).get('artwork', False) and not self.config.get("dry_run", False):
                 if pbar:
                     pbar.set_description(f"🎨 Downloading artwork...")
 
+                # ARTWORK
+                self.torrent_metadata.send_progress_update(
+                    info_hash, file_hash, "artwork", 0
+                )
                 artwork_paths = self.downloader.download_artwork(metadata, media_info['media_type'], destination)
                 result['artwork_paths'] = artwork_paths
+                # call your artwork logic
+                if artwork_paths:
+                    self.torrent_metadata.send_progress_update(
+                        info_hash, file_hash, "artwork", 100, status="completed"
+                    )
+                else:
+                    self.torrent_metadata.send_progress_update(
+                        info_hash, file_hash, "artwork", 100, status="completed"
+                    )
 
             if self.config.get('download', {}).get('subtitles', False):
                 if media_info['media_type'] in ['movie', 'tv_show', 'anime'] and not self.config.get("dry_run", False):
                     if pbar:
                         pbar.set_description(f"📜 Downloading subtitles...")
 
+                    # SUBTITLES
+                    self.torrent_metadata.send_progress_update(
+                        info_hash, file_hash, "subtitles", 0, status="processing"
+                    )
                     subtitle_path = self.downloader.download_subtitles(destination, metadata)
                     if subtitle_path:
                         result['subtitle_path'] = subtitle_path
+                        # SUBTITLES
+                        self.torrent_metadata.send_progress_update(
+                            info_hash, file_hash, "subtitles", 100, status="completed"
+                        )
                     else:
                         result['warnings'].append('Could not download subtitles')
+                        # SUBTITLES
+                        self.torrent_metadata.send_progress_update(
+                            info_hash, file_hash, "subtitles", 100, status="completed"
+                        )
 
             if pbar:
                 pbar.set_description(f"✅ Validating result...")
 
+            # VALIDATION - Start
+            self.torrent_metadata.send_progress_update(
+                info_hash, file_hash, "validation", 0, status="processing"
+            )
             validation = self.validator.validate(result)
             result['validation'] = validation
 
             if validation['is_valid']:
                 result['success'] = True
+                # VALIDATION - End
+                self.torrent_metadata.send_progress_update(
+                    info_hash, file_hash, "validation", 100, status="completed"
+                )
 
                 if self.config.get('library_scan', {}).get('scan_after_each_file', False):
+                    # PLEX
+                    self.torrent_metadata.send_progress_update(
+                        info_hash, file_hash, "plex_scan", 0, status="processing"
+                    )
+                    # EMBY
+                    self.torrent_metadata.send_progress_update(
+                        info_hash, file_hash, "emby_scan", 0, status="processing"
+                    )
                     media_type = metadata.get('media_type')
                     scan_results = self.library_scanner.scan_libraries(media_type)
                     result['library_scan'] = scan_results
                     result['scan_media_type'] = media_type
                     result['scan_duration'] = scan_results.get('duration', 0)
+                    # PLEX
+                    self.torrent_metadata.send_progress_update(
+                        info_hash, file_hash, "plex_scan", 100, status="completed"
+                    )
+                    # EMBY
+                    self.torrent_metadata.send_progress_update(
+                        info_hash, file_hash, "emby_scan", 100, status="completed"
+                    )
 
                 if pbar:
                     pbar.set_description(f"✓ Success: {file_path.name[:25]}...")
                 self.audit_logger.info(f"Successfully processed: {file_path.name}")
+                self.torrent_metadata.send_progress_update(
+                    info_hash,
+                    file_hash,
+                    stage="completed",
+                    progress=100,
+                    status="completed",
+                    success=True,
+                    extra=result.get("move_result", {})
+                )
             else:
                 result['errors'].extend(validation.get('errors', []))
+                self.torrent_metadata.send_progress_update(
+                    info_hash,
+                    file_hash,
+                    stage="completed",
+                    progress=100,
+                    status="failed",
+                    success=False
+                )
                 if pbar:
                     pbar.set_description(f"✗ Failed: {file_path.name[:25]}...")
 
@@ -427,13 +344,32 @@ class MediaOrganizer:
                 pbar.set_description(f"💥 Error: {file_path.name[:25]}...")
             self.logger.error(f"Error processing {file_path}: {e}")
             self.logger.exception("Detailed error:")
+            file_hash = result.get("file_info", {}).get("hash")
+            self.torrent_metadata.send_progress_update(
+                info_hash,
+                file_hash,
+                stage="completed",
+                progress=100,
+                status="failed",
+                success=False
+            )
 
         finally:
             result['processing_time'] = time.time() - file_start_time
             result['end_time'] = datetime.now().isoformat()
             self.performance_logger.info(f"File processed in {result['processing_time']:.2f}s: {file_path.name}")
             if file_lock:
-                release_lock(file_lock)
+                try:
+                    portalocker.unlock(file_lock)
+                finally:
+                    file_lock.close()
+                # 🔥 CLEANUP LOCK FILE
+                lock_path = file_path.with_suffix(file_path.suffix + ".lock")
+                if lock_path.exists():
+                    try:
+                        lock_path.unlink()
+                    except Exception as e:
+                        self.logger.exception(f"Failed to delete lock file: {lock_path}")
 
         return result
 
@@ -451,10 +387,6 @@ class MediaOrganizer:
             recursive=True
         )
 
-        if self.config.get('state_persistence', {}).get('resume_enabled', True):
-            processed_paths = set(self.processing_state.get('processed_files', []))
-            media_files = [f for f in media_files if str(f) not in processed_paths]
-
         self.logger.info(f"Found {len(media_files)} media files to process")
 
         if not media_files:
@@ -463,7 +395,6 @@ class MediaOrganizer:
 
         results = []
         start_time = time.time()
-        save_interval = self.config.get('state_persistence', {}).get('save_interval', 10)
 
         progress_config = self.config.get('progress', {})
         pbar_config = {
@@ -500,15 +431,9 @@ class MediaOrganizer:
 
                     pbar.update(1)
 
-                    if processed % save_interval == 0:
-                        self._save_processing_state()
-
-                    time.sleep(progress_config.get('refresh_interval', 0.1))
-
                 except KeyboardInterrupt:
                     self.logger.warning("Processing interrupted by user")
                     pbar.set_description("🛑 Interrupted - saving state...")
-                    self._save_processing_state()
                     break
                 except Exception as e:
                     self.logger.exception(f"Unexpected error processing {file_path}: {e}")
@@ -525,8 +450,6 @@ class MediaOrganizer:
             empty_dirs_removed = FileUtils.cleanup_empty_directories(directory)
             if empty_dirs_removed > 0:
                 self.logger.info(f"Removed {empty_dirs_removed} empty directories")
-
-        self._save_processing_state()
 
         if (
             self.config.get('library_scan', {}).get('enabled', True)
@@ -717,23 +640,6 @@ class MediaOrganizer:
     def undo_all_operations(self) -> Dict[str, Any]:
         return self.mover.undo_all_operations()
 
-    def clear_state(self) -> bool:
-        """Clear processing state"""
-        lock_fp = None
-        try:
-            lock_fp = self._with_state_lock()
-            if self.state_file.exists():
-                self.state_file.unlink()
-            self.processing_state = {'processed_files': [], 'total_processed': 0}
-            self.logger.info("Processing state cleared")
-            return True
-        except Exception as e:
-            self.logger.error(f"Failed to clear state: {e}")
-            return False
-        finally:
-            if lock_fp:
-                release_lock(lock_fp)
-
 
 def main():
     parser = argparse.ArgumentParser(description='Media File Organizer - Advanced FileBot Alternative')
@@ -746,14 +652,10 @@ def main():
                         help='Logging configuration file path')
     parser.add_argument('--no-progress', action='store_true',
                         help='Disable progress bar (useful for scripting)')
-    parser.add_argument('--resume', action='store_true',
-                        help='Resume previous processing session')
     parser.add_argument('--undo', action='store_true',
                         help='Undo the last operation')
     parser.add_argument('--undo-all', action='store_true',
                         help='Undo all operations (use with caution!)')
-    parser.add_argument('--clear-state', action='store_true',
-                        help='Clear processing state and start fresh')
     parser.add_argument('--health-check', action='store_true',
                         help='Run health check and exit')
     parser.add_argument('--stats', action='store_true',
@@ -783,11 +685,11 @@ def main():
         health_checker = HealthChecker(config)
         health = health_checker.run_health_check()
 
-        print("\n" + "=" * 50)
-        print("🏥 COMPREHENSIVE HEALTH CHECK")
-        print("=" * 50)
+        logging.info("\n" + "=" * 50)
+        logging.info("🏥 COMPREHENSIVE HEALTH CHECK")
+        logging.info("=" * 50)
 
-        print(f"\n🌐 API STATUS:")
+        logging.info(f"\n🌐 API STATUS:")
         for api_name, api_status in health['apis'].items():
             if isinstance(api_status, dict):
                 ok = api_status.get('status')
@@ -796,53 +698,31 @@ def main():
                 ok = bool(api_status)
                 response_time = 'N/A'
             status_icon = '✅' if ok else '❌'
-            print(f"  {status_icon} {api_name}: {response_time}s")
+            logging.info(f"  {status_icon} {api_name}: {response_time}s")
 
-        print(f"\n🎬 MEDIA SERVERS:")
+        logging.info(f"\n🎬 MEDIA SERVERS:")
         for server_name, server_status in health['media_servers'].items():
             if server_status.get('configured', False):
                 status_icon = '✅' if server_status.get('status') else '❌'
                 if server_name == 'plex' and server_status.get('mappings_valid') is not None:
                     mapping_status = '✅' if server_status.get('mappings_valid') else '❌'
-                    print(f"  {status_icon} {server_name.capitalize()} (mappings: {mapping_status})")
+                    logging.info(f"  {status_icon} {server_name.capitalize()} (mappings: {mapping_status})")
                 else:
-                    print(f"  {status_icon} {server_name.capitalize()}")
+                    logging.info(f"  {status_icon} {server_name.capitalize()}")
             else:
-                print(f"  ⚪ {server_name.capitalize()}: Not configured")
+                logging.info(f"  ⚪ {server_name.capitalize()}: Not configured")
 
-        print(f"\n💾 DISK: {health['disk_space'].get('free_gb', 'N/A')}GB free "
+        logging.info(f"\n💾 DISK: {health['disk_space'].get('free_gb', 'N/A')}GB free "
               f"({health['disk_space'].get('percent_free', 'N/A')}% free)")
-        print(f"🧠 MEMORY: {health['system_resources'].get('memory', {}).get('percent', 'N/A')}% used")
-        print(f"⚡ CPU: {health['system_resources'].get('cpu', {}).get('percent', 'N/A')}% used")
+        logging.info(f"🧠 MEMORY: {health['system_resources'].get('memory', {}).get('percent', 'N/A')}% used")
+        logging.info(f"⚡ CPU: {health['system_resources'].get('cpu', {}).get('percent', 'N/A')}% used")
 
         if health.get('issues'):
-            print(f"\n⚠️  ISSUES ({len(health['issues'])}):")
+            logging.info(f"\n⚠️  ISSUES ({len(health['issues'])}):")
             for issue in health['issues']:
-                print(f"  - {issue}")
+                logging.info(f"  - {issue}")
 
-        print(f"\n⏱️  Check completed in {health['check_duration']}s")
-        return 0
-
-    if args.clear_state:
-        state_cfg = config.get('state_persistence', {})
-        state_file = Path(state_cfg.get('state_file', 'processing_state.json'))
-        state_lock_file = Path(state_cfg.get('lock_file', f"{state_file}.lock"))
-
-        cleared_any = False
-
-        if state_file.exists():
-            state_file.unlink()
-            cleared_any = True
-
-        if state_lock_file.exists():
-            state_lock_file.unlink()
-            cleared_any = True
-
-        if cleared_any:
-            print("Processing state cleared")
-        else:
-            print("No processing state found")
-
+        logging.info(f"\n⏱️  Check completed in {health['check_duration']}s")
         return 0
 
     source_path = Path(args.source)
@@ -856,64 +736,51 @@ def main():
         library_scanner = LibraryScanner(config)
         libraries = library_scanner.get_available_libraries()
 
-        print("\n" + "=" * 50)
-        print("📚 AVAILABLE LIBRARIES")
-        print("=" * 50)
+        logging.info("\n" + "=" * 50)
+        logging.info("📚 AVAILABLE LIBRARIES")
+        logging.info("=" * 50)
 
         if libraries['plex']:
-            print("Plex Libraries:")
+            logging.info("Plex Libraries:")
             for lib in libraries['plex']:
-                print(f"  - {lib}")
+                logging.info(f"  - {lib}")
         else:
-            print("No Plex libraries found or Plex not configured")
+            logging.info("No Plex libraries found or Plex not configured")
 
         plex_config = config.get('library_scan', {}).get('plex', {})
         if plex_config.get('enabled', False) and plex_config.get('library_mapping'):
-            print(f"\n🔧 CONFIGURED PLEX MAPPING:")
+            logging.info(f"\n🔧 CONFIGURED PLEX MAPPING:")
             for media_type, library_name in plex_config['library_mapping'].items():
                 exists = library_name in libraries['plex'] if libraries['plex'] else False
                 status_emoji = '✅' if exists else '❌'
-                print(f"  {media_type:10} → {library_name:15} {status_emoji}")
+                logging.info(f"  {media_type:10} → {library_name:15} {status_emoji}")
 
         emby_config = config.get('library_scan', {}).get('emby', {})
         if emby_config.get('enabled', False):
-            print(f"\n🎵 Emby: Library scanning enabled")
+            logging.info(f"\n🎵 Emby: Library scanning enabled")
             if emby_config.get('library_mapping'):
-                print(f"   Mappings configured for {len(emby_config['library_mapping'])} media types")
+                logging.info(f"Mappings configured for {len(emby_config['library_mapping'])} media types")
 
         return 0
 
-    lock_fp = None
-    lock_path = Path(config.get('runtime', {}).get('instance_lock_file', 'locks/media_organizer.lock'))
-
-    try:
-        if config.get("runtime", {}).get("single_instance", False):
-            lock_fp = acquire_single_instance_lock(lock_path)
-            logging.info(f"Acquired organizer instance lock: {lock_path}")
-    except portalocker.exceptions.LockException:
-        logging.info(
-            "Another MediaOrganizer instance is already running. "
-            "This run will exit because the other instance will process the files."
-        )
-        return 0
-
+    # MediaOrganizer Core Object
     organizer = MediaOrganizer(config)
 
     if args.undo:
         try:
             result = organizer.undo_last_operation()
-            print(f"Undo result: {result}")
+            logging.info(f"Undo result: {result}")
             return 0 if result.get('success', False) else 1
         finally:
-            release_lock(lock_fp)
+            logging.debug(f"Undo last operation: {result}")
 
     if args.undo_all:
         try:
             result = organizer.undo_all_operations()
-            print(f"Undo all result: {result}")
+            logging.info(f"Undo all result: {result}")
             return 0 if result.get('success', False) else 1
         finally:
-            release_lock(lock_fp)
+            logging.debug(f"Undo all operation: {result}")
 
     try:
         if source_path.is_file():
@@ -1027,22 +894,16 @@ def main():
             if ops_stats.get('operations_by_type'):
                 logging.info(f"By type: {ops_stats['operations_by_type']}")
 
-        organizer._append_or_write_report(report)
-
         return 0 if report['failed'] == 0 else 1
 
     except KeyboardInterrupt:
         logging.info(f"\n{STOP_EMOJI} Processing interrupted by user - saving state...")
-        organizer._save_processing_state()
         return 130
 
     except Exception as e:
         logging.error(f"{EXPLOSION_EMOJI} Unexpected error during processing: {e}")
         logging.exception("Detailed error traceback:")
         return 1
-
-    finally:
-        release_lock(lock_fp)
 
 
 if __name__ == "__main__":

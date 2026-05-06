@@ -115,6 +115,62 @@ class FileUtils:
         return FileUtils.safe_operation(move_operation, max_retries=max_retries)
 
     @staticmethod
+    def safe_move_with_progress(
+            src: Path,
+            dst: Path,
+            overwrite: bool = False,
+            max_retries: Optional[int] = 3,
+            progress_callback: Optional[Callable[[Dict[str, Any]], None]] = None,
+            info_hash: str = None,
+            file_hash: str = None
+    ) -> bool:
+        """Move file with progress (copy + delete fallback)"""
+
+        def move_operation():
+            if not src.exists():
+                raise FileNotFoundError(f"Source file does not exist: {src}")
+
+            dst.parent.mkdir(parents=True, exist_ok=True)
+
+            try:
+                # ✅ Try fast move first
+                os.rename(src, dst)
+
+                if progress_callback:
+                    progress_callback({
+                        "info_hash": info_hash,
+                        "file_hash": file_hash,
+                        "stage": "copy",
+                        "progress": 100,
+                        "status": "processing"
+                    })
+
+                logging.info(f"Fast move (rename) {src} → {dst}")
+                return True
+
+            except OSError:
+                # ❗ Different filesystem → fallback to copy
+                logging.info(f"Cross-device move detected, using copy+delete: {src}")
+
+                success = FileUtils.safe_copy_with_progress(
+                    src,
+                    dst,
+                    overwrite=overwrite,
+                    progress_callback=progress_callback,
+                    info_hash=info_hash,
+                    file_hash=file_hash
+                )
+
+                if success:
+                    src.unlink()
+                    logging.info(f"Deleted original after move: {src}")
+                    return True
+
+                return False
+
+        return FileUtils.safe_operation(move_operation, max_retries=max_retries)
+
+    @staticmethod
     def safe_copy(src: Path, dst: Path, overwrite: bool = False, max_retries: int = 3) -> bool:
         """Safely copy file with error handling and retry logic"""
 
@@ -138,6 +194,86 @@ class FileUtils:
 
             shutil.copy2(str(src), str(dst))  # copy2 preserves metadata
             logging.info(f"Copied {src} to {dst}")
+            return True
+
+        return FileUtils.safe_operation(copy_operation, max_retries=max_retries)
+
+    @staticmethod
+    def safe_copy_with_progress(
+            src: Path,
+            dst: Path,
+            overwrite: bool = False,
+            max_retries: Optional[int] = 3,
+            progress_callback: Optional[Callable[[Dict[str, Any]], None]] = None,
+            info_hash: str = None,
+            file_hash: str = None
+    ) -> bool:
+        """Copy file with progress tracking"""
+
+        def copy_operation():
+            if not src.exists():
+                raise FileNotFoundError(f"Source file does not exist: {src}")
+
+            if dst.exists():
+                if overwrite:
+                    if FileUtils.get_file_hash(src) == FileUtils.get_file_hash(dst):
+                        logging.info(f"Files identical, skipping copy: {src}")
+                        return True
+                    dst.unlink()
+                else:
+                    raise FileExistsError(f"Destination exists: {dst}")
+
+            dst.parent.mkdir(parents=True, exist_ok=True)
+
+            total_size = src.stat().st_size
+            copied = 0
+            chunk_size = 10 * 1024 * 1024
+            last_reported = 0
+            start_time = time.time()
+
+            with open(src, "rb") as fsrc, open(dst, "wb") as fdst:
+                while True:
+                    chunk = fsrc.read(chunk_size)
+                    if not chunk:
+                        break
+
+                    fdst.write(chunk)
+                    copied += len(chunk)
+
+                    if total_size == 0:
+                        progress = 100
+                    else:
+                        progress = (copied / total_size) * 100
+
+                    elapsed = time.time() - start_time
+                    speed = copied / elapsed if elapsed > 0 else 0
+                    remaining = total_size - copied
+                    eta = remaining / speed if speed > 0 else 0
+
+                    if progress_callback and (progress - last_reported >= 5):
+                        progress_callback({
+                            "info_hash": info_hash,
+                            "file_hash": file_hash,
+                            "stage": "copy",
+                            "progress": round(progress, 2),
+                            "status": "processing",
+                            "speed": round(speed / (1024 * 1024), 2),
+                            "eta": round(eta, 2)
+                        })
+                        last_reported = progress
+
+            # ✅ FINAL EVENT (only once)
+            if progress_callback:
+                progress_callback({
+                    "info_hash": info_hash,
+                    "file_hash": file_hash,
+                    "stage": "copy",
+                    "progress": 100,
+                    "status": "processing"
+                })
+
+            shutil.copystat(src, dst)  # preserve metadata
+            logging.info(f"Copied with progress {src} → {dst}")
             return True
 
         return FileUtils.safe_operation(copy_operation, max_retries=max_retries)
