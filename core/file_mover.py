@@ -207,7 +207,7 @@ class FileMover:
                 self.torrent_metadata.send_progress_update(
                     info_hash=info_hash,
                     file_hash=file_hash,
-                    stage="completed",
+                    stage="copy",
                     progress=100,
                     status="completed",
                     success=True

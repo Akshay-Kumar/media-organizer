@@ -159,7 +159,11 @@ class MediaOrganizer:
             if pbar:
                 pbar.set_description(f"🔍 Identifying: {file_path.name[:25]}...")
 
+            self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 0, status="processing")
             media_info = self.identifier.identify(file_path, info_hash=info_hash)
+
+            if media_info:
+                self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 100, status="completed")
 
             if media_info.get("media_type", "Unknown") in ("anime", "tv_show"):
                 if media_info['season'] == 1 and (
@@ -177,6 +181,7 @@ class MediaOrganizer:
 
             if not media_info.get('media_type'):
                 result['errors'].append('Could not identify media type')
+                self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 100, status="failed")
                 return result
 
             if pbar:
@@ -184,15 +189,13 @@ class MediaOrganizer:
                 pbar.set_description(f"🌐 Fetching {media_type} metadata...")
 
             # METADATA
-            self.torrent_metadata.send_progress_update(info_hash, file_hash, "metadata", 0)
+            self.torrent_metadata.send_progress_update(info_hash, file_hash, "metadata", 0, status="processing")
             metadata = self.metadata_fetcher.fetch_metadata(media_info)
 
             if not metadata:
                 result['warnings'].append('Could not fetch metadata, using filename-based naming')
                 metadata = media_info.copy()
-                self.torrent_metadata.send_progress_update(
-                    info_hash, file_hash, "metadata", 100, status="completed"
-                )
+                self.torrent_metadata.send_progress_update(info_hash, file_hash, "metadata", 100, status="failed")
 
                 result['warnings'].append("Metadata fetch failed")
             else:
@@ -222,7 +225,7 @@ class MediaOrganizer:
                 self.torrent_metadata.send_progress_update(
                     info_hash,
                     file_hash,
-                    stage="completed",
+                    stage="copy",
                     progress=100,
                     status="failed",
                     success=False
@@ -236,7 +239,7 @@ class MediaOrganizer:
 
                 # ARTWORK
                 self.torrent_metadata.send_progress_update(
-                    info_hash, file_hash, "artwork", 0
+                    info_hash, file_hash, "artwork", 0, status="processing"
                 )
                 artwork_paths = self.downloader.download_artwork(metadata, media_info['media_type'], destination)
                 result['artwork_paths'] = artwork_paths
@@ -247,7 +250,7 @@ class MediaOrganizer:
                     )
                 else:
                     self.torrent_metadata.send_progress_update(
-                        info_hash, file_hash, "artwork", 100, status="completed"
+                        info_hash, file_hash, "artwork", 100, status="failed"
                     )
 
             if self.config.get('download', {}).get('subtitles', False):
@@ -270,7 +273,7 @@ class MediaOrganizer:
                         result['warnings'].append('Could not download subtitles')
                         # SUBTITLES
                         self.torrent_metadata.send_progress_update(
-                            info_hash, file_hash, "subtitles", 100, status="completed"
+                            info_hash, file_hash, "subtitles", 100, status="failed"
                         )
 
             if pbar:
@@ -293,11 +296,11 @@ class MediaOrganizer:
                 if self.config.get('library_scan', {}).get('scan_after_each_file', False):
                     # PLEX
                     self.torrent_metadata.send_progress_update(
-                        info_hash, file_hash, "plex_scan", 0, status="processing"
+                        info_hash, file_hash, "plex", 0, status="processing"
                     )
                     # EMBY
                     self.torrent_metadata.send_progress_update(
-                        info_hash, file_hash, "emby_scan", 0, status="processing"
+                        info_hash, file_hash, "emby", 0, status="processing"
                     )
                     media_type = metadata.get('media_type')
                     scan_results = self.library_scanner.scan_libraries(media_type)
@@ -306,11 +309,11 @@ class MediaOrganizer:
                     result['scan_duration'] = scan_results.get('duration', 0)
                     # PLEX
                     self.torrent_metadata.send_progress_update(
-                        info_hash, file_hash, "plex_scan", 100, status="completed"
+                        info_hash, file_hash, "plex", 100, status="completed"
                     )
                     # EMBY
                     self.torrent_metadata.send_progress_update(
-                        info_hash, file_hash, "emby_scan", 100, status="completed"
+                        info_hash, file_hash, "emby", 100, status="completed"
                     )
 
                 if pbar:
