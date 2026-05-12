@@ -15,4 +15,5 @@ media_organizer_py.bat
 processing_report.json
 release_groups.json
 processing_state.json
+release-groups.txt
 *.pyc

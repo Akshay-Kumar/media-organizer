@@ -7,8 +7,9 @@ from pathlib import Path
 # -----------------------------
 # CONFIG
 # -----------------------------
+BASE_DIR = Path(__file__).resolve().parent.parent
 API_URL = "http://localhost:8000/api/file-operations"
-JSON_FILE = "C:\\Users\\akki0\PycharmProjects\\media-organizer\\file_operations.json"
+JSON_FILE = BASE_DIR / "file_operations.json"
 RETRIES = 3
 TIMEOUT = 5
 
