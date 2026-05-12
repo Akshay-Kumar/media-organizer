@@ -1,10 +1,10 @@
-import json
+import re
 import logging
-import os
 import shutil
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, Optional, List
+
 from core.file_identifier import MediaFileIdentifier
 from utils.file_utils import FileUtils
 from utils.torrent_metadata import TorrentMetadata
@@ -176,7 +176,11 @@ class FileMover:
                     file_hash=data.get("file_hash"),
                     stage="copy",
                     progress=progress,
-                    status="processing"
+                    status="processing",
+                    extra={
+                        "speed": data.get("speed"),
+                        "eta": data.get("eta"),
+                    }
                 )
 
             # if FileUtils.safe_copy(source_path, destination_path, overwrite=True):
@@ -210,7 +214,14 @@ class FileMover:
                     stage="copy",
                     progress=100,
                     status="completed",
-                    success=True
+                    success=True,
+                    extra={
+                        "operation": result['action'],
+                        "source": str(source_path),
+                        "destination": str(destination_path),
+                        "backup": str(backup_path) if backup_path else None,
+                        "file_size": source_path.stat().st_size
+                    }
                 )
 
                 self.logger.info(f"Copied {source_path} to {destination_path}")
@@ -353,9 +364,36 @@ class FileMover:
         return counts
 
     def _sanitize_folder_name(self, name: str) -> str:
-        invalid_chars = '<>:"/\\|?*'
-        for char in invalid_chars:
-            name = name.replace(char, '')
+
+        # Remove invalid Windows characters
+        invalid_chars = r'[<>:"/\\|?*]'
+        name = re.sub(invalid_chars, '', name)
+
+        # Remove control characters
+        name = re.sub(r'[\x00-\x1f\x7f]', '', name)
+
+        # Collapse repeated whitespace
+        name = re.sub(r'\s+', ' ', name)
+
+        # Remove trailing dots/spaces (Windows restriction)
+        name = name.rstrip(' .')
+
+        # Prevent empty names
+        if not name:
+            name = "Unknown"
+
+        # Reserved Windows device names
+        reserved = {
+            "CON", "PRN", "AUX", "NUL",
+            "COM1", "COM2", "COM3", "COM4",
+            "COM5", "COM6", "COM7", "COM8", "COM9",
+            "LPT1", "LPT2", "LPT3", "LPT4",
+            "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
+        }
+
+        if name.upper() in reserved:
+            name = f"{name}_"
+
         return name.strip()
 
     def _resolve_conflicts(self, path: Path) -> Path:

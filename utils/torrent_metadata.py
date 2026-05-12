@@ -15,6 +15,55 @@ class TorrentMetadata:
         self.api = self.config.get('api')
         self.torrents_endpoint = 'torrents'
         self.file_operations_endpoint = 'api/file-operations'
+        # backend API health-checks
+        self.api_healthy = True
+        self.last_health_check = None
+        self.health_check_interval = 30  # seconds
+
+
+    def check_api_health(self, force: bool = False) -> bool:
+        now = datetime.utcnow().timestamp()
+
+        # Avoid excessive health checks
+        if (
+                not force
+                and self.last_health_check
+                and now - self.last_health_check < self.health_check_interval
+        ):
+            return self.api_healthy
+
+        self.last_health_check = now
+
+        url = f"{self.api}/health/ready"
+
+        try:
+            response = self.session.get(
+                url,
+                timeout=3
+            )
+
+            response.raise_for_status()
+            data = response.json()
+            healthy = data.get("status") == "ready"
+
+            # Recovery log
+            if healthy and not self.api_healthy:
+                self.logger.warning(
+                    "Organizerr API recovered"
+                )
+
+            self.api_healthy = healthy
+            return healthy
+
+        except Exception as e:
+
+            # Only log transition to unhealthy
+            if self.api_healthy:
+                self.logger.error(
+                    f"Organizerr API became unhealthy: {e}"
+                )
+            self.api_healthy = False
+            return False
 
     def fetch_torrent_metadata_by_hash(self, info_hash: str) -> Optional[Dict]:
         url = f"{self.api}/{self.torrents_endpoint}/by_info_hash/{info_hash}"
@@ -45,6 +94,12 @@ class TorrentMetadata:
 
     def send_file_operation(self, record: dict):
         """Final operation logging (low-frequency, reliable)"""
+
+        if not self.check_api_health():
+            self.logger.warning(
+                "Skipping file operation because API is unhealthy"
+            )
+            return False
 
         url = f"{self.api}/{self.file_operations_endpoint}"
 
@@ -93,6 +148,12 @@ class TorrentMetadata:
     ) -> bool:
         """Send progress updates (high-frequency, non-blocking safe)"""
 
+        if not self.check_api_health():
+            self.logger.debug(
+                "Skipping progress update because API is unhealthy"
+            )
+            return False
+
         if not info_hash or not file_hash:
             return False
 
@@ -126,6 +187,13 @@ class TorrentMetadata:
 
             if response.status_code not in (200, 201):
                 self.logger.debug(f"Progress update failed: {response.status_code}")
+
+            if not self.api_healthy:
+                self.logger.info(
+                    "API communication restored"
+                )
+
+            self.api_healthy = True
 
             return True
 

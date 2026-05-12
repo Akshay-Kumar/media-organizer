@@ -268,7 +268,7 @@ class FileUtils:
                     "info_hash": info_hash,
                     "file_hash": file_hash,
                     "stage": "copy",
-                    "progress": 0,
+                    "progress": 99,
                     "status": "processing"
                 })
 
