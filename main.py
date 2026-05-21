@@ -170,7 +170,7 @@ class MediaOrganizer:
                 self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 100, status="completed")
 
             if media_info.get("media_type", "Unknown") in ("anime", "tv_show"):
-                if media_info.get("season") is None and media_info.get("episode") is None:
+                if media_info.get("season", 1) == 1:
                     if media_info['guessit_info'].get("absolute_number") is not None or media_info['guessit_info'].get("absolute_episode") is not None:
                         media_info['absolute_episode_number'] = media_info['guessit_info'].get("absolute_number") if media_info['guessit_info'].get("absolute_number") is not None else media_info['guessit_info'].get("absolute_episode")
                     else:
@@ -278,6 +278,9 @@ class MediaOrganizer:
                 self.torrent_metadata.send_progress_update(info_hash, file_hash, "validation", 100, status="completed")
 
                 if self.config.get('library_scan', {}).get('scan_after_each_file', False):
+                    # Library scan - Start
+                    if pbar:
+                        pbar.set_description(f"✅ Library scanning...")
                     # library scan
                     self.torrent_metadata.send_progress_update(info_hash, file_hash, "library_scan", 0, status="processing")
                     # PLEX

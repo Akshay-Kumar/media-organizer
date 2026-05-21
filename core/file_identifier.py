@@ -158,7 +158,7 @@ class MediaFileIdentifier:
             guess = parse_path(str(file_path))
 
             # send progress update to organizerr
-            # self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 10, status="processing")
+            self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 10, status="processing")
 
             # Step 1: Parse + normalize metadata
             guess = self.parse_filename(guess, file_path, info_hash=info_hash, file_info=file_info)
@@ -224,7 +224,7 @@ class MediaFileIdentifier:
             result["media_type"] = self._fallback_identification(file_path)
 
         # send progress update to organizerr
-        # self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 95, status="processing")
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 95, status="processing")
         return result
 
     def get_extension(self, filename: str) -> str:
@@ -904,7 +904,7 @@ class MediaFileIdentifier:
         raw_data = dict(guessit(str(file_path), options))
 
         # send progress update to organizerr
-        # self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 30, status="processing")
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 30, status="processing")
 
         if isinstance(raw_data.get("title"), list):
             new_data = dict(guessit(str(file_path.parts[-1]), options))
@@ -929,7 +929,7 @@ class MediaFileIdentifier:
             raw_data.update(new_data)
 
         # send progress update to organizerr
-        # self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 40, status="processing")
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 40, status="processing")
 
         if clean_media.get("is_episode"):
             if raw_data:
@@ -952,7 +952,7 @@ class MediaFileIdentifier:
         raw_data = self.enrich_metadata2(raw_data, clean_media, options)
 
         # send progress update to organizerr
-        # self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 50, status="processing")
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 50, status="processing")
 
         # merge special types results
         if bool(clean_media.get("is_episode")):
@@ -963,7 +963,7 @@ class MediaFileIdentifier:
             raw_data = self.enrich_with_torrent_metadata(t_metadata=t_metadata, guess=raw_data)
 
         # send progress update to organizerr
-        # self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 60, status="processing")
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 60, status="processing")
 
         # Normalize GuessIt results
         path_data: Dict[str, Any] = {}
@@ -1084,7 +1084,7 @@ class MediaFileIdentifier:
                         break
 
         # send progress update to organizerr
-        # self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 90, status="processing")
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 90, status="processing")
         return path_data
 
     def smart_guess(self, guess: Dict[str, Any]) -> Dict[str, Any]:

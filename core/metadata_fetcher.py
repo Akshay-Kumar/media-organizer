@@ -745,6 +745,9 @@ class MetadataFetcher:
         search_title = metadata.get("title") or guessit_info.get("search_title")
         original_filename = guessit_info.get("original_filename", filename)
 
+        if metadata is None:
+            return {}
+
         return {
             "artist": metadata.get("artist"),
             "album": metadata.get("album"),
@@ -840,6 +843,9 @@ class MetadataFetcher:
 
     def _format_movie_metadata(self, tmdb_data: Dict[str, Any]) -> Dict[str, Any]:
         """Format TMDB movie data into our standard format"""
+        if tmdb_data is None:
+            return {}
+
         return {
             'title': tmdb_data.get('title'),
             'original_title': tmdb_data.get('original_title'),
@@ -857,6 +863,9 @@ class MetadataFetcher:
 
     def _format_tv_metadata(self, tvdb_data: Dict[str, Any]) -> Dict[str, Any]:
         """Format TVDB series/anime data into our standard format"""
+        if tvdb_data is None:
+            return {}
+
         return {
             'title': tvdb_data.get('title'),
             'season': tvdb_data.get('season'),
