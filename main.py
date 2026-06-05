@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import List, Dict, Any, Optional
 
 import portalocker
+from guessit.rules import source
 from tqdm import tqdm
 
 from core.file_identifier import MediaFileIdentifier
@@ -120,6 +121,46 @@ class MediaOrganizer:
     def process_single_file(self, file_path: Path, pbar: Optional[tqdm] = None, info_hash: str = None) -> Dict[str, Any]:
         result = self.process_file(file_path, pbar, info_hash=info_hash)
         self.processed_files.append(result)
+        file_hash = result.get("file_info", {}).get("hash")
+        source = {
+            "source": result.get("original_path", str(file_path))
+        }
+        if result.get('success', False):
+            self.torrent_metadata.send_progress_update(
+                info_hash,
+                file_hash,
+                stage="completed",
+                progress=100,
+                status="completed",
+                success=True,
+                extra=source
+            )
+        elif result.get("skipped", False):
+            self.torrent_metadata.send_progress_update(
+                info_hash,
+                file_hash,
+                stage="completed",
+                progress=100,
+                status="skipped",
+                success=True,
+                extra={
+                    **source,
+                    "details": result.get(
+                        "skip_reason",
+                        "Skipped"
+                    )
+                }
+            )
+        else:
+            self.torrent_metadata.send_progress_update(
+                info_hash,
+                file_hash,
+                stage="completed",
+                progress=100,
+                status="failed",
+                success=False,
+                extra=source
+            )
         return result
 
     def process_file(self, file_path: Path, pbar: Optional[tqdm] = None, info_hash: str = None) -> Dict[str, Any]:
@@ -134,6 +175,7 @@ class MediaOrganizer:
                 'errors': ['File locked by another process']
             }
         result = {
+            "info_hash": info_hash,
             'original_path': str(file_path),
             'file_info': FileUtils.get_file_info(file_path),
             'success': False,
@@ -155,9 +197,20 @@ class MediaOrganizer:
                 "source": result.get("original_path", str(file_path))
             }
 
+            if not FileUtils.is_valid_media_file(
+                    file_path,
+                    min_size,
+                    max_size,
+                    max_sample_size
+            ):
+                result["skipped"] = True
+                result["skip_reason"] = "Invalid media file"
+                result["success"] = False
+                result["skip_reason"] = "Invalid media file"
+                result["warnings"].append(
+                    "Invalid media file"
+                )
 
-            if not FileUtils.is_valid_media_file(file_path, min_size, max_size, max_sample_size):
-                result['errors'].append('Invalid media file')
                 return result
 
             if pbar:
@@ -166,8 +219,10 @@ class MediaOrganizer:
             self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 0, status="processing", extra=source)
             media_info = self.identifier.identify(file_path, info_hash=info_hash, file_info=result.get("file_info", None))
 
-            if media_info:
-                self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 100, status="completed")
+            if media_info is not None:
+                self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 100, status="completed", success=True, extra=source)
+            else:
+                self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 100, status="failed", success=False, extra=source)
 
             if media_info.get("media_type", "Unknown") in ("anime", "tv_show"):
                 if media_info.get("season", 1) == 1:
@@ -182,7 +237,6 @@ class MediaOrganizer:
 
             if not media_info.get('media_type'):
                 result['errors'].append('Could not identify media type')
-                self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 100, status="failed")
                 return result
 
             if pbar:
@@ -190,16 +244,16 @@ class MediaOrganizer:
                 pbar.set_description(f"🌐 Fetching {media_type} metadata...")
 
             # METADATA
-            self.torrent_metadata.send_progress_update(info_hash, file_hash, "metadata", 0, status="processing")
-            metadata = self.metadata_fetcher.fetch_metadata(media_info)
+            self.torrent_metadata.send_progress_update(info_hash, file_hash, "metadata", 0, status="processing", extra=source)
+            metadata = self.metadata_fetcher.fetch_metadata(media_info, info_hash, file_hash)
 
             if not metadata:
                 result['warnings'].append('Could not fetch metadata, using filename-based naming')
                 metadata = media_info.copy()
                 result['warnings'].append("Metadata fetch failed")
-                self.torrent_metadata.send_progress_update(info_hash, file_hash, "metadata", 100, status="failed")
+                self.torrent_metadata.send_progress_update(info_hash, file_hash, "metadata", 100, status="failed", success=False, extra=source)
             else:
-                self.torrent_metadata.send_progress_update(info_hash, file_hash, "metadata", 100, status="completed")
+                self.torrent_metadata.send_progress_update(info_hash, file_hash, "metadata", 100, status="completed", success=True, extra=source)
 
             metadata['media_type'] = media_info.get('media_type')
             metadata['file_info'] = result.get('file_info')
@@ -215,13 +269,26 @@ class MediaOrganizer:
                 pbar.set_description(f"🚚 Copying to Plex...")
 
             destination = self.mover.prepare_destination(media_info, metadata, new_name_info)
+            source = {
+                "source": result.get("original_path", str(file_path)),
+                "destination": str(destination)
+            }
 
             copy_result = self.mover.move_file(file_path, destination, metadata, info_hash)
             result['move_result'] = copy_result
 
-            if not copy_result.get("success"):
+            if copy_result.get("success"):
+                self.torrent_metadata.send_progress_update(
+                    info_hash,
+                    file_hash,
+                    "copy",
+                    100,
+                    status="completed",
+                    success=True,
+                    extra=source
+                )
+            else:
                 result['errors'].append("Copy failed")
-
                 self.torrent_metadata.send_progress_update(
                     info_hash,
                     file_hash,
@@ -230,7 +297,6 @@ class MediaOrganizer:
                     status="failed",
                     success=False
                 )
-
                 return result
 
             if self.config.get('download', {}).get('artwork', False) and not self.config.get("dry_run", False):
@@ -238,14 +304,14 @@ class MediaOrganizer:
                     pbar.set_description(f"🎨 Downloading artwork...")
 
                 # ARTWORK
-                self.torrent_metadata.send_progress_update(info_hash, file_hash, "artwork", 0, status="processing")
+                self.torrent_metadata.send_progress_update(info_hash, file_hash, "artwork", 0, status="processing", extra=source)
                 artwork_paths = self.downloader.download_artwork(metadata, media_info['media_type'], destination)
                 result['artwork_paths'] = artwork_paths
                 # call your artwork logic
-                if artwork_paths:
-                    self.torrent_metadata.send_progress_update(info_hash, file_hash, "artwork", 100, status="completed")
+                if artwork_paths is not None:
+                    self.torrent_metadata.send_progress_update(info_hash, file_hash, "artwork", 100, status="completed", success=True)
                 else:
-                    self.torrent_metadata.send_progress_update(info_hash, file_hash, "artwork", 100, status="failed")
+                    self.torrent_metadata.send_progress_update(info_hash, file_hash, "artwork", 100, status="failed", success=False)
 
             if self.config.get('download', {}).get('subtitles', False):
                 if media_info['media_type'] in ['movie', 'tv_show', 'anime'] and not self.config.get("dry_run", False):
@@ -253,79 +319,54 @@ class MediaOrganizer:
                         pbar.set_description(f"📜 Downloading subtitles...")
 
                     # SUBTITLES
-                    self.torrent_metadata.send_progress_update(info_hash, file_hash, "subtitles", 0, status="processing")
+                    self.torrent_metadata.send_progress_update(info_hash, file_hash, "subtitles", 0, status="processing", extra=source)
                     subtitle_path = self.downloader.download_subtitles(destination, metadata)
-                    if subtitle_path:
+                    if subtitle_path is not None:
                         result['subtitle_path'] = subtitle_path
                         # SUBTITLES
-                        self.torrent_metadata.send_progress_update(info_hash, file_hash, "subtitles", 100, status="completed")
+                        self.torrent_metadata.send_progress_update(info_hash, file_hash, "subtitles", 100, status="completed", success=True)
                     else:
                         result['warnings'].append('Could not download subtitles')
                         # SUBTITLES
-                        self.torrent_metadata.send_progress_update(info_hash, file_hash, "subtitles", 100, status="failed")
+                        self.torrent_metadata.send_progress_update(info_hash, file_hash, "subtitles", 100, status="failed", success=False)
 
             if pbar:
                 pbar.set_description(f"✅ Validating result...")
 
             # VALIDATION - Start
-            self.torrent_metadata.send_progress_update(info_hash, file_hash, "validation", 0, status="processing")
+            self.torrent_metadata.send_progress_update(info_hash, file_hash, "validation", 0, status="processing", extra=source)
             validation = self.validator.validate(result)
             result['validation'] = validation
 
             if validation['is_valid']:
                 result['success'] = True
                 # VALIDATION - End
-                self.torrent_metadata.send_progress_update(info_hash, file_hash, "validation", 100, status="completed")
+                self.torrent_metadata.send_progress_update(info_hash, file_hash, "validation", 100, status="completed", success=True)
 
                 if self.config.get('library_scan', {}).get('scan_after_each_file', False):
                     # Library scan - Start
                     if pbar:
                         pbar.set_description(f"✅ Library scanning...")
                     # library scan
-                    self.torrent_metadata.send_progress_update(info_hash, file_hash, "library_scan", 0, status="processing")
-                    # PLEX
-                    # self.torrent_metadata.send_progress_update(info_hash, file_hash, "plex", 0, status="processing")
-                    # EMBY
-                    # self.torrent_metadata.send_progress_update(info_hash, file_hash, "emby", 0, status="processing")
+                    self.torrent_metadata.send_progress_update(info_hash, file_hash, "library_scan", 0, status="processing", extra=source)
                     media_type = metadata.get('media_type')
                     scan_results = self.library_scanner.scan_libraries(media_type)
                     result['library_scan'] = scan_results
                     result['scan_media_type'] = media_type
                     result['scan_duration'] = scan_results.get('duration', 0)
 
-                    if scan_results:
+                    if scan_results is not None:
                         # library scan
-                        self.torrent_metadata.send_progress_update(info_hash, file_hash, "library_scan", 100, status="completed")
-                        # PLEX
-                        # self.torrent_metadata.send_progress_update(info_hash, file_hash, "plex", 100, status="completed")
-                        # EMBY
-                        # self.torrent_metadata.send_progress_update(info_hash, file_hash, "emby", 100, status="completed")
+                        self.torrent_metadata.send_progress_update(info_hash, file_hash, "library_scan", 100, status="completed", success=True, extra=source)
                     else:
                         # library scan
-                        self.torrent_metadata.send_progress_update(info_hash, file_hash, "library_scan", 100, status="failed")
+                        self.torrent_metadata.send_progress_update(info_hash, file_hash, "library_scan", 100, status="failed", success=False, extra=source)
 
                 if pbar:
                     pbar.set_description(f"✓ Success: {file_path.name[:25]}...")
                 self.audit_logger.info(f"Successfully processed: {file_path.name}")
-                self.torrent_metadata.send_progress_update(
-                    info_hash,
-                    file_hash,
-                    stage="completed",
-                    progress=100,
-                    status="completed",
-                    success=True,
-                    extra=result.get("move_result", {})
-                )
             else:
                 result['errors'].extend(validation.get('errors', []))
-                self.torrent_metadata.send_progress_update(
-                    info_hash,
-                    file_hash,
-                    stage="completed",
-                    progress=100,
-                    status="failed",
-                    success=False
-                )
                 if pbar:
                     pbar.set_description(f"✗ Failed: {file_path.name[:25]}...")
 
@@ -335,19 +376,18 @@ class MediaOrganizer:
                 pbar.set_description(f"💥 Error: {file_path.name[:25]}...")
             self.logger.error(f"Error processing {file_path}: {e}")
             self.logger.exception("Detailed error:")
-            file_hash = result.get("file_info", {}).get("hash")
-            self.torrent_metadata.send_progress_update(
-                info_hash,
-                file_hash,
-                stage="completed",
-                progress=100,
-                status="failed",
-                success=False
-            )
 
         finally:
             result['processing_time'] = time.time() - file_start_time
             result['end_time'] = datetime.now().isoformat()
+            try:
+                self.torrent_metadata.send_processing_report(
+                    result
+                )
+            except Exception:
+                self.logger.exception(
+                    "Failed to save processing report"
+                )
             self.performance_logger.info(f"File processed in {result['processing_time']:.2f}s: {file_path.name}")
             if file_lock:
                 try:
@@ -419,6 +459,48 @@ class MediaOrganizer:
                     result = self.process_file(file_path, pbar=pbar, info_hash=info_hash)
                     results.append(result)
                     self.processed_files.append(result)
+
+                    # log progress
+                    file_hash = result.get("file_info", {}).get("hash")
+                    source = {
+                        "source": result.get("original_path", str(file_path))
+                    }
+                    if result.get('success', False):
+                        self.torrent_metadata.send_progress_update(
+                            info_hash,
+                            file_hash,
+                            stage="completed",
+                            progress=100,
+                            status="completed",
+                            success=True,
+                            extra=source
+                        )
+                    elif result.get("skipped", False):
+                        self.torrent_metadata.send_progress_update(
+                            info_hash,
+                            file_hash,
+                            stage="completed",
+                            progress=100,
+                            status="skipped",
+                            success=True,
+                            extra={
+                                **source,
+                                "details": result.get(
+                                    "skip_reason",
+                                    "Skipped"
+                                )
+                            }
+                        )
+                    else:
+                        self.torrent_metadata.send_progress_update(
+                            info_hash,
+                            file_hash,
+                            stage="completed",
+                            progress=100,
+                            status="failed",
+                            success=False,
+                            extra=source
+                        )
 
                     pbar.update(1)
 

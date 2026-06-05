@@ -227,7 +227,7 @@ class FileUtils:
 
             total_size = src.stat().st_size
             copied = 0
-            chunk_size = 10 * 1024 * 1024
+            chunk_size = 2 * 1024 * 1024
             last_reported = 0
             start_time = time.time()
 
@@ -250,7 +250,7 @@ class FileUtils:
                     remaining = total_size - copied
                     eta = remaining / speed if speed > 0 else 0
 
-                    if progress_callback and (progress - last_reported >= 5):
+                    if progress_callback and (progress - last_reported >= 1):
                         progress_callback({
                             "info_hash": info_hash,
                             "file_hash": file_hash,
@@ -261,16 +261,6 @@ class FileUtils:
                             "eta": round(eta, 2)
                         })
                         last_reported = progress
-
-            # ✅ FINAL EVENT (only once)
-            if progress_callback:
-                progress_callback({
-                    "info_hash": info_hash,
-                    "file_hash": file_hash,
-                    "stage": "copy",
-                    "progress": 99,
-                    "status": "processing"
-                })
 
             shutil.copystat(src, dst)  # preserve metadata
             logging.info(f"Copied with progress {src} → {dst}")

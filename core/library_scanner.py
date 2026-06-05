@@ -145,6 +145,7 @@ class LibraryScanner:
             self.logger.error(f"Plex scan request failed: {e}")
             return [{f"Plex scan request failed: {e}": False}]
         except Exception as e:
+            self.logger.exception("Library scan failed")
             self.logger.error(f"Unexpected error during Plex scan: {e}")
             return [{f"Unexpected error during Plex scan: {e}": False}]
 
@@ -187,14 +188,25 @@ class LibraryScanner:
             self.logger.error(f"Emby scan request failed: {e}")
             return [{f"Emby scan request failed: {e}": False}]
         except Exception as e:
+            self.logger.exception("Library scan failed")
             self.logger.error(f"Unexpected error during Emby scan: {e}")
             return [{f"Unexpected error during Emby scan: {e}": False}]
 
         return emby_scan_results
 
     # In LibraryScanner class, modify the scan methods to return duration
-    def scan_libraries(self, media_type: Optional[str] = None) -> Dict[str, Any]:
+    def scan_libraries(self, media_type: Optional[str] = None, info_hash=None, file_hash=None, torrent_metadata=None) -> Dict[str, Any]:
         """Scan libraries based on media type and return results with duration"""
+        def emit(progress):
+            if torrent_metadata:
+                torrent_metadata.send_progress_update(
+                    info_hash,
+                    file_hash,
+                    "library_scan",
+                    progress,
+                    status="processing"
+                )
+
         if not self.config.get('enabled', True):
             return {'plex': False, 'emby': False, 'duration': 0}
 
@@ -202,14 +214,26 @@ class LibraryScanner:
 
         # Add delay if configured
         delay = self.config.get('scan_delay_seconds', 5)
+        emit(10)
         if delay > 0:
             self.logger.debug(f"Waiting {delay} seconds before library scan...")
             time.sleep(delay)
 
+        emit(35)
+        # plex scan
+        plex_scan_results = self.trigger_plex_scan(media_type)
+        emit(60)
+
+        # emby scan
+        emit(80)
+        emby_scan_results = self.trigger_emby_scan(media_type)
+        emit(95)
+        end_time = time.time()
+
         results = {
-            'plex': self.trigger_plex_scan(media_type),
-            'emby': self.trigger_emby_scan(media_type),
-            'duration': time.time() - start_time
+            'plex': plex_scan_results,
+            'emby': emby_scan_results,
+            'duration': end_time - start_time
         }
 
         return results

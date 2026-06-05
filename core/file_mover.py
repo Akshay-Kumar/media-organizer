@@ -103,9 +103,16 @@ class FileMover:
         destination = self._resolve_conflicts(destination)
         return destination
 
-    def move_file(self, source_path: Path, destination_path: Path,
-                  metadata: Dict[str, Any], info_hash: str) -> Dict[str, Any]:
+    def move_file(
+            self,
+            source_path: Path,
+            destination_path: Path,
+            metadata: Dict[str, Any],
+            info_hash: str
+    ) -> Dict[str, Any]:
+
         """Copy file to destination with comprehensive error handling."""
+
         result = {
             'source': str(source_path),
             'destination': str(destination_path),
@@ -116,35 +123,69 @@ class FileMover:
         }
 
         try:
+
             if not source_path.exists():
                 result['error'] = 'Source file does not exist'
                 self.logger.error(result['error'])
                 return result
 
             backup_path = self.create_backup(source_path)
-            file_hash = metadata.get("file_info", {}).get("hash")
-            result['backup_path'] = str(backup_path) if backup_path else None
+
+            file_hash = metadata.get(
+                "file_info",
+                {}
+            ).get("hash")
+
+            result['backup_path'] = (
+                str(backup_path)
+                if backup_path
+                else None
+            )
 
             if destination_path.exists():
-                result['warning'] = 'Destination file already exists'
+
+                result['warning'] = (
+                    'Destination file already exists'
+                )
+
                 self.logger.warning(result['warning'])
 
-                if self._should_overwrite(source_path, destination_path):
+                if self._should_overwrite(
+                        source_path,
+                        destination_path
+                ):
+
                     result['action'] = 'overwrite'
+
                 else:
-                    result['error'] = 'Destination exists and should not be overwritten'
+
+                    result['error'] = (
+                        'Destination exists and should not be overwritten'
+                    )
+
                     self.logger.error(result['error'])
                     return result
 
             if self.dry_run:
                 result['success'] = True
                 result['dry_run'] = True
-                self.logger.info(f"DRY RUN: Would copy {source_path} to {destination_path}")
+
+                self.logger.info(
+                    f"DRY RUN: Would copy "
+                    f"{source_path} to {destination_path}"
+                )
+
                 return result
 
-            destination_path.parent.mkdir(parents=True, exist_ok=True)
+            destination_path.parent.mkdir(
+                parents=True,
+                exist_ok=True
+            )
 
-            # 🔥 CREATE INITIAL RECORD
+            # ---------------------------------------------------
+            # INITIAL COPY EVENT
+            # ---------------------------------------------------
+
             self.torrent_metadata.send_progress_update(
                 info_hash=info_hash,
                 file_hash=file_hash,
@@ -156,58 +197,82 @@ class FileMover:
                     "operation": result['action'],
                     "source": str(source_path),
                     "destination": str(destination_path),
-                    "backup": str(backup_path) if backup_path else None,
+                    "backup": (
+                        str(backup_path)
+                        if backup_path
+                        else None
+                    ),
                     "file_size": source_path.stat().st_size
                 }
             )
 
-            last_sent = {"value": -1}
+            # ---------------------------------------------------
+            # LIVE COPY PROGRESS CALLBACK
+            # ---------------------------------------------------
 
             def _progress_cb(data):
-                progress = data.get("progress", 0)
-
-                if progress - last_sent["value"] < 5 and progress != 100:
-                    return
-
-                last_sent["value"] = progress
 
                 self.torrent_metadata.send_progress_update(
                     info_hash=data.get("info_hash"),
                     file_hash=data.get("file_hash"),
                     stage="copy",
-                    progress=progress,
+                    progress=data.get("progress", 0),
                     status="processing",
                     extra={
                         "speed": data.get("speed"),
                         "eta": data.get("eta"),
+                        "source": str(source_path),
+                        "destination": str(destination_path),
                     }
                 )
 
-            # if FileUtils.safe_copy(source_path, destination_path, overwrite=True):
-            if FileUtils.safe_copy_with_progress(
+            # ---------------------------------------------------
+            # COPY FILE
+            # ---------------------------------------------------
+
+            success = FileUtils.safe_copy_with_progress(
                 src=source_path,
                 dst=destination_path,
                 overwrite=True,
                 max_retries=3,
                 info_hash=info_hash,
-                file_hash=metadata.get("file_info", {}).get("hash"),
+                file_hash=file_hash,
                 progress_callback=_progress_cb
-            ):
+            )
+
+            if success:
+
+                # ---------------------------------------------------
+                # VERIFY DESTINATION
+                # ---------------------------------------------------
+
                 if not destination_path.exists():
                     result['success'] = False
-                    result['error'] = 'Copy verification failed - destination file not found'
+
+                    result['error'] = (
+                        'Copy verification failed - '
+                        'destination file not found'
+                    )
+
                     self.logger.error(result['error'])
+
                     self.torrent_metadata.send_progress_update(
-                        info_hash,
-                        file_hash,
+                        info_hash=info_hash,
+                        file_hash=file_hash,
                         stage="copy",
                         progress=100,
                         status="failed",
                         success=False
                     )
+
                     return result
 
+                # ---------------------------------------------------
+                # FINAL SUCCESS EVENT
+                # ---------------------------------------------------
+
                 result['success'] = True
+
                 self.torrent_metadata.send_progress_update(
                     info_hash=info_hash,
                     file_hash=file_hash,
@@ -219,18 +284,29 @@ class FileMover:
                         "operation": result['action'],
                         "source": str(source_path),
                         "destination": str(destination_path),
-                        "backup": str(backup_path) if backup_path else None,
+                        "backup": (
+                            str(backup_path)
+                            if backup_path
+                            else None
+                        ),
                         "file_size": source_path.stat().st_size
                     }
                 )
 
-                self.logger.info(f"Copied {source_path} to {destination_path}")
+                self.logger.info(
+                    f"Copied {source_path} "
+                    f"to {destination_path}"
+                )
+
             else:
+
                 result['error'] = 'File copy operation failed'
+
                 self.logger.error(result['error'])
+
                 self.torrent_metadata.send_progress_update(
-                    info_hash,
-                    file_hash,
+                    info_hash=info_hash,
+                    file_hash=file_hash,
                     stage="copy",
                     progress=100,
                     status="failed",
@@ -238,13 +314,26 @@ class FileMover:
                 )
 
         except Exception as e:
+
             result['error'] = str(e)
-            self.logger.error(f"Error copying file {source_path}: {e}")
-            self.logger.exception("Copy error details:")
-            file_hash = metadata.get("file_info", {}).get("hash")
+
+            self.logger.error(
+                f"Error copying file "
+                f"{source_path}: {e}"
+            )
+
+            self.logger.exception(
+                "Copy error details:"
+            )
+
+            file_hash = metadata.get(
+                "file_info",
+                {}
+            ).get("hash")
+
             self.torrent_metadata.send_progress_update(
-                info_hash,
-                file_hash,
+                info_hash=info_hash,
+                file_hash=file_hash,
                 stage="copy",
                 progress=100,
                 status="failed",

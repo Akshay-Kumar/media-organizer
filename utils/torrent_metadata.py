@@ -1,5 +1,5 @@
 from datetime import datetime
-
+import json
 import requests
 import logging
 from typing import Dict, Any, Optional, List
@@ -15,11 +15,23 @@ class TorrentMetadata:
         self.api = self.config.get('api')
         self.torrents_endpoint = 'torrents'
         self.file_operations_endpoint = 'api/file-operations'
-        # backend API health-checks
+        self.processing_reports_endpoint = 'api/processing-reports'
+        # backend API health checks
         self.api_healthy = True
         self.last_health_check = None
         self.health_check_interval = 30  # seconds
+        self._stage_progress = {}
 
+    def _json_safe(self, obj):
+        try:
+            return json.loads(
+                json.dumps(
+                    obj,
+                    default=str
+                )
+            )
+        except Exception:
+            return {}
 
     def check_api_health(self, force: bool = False) -> bool:
         now = datetime.utcnow().timestamp()
@@ -39,7 +51,7 @@ class TorrentMetadata:
         try:
             response = self.session.get(
                 url,
-                timeout=3
+                timeout=5
             )
 
             response.raise_for_status()
@@ -117,6 +129,90 @@ class TorrentMetadata:
 
         return False
 
+    def send_processing_report(
+            self,
+            report: dict
+    ) -> bool:
+
+        if not self.check_api_health():
+            self.logger.warning(
+                "Skipping processing report because API is unhealthy"
+            )
+            return False
+
+        file_info = report.get("file_info", {})
+
+        safe_report = json.loads(
+            json.dumps(
+                report,
+                default=str
+            )
+        )
+
+        payload = {
+            "info_hash": report.get("info_hash"),
+            "file_hash": file_info.get("hash"),
+
+            "media_type": report.get("media_type"),
+
+            "source_path": report.get(
+                "original_path"
+            ),
+
+            "destination_path": (
+                report.get("move_result", {})
+                .get("destination")
+            ),
+
+            "success": report.get(
+                "success",
+                False
+            ),
+
+            "processing_time": report.get(
+                "processing_time"
+            ),
+
+            "report": safe_report
+        }
+
+        url = (
+            f"{self.api}/"
+            f"{self.processing_reports_endpoint}"
+        )
+
+        try:
+
+            self.logger.info(
+                f"Sending processing report "
+                f"for {payload.get('file_hash')}"
+            )
+
+            response = self.session.post(
+                url,
+                json=payload,
+                timeout=10
+            )
+
+            if response.status_code in (200, 201):
+                self.logger.info(
+                    f"Processing report stored: "
+                    f"{payload.get('file_hash')}"
+                )
+                return True
+
+            self.logger.error(
+                f"Processing report failed: "
+                f"{response.status_code}"
+            )
+
+        except Exception as e:
+            self.logger.exception(
+                f"Processing report error: {e}"
+            )
+
+        return False
+
 
     def get_all_file_operation(self):
         url = f"{self.api}/{self.file_operations_endpoint}"
@@ -148,6 +244,16 @@ class TorrentMetadata:
     ) -> bool:
         """Send progress updates (high-frequency, non-blocking safe)"""
 
+        key = f"{info_hash}:{file_hash}:{stage}"
+        last = self._stage_progress.get(key)
+        if last is not None and progress < last:
+            return False
+
+        self._stage_progress[key] = progress
+
+        if status in ("completed", "failed", "skipped"):
+            self._stage_progress.pop(key, None)
+
         if not self.check_api_health():
             self.logger.debug(
                 "Skipping progress update because API is unhealthy"
@@ -172,12 +278,30 @@ class TorrentMetadata:
 
         # stage/status normalization
         payload["stage"] = payload.get("stage") or "unknown"
-        payload["status"] = payload.get("status") or "processing"
+        payload["status"] = (
+                payload.get("status")
+                or "processing"
+        )
+
+        valid_statuses = {
+            "processing",
+            "completed",
+            "failed",
+            "skipped"
+        }
+
+        if payload["status"] not in valid_statuses:
+            payload["status"] = "processing"
 
         url = f"{self.api}/{self.file_operations_endpoint}"
 
         try:
             self.logger.debug(f"Progress: {payload.get('stage')} {payload.get('progress')}%")
+            if status == "skipped":
+                self.logger.info(
+                    f"Skipped file: {file_hash}"
+                )
+
             # 🔥 FAST + NON-BLOCKING (important)
             response = self.session.post(
                 url,

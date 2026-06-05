@@ -153,12 +153,15 @@ class MediaFileIdentifier:
         }
 
         try:
-            file_hash = file_info.get("file_info", {}).get("hash")
+            file_hash = file_info.get("hash")
+            source = {
+                "source": str(file_path)
+            }
             # Pre Checks: Detect special media types
             guess = parse_path(str(file_path))
 
             # send progress update to organizerr
-            self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 10, status="processing")
+            self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 10, status="processing", extra=source)
 
             # Step 1: Parse + normalize metadata
             guess = self.parse_filename(guess, file_path, info_hash=info_hash, file_info=file_info)
@@ -224,7 +227,7 @@ class MediaFileIdentifier:
             result["media_type"] = self._fallback_identification(file_path)
 
         # send progress update to organizerr
-        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 95, status="processing")
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 95, status="processing", extra=source)
         return result
 
     def get_extension(self, filename: str) -> str:
@@ -700,13 +703,12 @@ class MediaFileIdentifier:
             if not title:
                 return 0.0, None, None
 
-            # tvdb_results = self.metadata_fetcher.tvdb_client.search_series(title)
-            # tvdb_results = self.metadata_fetcher.tvdb_client.tvdb_v4_official.search(query=title)
-
-            # test to add year in series search
             if year:
                 tvdb_results = self.metadata_fetcher.tvdb_client.tvdb_v4_official.search(f"{title} ({year})")
             else:
+                tvdb_results = self.metadata_fetcher.tvdb_client.tvdb_v4_official.search(f"{title}")
+
+            if not tvdb_results:
                 tvdb_results = self.metadata_fetcher.tvdb_client.tvdb_v4_official.search(f"{title}")
 
             if tvdb_results:
@@ -783,6 +785,9 @@ class MediaFileIdentifier:
             if year:
                 tmdb_results = self.metadata_fetcher.tmdb_search.movies(title, year=int(year))
             else:
+                tmdb_results = self.metadata_fetcher.tmdb_movie.search(f"{title}")
+
+            if not tmdb_results:
                 tmdb_results = self.metadata_fetcher.tmdb_movie.search(f"{title}")
 
             if tmdb_results and tmdb_results.get("results"):
@@ -864,7 +869,10 @@ class MediaFileIdentifier:
 
         options = {}
         t_metadata = {}
-        file_hash = file_info.get("file_info", {}).get("hash")
+        file_hash = file_info.get("hash")
+        source = {
+            "source": str(file_path)
+        }
         exts = self.get_media_extensions
         is_absolute_episode = False
 
@@ -904,7 +912,7 @@ class MediaFileIdentifier:
         raw_data = dict(guessit(str(file_path), options))
 
         # send progress update to organizerr
-        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 30, status="processing")
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 30, status="processing", extra=source)
 
         if isinstance(raw_data.get("title"), list):
             new_data = dict(guessit(str(file_path.parts[-1]), options))
@@ -929,7 +937,7 @@ class MediaFileIdentifier:
             raw_data.update(new_data)
 
         # send progress update to organizerr
-        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 40, status="processing")
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 40, status="processing", extra=source)
 
         if clean_media.get("is_episode"):
             if raw_data:
@@ -952,7 +960,7 @@ class MediaFileIdentifier:
         raw_data = self.enrich_metadata2(raw_data, clean_media, options)
 
         # send progress update to organizerr
-        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 50, status="processing")
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 50, status="processing",extra=source)
 
         # merge special types results
         if bool(clean_media.get("is_episode")):
@@ -963,7 +971,7 @@ class MediaFileIdentifier:
             raw_data = self.enrich_with_torrent_metadata(t_metadata=t_metadata, guess=raw_data)
 
         # send progress update to organizerr
-        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 60, status="processing")
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 55, status="processing", extra=source)
 
         # Normalize GuessIt results
         path_data: Dict[str, Any] = {}
@@ -1034,6 +1042,9 @@ class MediaFileIdentifier:
         # SERIES TITLE VALIDATION (TV + Anime)
         # ==============================
         if path_data["type"] in ["episode", "anime", "special"]:
+            # send progress update to organizerr
+            self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 60, status="processing",
+                                                       extra=source)
             title = path_data.get("title", "").strip()
 
             # ❗ Skip junk/placeholder titles
@@ -1053,6 +1064,8 @@ class MediaFileIdentifier:
                         if e_score > 0 or e_title:
                             path_data["title"] = e_title
                             path_data["tvdb_id"] = e_tvdb_id
+                            # send progress update to organizerr
+                            self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 70, status="processing", extra=source)
                             break
 
                 # Try search/metadata titles from clean_media
@@ -1062,15 +1075,21 @@ class MediaFileIdentifier:
                         if c_score > 0:
                             path_data["title"] = c_title
                             path_data["tvdb_id"] = c_tvdb_id
+                            # send progress update to organizerr
+                            self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 70, status="processing", extra=source)
                             break
             else:
                 path_data["title"] = final_title
                 path_data["tvdb_id"] = final_tvdb_id
+                # send progress update to organizerr
+                self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 70, status="processing", extra=source)
 
         # ==============================
         # MOVIES TITLE VALIDATION
         # ==============================
         if path_data["type"] == "movie":
+            # send progress update to organizerr
+            self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 60, status="processing", extra=source)
             title = path_data.get("title")
             alt_title = path_data.get("alternative_title")
             year = path_data.get("year") or None
@@ -1081,10 +1100,12 @@ class MediaFileIdentifier:
                     if score > 0:
                         path_data["title"] = m_title
                         path_data["tmdb_id"] = tmdb_id
+                        # send progress update to organizerr
+                        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 70, status="processing", extra=source)
                         break
 
         # send progress update to organizerr
-        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 90, status="processing")
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 95, status="processing", extra=source)
         return path_data
 
     def smart_guess(self, guess: Dict[str, Any]) -> Dict[str, Any]:

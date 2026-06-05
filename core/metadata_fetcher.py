@@ -11,10 +11,12 @@ from tmdbv3api import TMDb, Movie, TV, Search, Season, Episode
 from core.TitleMatcher import TitleMatcher
 from core.anilist_client import AniListClient
 # Import our custom clients
+import urllib.parse
 from core.jikan_client import AnimeEpisodeFetcher
 from core.music_metedata_fetcher import MusicMetadataExtractor
 from core.omdb_client import OMDbClient
 from core.tvdb_client import TVDBClient
+from utils.torrent_metadata import TorrentMetadata
 
 
 # RETRY DECORATOR - ADD THIS RIGHT AFTER IMPORTS
@@ -63,8 +65,21 @@ class MetadataFetcher:
         self.session = requests.Session()
         self.api_clients = {}  # Track which APIs are available
         self.titleMatcher = TitleMatcher()
+        self.torrent_metadata = TorrentMetadata(self.config)
         # Initialize API clients with better error handling
         self._initialize_api_clients()
+
+    def _build_progress_source(
+            self,
+            media_info
+    ):
+
+        return {
+            "source":
+                media_info.get("file_path")
+                or
+                media_info.get("guessit_info").get("original_file_path")
+        }
 
     def _initialize_api_clients(self):
         """Initialize all API clients with proper error handling"""
@@ -176,10 +191,11 @@ class MetadataFetcher:
             return False
 
     @retry_api_call(max_retries=3, backoff_factor=1.0)
-    def fetch_metadata(self, media_info: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    def fetch_metadata(self, media_info: Dict[str, Any], info_hash: str, file_hash: str) -> Optional[Dict[str, Any]]:
         """Fetch metadata based on media type with fallback strategies"""
         media_type = media_info['media_type']
         result = None
+        source = self._build_progress_source(media_info)
         try:
             # Get API priorities from config
             api_priorities = self.config.get('api_priorities', {}).get(media_type, ['filename'])
@@ -188,69 +204,78 @@ class MetadataFetcher:
                 try:
                     if api_source == 'omdb' and media_type in ['movie']:
                         if media_type == 'movie':
-                            result = self._fetch_movie_metadata3(media_info)
+                            result = self._fetch_movie_metadata3(media_info, info_hash, file_hash)
                         if result and result.get('source') != 'filename':
                             return result
 
                     elif api_source == 'tmdb' and media_type in ['movie', 'tv_show', 'anime']:
                         if media_type == 'movie':
-                            result = self._fetch_movie_metadata2(media_info)
+                            result = self._fetch_movie_metadata2(media_info, info_hash, file_hash)
                         elif media_type in ['tv_show', 'anime']:
                             if not media_info.get('absolute_episode_number'):
-                                result = self._fetch_tv_metadata(media_info)
+                                result = self._fetch_tv_metadata(media_info, info_hash, file_hash)
                         if result and result.get('source') != 'filename':
                             return result
 
                     elif api_source == 'tvdb' and media_type in ['tv_show', 'anime']:
-                        result = self._fetch_tvdb_metadata(media_info)
+                        result = self._fetch_tvdb_metadata(media_info,info_hash, file_hash)
                         if result and result.get('source') != 'filename':
                             return result
 
                     elif api_source == 'jikan' and media_type == 'anime':
                         if media_info.get('absolute_episode_number'):
-                            result = self._fetch_jikan_metadata2(media_info)
+                            result = self._fetch_jikan_metadata2(media_info, info_hash, file_hash)
                         if result and result.get('source') != 'filename':
                             return result
 
                     elif api_source == 'anilist' and media_type == 'anime':
                         if media_info.get('absolute_episode_number'):
-                            result = self._fetch_anilist_metadata(media_info)
+                            result = self._fetch_anilist_metadata(media_info, info_hash, file_hash)
                         if result and result.get('source') != 'filename':
                             return result
 
                     elif api_source == 'mutagen+spotify' and media_type == 'music':
-                        result = self._fetch_music_metadata(media_info)
+                        result = self._fetch_music_metadata(media_info, info_hash, file_hash)
                         if result and result.get('source') != 'filename':
                             return result
 
                     elif api_source == 'special':
                         # Fallback to filename-based metadata
-                        return self._get_filename_metadata(media_info)
+                        return self._get_filename_metadata(media_info, info_hash, file_hash)
 
                     elif api_source == 'unsorted':
                         # Fallback to filename-based metadata
-                        return self._get_filename_metadata(media_info)
+                        return self._get_filename_metadata(media_info, info_hash, file_hash)
 
                     elif api_source == 'filename':
                         # Fallback to filename-based metadata
-                        return self._get_filename_metadata(media_info)
+                        return self._get_filename_metadata(media_info, info_hash, file_hash)
 
                 except Exception as e:
                     self.logger.warning(f"API {api_source} failed for {media_info.get('filename')}: {e}")
                     continue
 
             # Ultimate fallback
-            return self._get_filename_metadata(media_info)
+            return self._get_filename_metadata(media_info, info_hash, file_hash)
 
         except Exception as e:
             self.logger.error(f"Error fetching metadata for {media_info.get('filename')}: {e}")
-            return self._get_filename_metadata(media_info)
+            return self._get_filename_metadata(media_info, info_hash, file_hash)
 
     @retry_api_call(max_retries=3, backoff_factor=1.0)
-    def _fetch_movie_metadata(self, media_info: Dict[str, Any]) -> Dict[str, Any]:
+    def _fetch_movie_metadata(self, media_info: Dict[str, Any], info_hash:str, file_hash:str) -> Dict[str, Any]:
         """Fetch movie metadata from TMDB with fallback"""
+        source = self._build_progress_source(media_info)
+        self.torrent_metadata.send_progress_update(
+            info_hash,
+            file_hash,
+            "metadata",
+            10,
+            status="processing",
+            extra=source
+        )
         title = media_info.get('title')
-        guessit_info = dict(media_info.get("guessit_info"))
+        guessit_info = dict(media_info.get("guessit_info") or {})
         search_title = guessit_info.get("search_title")
         year = media_info.get('year')
         media_type = "movie" if media_info.get('media_type') == "movie" else "series"
@@ -263,6 +288,14 @@ class MetadataFetcher:
         if hasattr(self, 'tmdb') and self.tmdb:
             try:
                 search_query = str(title)
+                self.torrent_metadata.send_progress_update(
+                    info_hash,
+                    file_hash,
+                    "metadata",
+                    25,
+                    status="processing",
+                    extra=source
+                )
                 while True:
                     # tmdbv3api Movie().search expects just the query string
                     results = self.tmdb_movie.search(search_query)
@@ -285,9 +318,35 @@ class MetadataFetcher:
                             best, scored = self.titleMatcher.match(search_query, data, content_type=media_type)
 
                             if best.get("score") >= 85:
+                                self.torrent_metadata.send_progress_update(
+                                    info_hash,
+                                    file_hash,
+                                    "metadata",
+                                    50,
+                                    status="processing",
+                                    extra=source
+                                )
                                 movie_id = getattr(result, "id", None) or result.get("id")
                                 if movie_id:
+                                    self.torrent_metadata.send_progress_update(
+                                        info_hash,
+                                        file_hash,
+                                        "metadata",
+                                        75,
+                                        status="processing",
+                                        extra=source
+                                    )
+
                                     details = self.tmdb_movie.details(movie_id)
+
+                                    self.torrent_metadata.send_progress_update(
+                                        info_hash,
+                                        file_hash,
+                                        "metadata",
+                                        95,
+                                        status="processing",
+                                        extra=source
+                                    )
                                     return self._format_movie_metadata(details)
 
                     if search_query != search_title:
@@ -300,15 +359,24 @@ class MetadataFetcher:
 
         # Fallback to manual TMDB API call
         try:
-            return self._fetch_tmdb_manual(title, year)
+            return self._fetch_tmdb_manual(title, year, media_info=media_info)
         except Exception as e:
             self.logger.warning(f"Manual TMDB fetch failed: {e}")
-            return self._get_filename_metadata(media_info)
+            return self._get_filename_metadata(media_info, info_hash, file_hash)
 
-    def _fetch_movie_metadata2(self, media_info: Dict[str, Any]) -> Dict[str, Any]:
+    def _fetch_movie_metadata2(self, media_info: Dict[str, Any], info_hash:str, file_hash:str) -> Dict[str, Any]:
         """Fetch movie metadata from TMDB with fallback"""
+        source = self._build_progress_source(media_info)
+        self.torrent_metadata.send_progress_update(
+            info_hash,
+            file_hash,
+            "metadata",
+            10,
+            status="processing",
+            extra=source
+        )
         title = media_info.get('title')
-        guessit_info = dict(media_info.get("guessit_info"))
+        guessit_info = dict(media_info.get("guessit_info") or {})
         search_title = guessit_info.get("search_title")
         metadata_title = guessit_info.get("metadata_title")
         alt_title = guessit_info.get("alternative_title")
@@ -328,6 +396,15 @@ class MetadataFetcher:
 
         if hasattr(self, 'tmdb') and self.tmdb:
             try:
+                self.torrent_metadata.send_progress_update(
+                    info_hash,
+                    file_hash,
+                    "metadata",
+                    25,
+                    status="processing",
+                    extra=source
+                )
+
                 for query in [title, alt_title, search_title, metadata_title]:
                     if not query:
                         continue
@@ -343,8 +420,15 @@ class MetadataFetcher:
                             results = self.tmdb_movie.search(f"{query} {int(year)}")
                         else:
                             results = self.tmdb_movie.search(f"{query}")
-
                     if results and results.get("results"):
+                        self.torrent_metadata.send_progress_update(
+                            info_hash,
+                            file_hash,
+                            "metadata",
+                            50,
+                            status="processing",
+                            extra=source
+                        )
                         for result in results:
                             candidate_title = result.get("title") or result.get("original_title") or None
                             candidate_year = self.extract_movie_year(result) or None
@@ -368,9 +452,25 @@ class MetadataFetcher:
                                     "score": 0
                                 }
                             if best.get("score") >= 90:
+                                self.torrent_metadata.send_progress_update(
+                                    info_hash,
+                                    file_hash,
+                                    "metadata",
+                                    75,
+                                    status="processing",
+                                    extra=source
+                                )
                                 movie_id = result.get("id")
                                 if movie_id:
                                     details = self.tmdb_movie.details(movie_id)
+                                    self.torrent_metadata.send_progress_update(
+                                        info_hash,
+                                        file_hash,
+                                        "metadata",
+                                        95,
+                                        status="processing",
+                                        extra=source
+                                    )
                                     return self._format_movie_metadata(details)
 
             except Exception as e:
@@ -378,15 +478,24 @@ class MetadataFetcher:
 
         # Fallback to filename based metadata extraction
         try:
-            return self._get_filename_metadata(media_info)
+            return self._get_filename_metadata(media_info, info_hash, file_hash)
         except Exception as e:
             self.logger.warning(f"Manual TMDB fetch failed: {e}")
-            return self._get_filename_metadata(media_info)
+            return self._get_filename_metadata(media_info, info_hash, file_hash)
 
-    def _fetch_movie_metadata3(self, media_info: Dict[str, Any]) -> Dict[str, Any]:
+    def _fetch_movie_metadata3(self, media_info: Dict[str, Any], info_hash: str, file_hash: str) -> Dict[str, Any]:
         """Fetch movie metadata from OMDB with fallback"""
+        source = self._build_progress_source(media_info)
+        self.torrent_metadata.send_progress_update(
+            info_hash,
+            file_hash,
+            "metadata",
+            10,
+            status="processing",
+            extra=source
+        )
         title = media_info.get('title')
-        guessit_info = dict(media_info.get("guessit_info"))
+        guessit_info = dict(media_info.get("guessit_info") or {})
         search_title = guessit_info.get("search_title")
         year = media_info.get('year')
 
@@ -396,6 +505,14 @@ class MetadataFetcher:
 
         if hasattr(self, 'tmdb') and self.tmdb:
             try:
+                self.torrent_metadata.send_progress_update(
+                    info_hash,
+                    file_hash,
+                    "metadata",
+                    25,
+                    status="processing",
+                    extra=source
+                )
                 for query in {title, search_title}:
                     if not query:
                         continue
@@ -405,17 +522,41 @@ class MetadataFetcher:
                     else:
                         results = self.omdb_client.search_movie_metadata(query)
 
+                    self.torrent_metadata.send_progress_update(
+                        info_hash,
+                        file_hash,
+                        "metadata",
+                        50,
+                        status="processing",
+                        extra=source
+                    )
                     if results and results.get("results"):
+                        self.torrent_metadata.send_progress_update(
+                            info_hash,
+                            file_hash,
+                            "metadata",
+                            75,
+                            status="processing",
+                            extra=source
+                        )
+
+                        self.torrent_metadata.send_progress_update(
+                            info_hash,
+                            file_hash,
+                            "metadata",
+                            95,
+                            status="processing",
+                            extra=source
+                        )
                         return results.get("results")
 
             except Exception as e:
                 self.logger.warning(f"OMDB movie search failed: {e}")
-                return self._get_filename_metadata(media_info)
+                return self._get_filename_metadata(media_info, info_hash, file_hash)
+        return self._get_filename_metadata(media_info, info_hash, file_hash)
 
-    def _fetch_tmdb_manual(self, title: str, year: Optional[int] = None) -> Dict[str, Any]:
+    def _fetch_tmdb_manual(self, title: str, year: Optional[int] = None, info_hash: Optional[str] = None, file_hash: Optional[str] = None, media_info: Dict[str, Any] = None) -> Dict[str, Any]:
         """Manual TMDB API call as fallback"""
-        import urllib.parse
-
         # Ensure proper URL encoding
         if isinstance(title, bytes):
             title = title.decode('utf-8', errors='ignore')
@@ -436,8 +577,8 @@ class MetadataFetcher:
 
         response = self.session.get(url, params=params, timeout=30)
         response.raise_for_status()
-
         data = response.json()
+
         if data.get('results'):
             movie_id = data['results'][0]['id']
 
@@ -448,21 +589,29 @@ class MetadataFetcher:
                 'language': 'en-US'
             })
             details_response.raise_for_status()
-
             return self._format_movie_metadata(details_response.json())
 
         raise ValueError("No results found in TMDB")
 
     @retry_api_call(max_retries=3, backoff_factor=1.0)
-    def _fetch_tv_metadata(self, media_info: Dict[str, Any]) -> Dict[str, Any]:
+    def _fetch_tv_metadata(self, media_info: Dict[str, Any], info_hash:str, file_hash:str) -> Dict[str, Any]:
         """Fetch TV show metadata from TMDB"""
         episode_data = {}
         data = []
+        source = self._build_progress_source(media_info)
+        self.torrent_metadata.send_progress_update(
+            info_hash,
+            file_hash,
+            "metadata",
+            10,
+            status="processing",
+            extra=source
+        )
         title = media_info.get('title', media_info['filename'])
         episode_title = media_info.get('episode_title', "Unknown Episode Title")
         season = int(media_info.get('season', 1))
         episode = int(media_info.get('episode', 1))
-        guessit_info = dict(media_info.get("guessit_info"))
+        guessit_info = dict(media_info.get("guessit_info") or {})
         original_filename = guessit_info.get("original_filename")
         media_type = "movie" if media_info.get('media_type') == "movie" else "series"
 
@@ -472,14 +621,30 @@ class MetadataFetcher:
         title = str(title).strip()
 
         if not hasattr(self, 'tmdb') or not self.tmdb:
-            return self._get_filename_metadata(media_info)
+            return self._get_filename_metadata(media_info, info_hash, file_hash)
 
         try:
+            self.torrent_metadata.send_progress_update(
+                info_hash,
+                file_hash,
+                "metadata",
+                25,
+                status="processing",
+                extra=source
+            )
             # TMDB expects a clean string
             title = self.remove_year_from_title(title)
             search_query = title
 
             search_results = self.tmdb_search.tv_shows(search_query)
+            self.torrent_metadata.send_progress_update(
+                info_hash,
+                file_hash,
+                "metadata",
+                50,
+                status="processing",
+                extra=source
+            )
             if search_results and search_results['results']:
                 # Pick the exact match based on title comparison (case-insensitive)
                 exact_match = None
@@ -488,8 +653,11 @@ class MetadataFetcher:
                         exact_match = show
                         break
 
-                    if not exact_match:
+                if not exact_match:
+                    for show in search_results['results']:
+
                         candidate_title = show.get('name', '').lower()
+
                         data = [
                             {
                                 "title": candidate_title,
@@ -498,16 +666,31 @@ class MetadataFetcher:
                             }
                         ]
 
-                    best, scored = self.titleMatcher.match(search_query, data, content_type=media_type)
-                    if not best:
-                        best = {
-                            "score": 0
-                        }
-                    if best.get("score") > 90:
-                        exact_match = show
+                        best, scored = self.titleMatcher.match(
+                            search_query,
+                            data,
+                            content_type=media_type
+                        )
+
+                        if not best:
+                            best = {
+                                "score": 0
+                            }
+
+                        if best.get("score") > 90:
+                            exact_match = show
+                            break
 
                 try:
                     if exact_match:
+                        self.torrent_metadata.send_progress_update(
+                            info_hash,
+                            file_hash,
+                            "metadata",
+                            75,
+                            status="processing",
+                            extra=source
+                        )
                         tv_id = int(exact_match.id)
                         episode_data = self.tmdb_episode.details(tv_id, season, episode)
                         if episode_data:
@@ -530,6 +713,14 @@ class MetadataFetcher:
                                         "score": 0
                                     }
                                 if best.get("score") > 90:
+                                    self.torrent_metadata.send_progress_update(
+                                        info_hash,
+                                        file_hash,
+                                        "metadata",
+                                        95,
+                                        status="processing",
+                                        extra=source
+                                    )
                                     return {
                                         'series_id': exact_match.get('id'),
                                         'title': exact_match.get('name', title),
@@ -542,8 +733,16 @@ class MetadataFetcher:
                                         'source': 'tmdb'
                                     }
                                 else:
-                                    return self._get_filename_metadata(media_info)
+                                    return self._get_filename_metadata(media_info, info_hash, file_hash)
                             else:
+                                self.torrent_metadata.send_progress_update(
+                                    info_hash,
+                                    file_hash,
+                                    "metadata",
+                                    95,
+                                    status="processing",
+                                    extra=source
+                                )
                                 return {
                                     'series_id': exact_match.get('id'),
                                     'title': exact_match.get('name', title),
@@ -559,12 +758,20 @@ class MetadataFetcher:
                     self.logger.warning(f"TMDB season/episode lookup failed: {e}")
         except Exception as e:
             self.logger.warning(f"TMDB TV search failed: {e}")
-
-        return self._get_filename_metadata(media_info)
+        return self._get_filename_metadata(media_info, info_hash, file_hash)
 
     @retry_api_call(max_retries=3, backoff_factor=1.0)
-    def _fetch_tvdb_metadata(self, media_info: Dict[str, Any]) -> Dict[str, Any]:
+    def _fetch_tvdb_metadata(self, media_info: Dict[str, Any], info_hash: str, file_hash: str) -> Dict[str, Any]:
         """Fetch metadata from TVDB"""
+        source = self._build_progress_source(media_info)
+        self.torrent_metadata.send_progress_update(
+            info_hash,
+            file_hash,
+            "metadata",
+            10,
+            status="processing",
+            extra=source
+        )
         title = media_info.get('title', media_info['filename'])
         season = media_info.get('season', 1)
         episode = media_info.get('episode', 1)
@@ -575,6 +782,14 @@ class MetadataFetcher:
         # Try TVDB if available
         if hasattr(self, 'tvdb_client') and self.api_clients.get('tvdb', False):
             try:
+                self.torrent_metadata.send_progress_update(
+                    info_hash,
+                    file_hash,
+                    "metadata",
+                    25,
+                    status="processing",
+                    extra=source
+                )
                 if tvdb_id:
                     episode_data = self.tvdb_client.search_episode2(tvdb_id, season, episode)
                     return self._format_tv_metadata(episode_data)
@@ -587,6 +802,14 @@ class MetadataFetcher:
                     episode_data = self.tvdb_client.search_episode_by_episode_number(title, episode)
 
                 if episode_data:
+                    self.torrent_metadata.send_progress_update(
+                        info_hash,
+                        file_hash,
+                        "metadata",
+                        50,
+                        status="processing",
+                        extra=source
+                    )
                     tvdb_episode_title = episode_data.get("episode_title", "")
                     tvdb_episode = episode_data.get("episode", 0)
                     tvdb_season = episode_data.get("season", 0)
@@ -600,24 +823,48 @@ class MetadataFetcher:
                             }
                         ]
                         best, scored = self.titleMatcher.match(media_info_episode_title, data, content_type=media_type)
+                        self.torrent_metadata.send_progress_update(
+                            info_hash,
+                            file_hash,
+                            "metadata",
+                            75,
+                            status="processing",
+                            extra=source
+                        )
                         if not best:
                             best = {
                                 "score": 0
                             }
                         if best.get("score") > 90:
+                            self.torrent_metadata.send_progress_update(
+                                info_hash,
+                                file_hash,
+                                "metadata",
+                                95,
+                                status="processing",
+                                extra=source
+                            )
                             return self._format_tv_metadata(episode_data)
                         else:
-                            return self._get_filename_metadata(media_info)
+                            return self._get_filename_metadata(media_info, info_hash, file_hash)
                     else:
                         return self._format_tv_metadata(episode_data)
             except Exception as e:
                 self.logger.warning(f"TVDB episode search failed: {e}")
-
-        return self._get_filename_metadata(media_info)
+        return self._get_filename_metadata(media_info, info_hash, file_hash)
 
     @retry_api_call(max_retries=3, backoff_factor=1.0)
-    def _fetch_anilist_metadata(self, media_info: Dict[str, Any]) -> Dict[str, Any]:
+    def _fetch_anilist_metadata(self, media_info: Dict[str, Any], info_hash:str, file_hash:str) -> Dict[str, Any]:
         """Fetch anime metadata from AniList"""
+        source = self._build_progress_source(media_info)
+        self.torrent_metadata.send_progress_update(
+            info_hash,
+            file_hash,
+            "metadata",
+            10,
+            status="processing",
+            extra=source
+        )
         title = media_info.get('title', media_info['filename'])
         episode = media_info.get('absolute_episode_number', 1)
         media_type = "movie" if media_info.get('media_type') == "movie" else "series"
@@ -626,11 +873,35 @@ class MetadataFetcher:
         # Try AniList if available
         if hasattr(self, 'anilist_client') and self.api_clients.get('anilist', False):
             try:
+                self.torrent_metadata.send_progress_update(
+                    info_hash,
+                    file_hash,
+                    "metadata",
+                    25,
+                    status="processing",
+                    extra=source
+                )
                 anime_data = self.anilist_client.search_anime(title)
                 if anime_data:
+                    self.torrent_metadata.send_progress_update(
+                        info_hash,
+                        file_hash,
+                        "metadata",
+                        50,
+                        status="processing",
+                        extra=source
+                    )
                     episode_data = self.anilist_client.get_episode_details_by_number(int(anime_data.get("id")), episode)
 
                     if episode_data:
+                        self.torrent_metadata.send_progress_update(
+                            info_hash,
+                            file_hash,
+                            "metadata",
+                            75,
+                            status="processing",
+                            extra=source
+                        )
                         formatted_episode_data = self.anilist_client.format_episode_metadata(anime_data, episode_data)
                         clean_episode_title = self.anilist_client.clean_episode_title(
                             formatted_episode_data.get("episode_title"))
@@ -642,51 +913,131 @@ class MetadataFetcher:
                                     "episode": int(formatted_episode_data.get("episode"))
                                 }
                             ]
-                            best, scored = self.titleMatcher.match(media_info.get("episode_title"), data,
-                                                                   content_type=media_type)
+                            best, scored = self.titleMatcher.match(media_info.get("episode_title"), data, content_type=media_type)
                             if not best:
                                 best = {
                                     "score": 0
                                 }
                             if best.get("score") > 90:
+                                self.torrent_metadata.send_progress_update(
+                                    info_hash,
+                                    file_hash,
+                                    "metadata",
+                                    95,
+                                    status="processing",
+                                    extra=source
+                                )
                                 return formatted_episode_data
                             else:
-                                return self._get_filename_metadata(media_info)
+                                return self._get_filename_metadata(media_info, info_hash, file_hash)
 
                         else:
+                            self.torrent_metadata.send_progress_update(
+                                info_hash,
+                                file_hash,
+                                "metadata",
+                                95,
+                                status="processing",
+                                extra=source
+                            )
                             return formatted_episode_data
             except Exception as e:
                 self.logger.warning(f"AniList search failed: {e}")
-
-        return self._get_filename_metadata(media_info)
+        return self._get_filename_metadata(media_info, info_hash, file_hash)
 
     @retry_api_call(max_retries=3, backoff_factor=1.0)
-    def _fetch_jikan_metadata(self, media_info: Dict[str, Any]) -> Dict[str, Any]:
+    def _fetch_jikan_metadata(self, media_info: Dict[str, Any], info_hash:str, file_hash:str) -> Dict[str, Any]:
         """Fetch anime metadata from MyAnimeList"""
+        source = self._build_progress_source(media_info)
+        self.torrent_metadata.send_progress_update(
+            info_hash,
+            file_hash,
+            "metadata",
+            10,
+            status="processing",
+            extra=source
+        )
         anime_title = media_info.get('title', media_info['filename'])
         episode_number = media_info.get('episode', 1)
 
         # Try MyAnimeList if available
         if hasattr(self, 'jikan_client') and self.api_clients.get('jikan', False):
             try:
+                self.torrent_metadata.send_progress_update(
+                    info_hash,
+                    file_hash,
+                    "metadata",
+                    25,
+                    status="processing",
+                    extra=source
+                )
                 anime_data = self.jikan_client.search_anime(anime_title)
+                self.torrent_metadata.send_progress_update(
+                    info_hash,
+                    file_hash,
+                    "metadata",
+                    50,
+                    status="processing",
+                    extra=source
+                )
                 if anime_data:
+                    self.torrent_metadata.send_progress_update(
+                        info_hash,
+                        file_hash,
+                        "metadata",
+                        75,
+                        status="processing",
+                        extra=source
+                    )
+
+                    self.torrent_metadata.send_progress_update(
+                        info_hash,
+                        file_hash,
+                        "metadata",
+                        95,
+                        status="processing",
+                        extra=source
+                    )
                     return self.jikan_client.get_episode_details(anime_title, episode_number, anime_data)
             except Exception as e:
                 self.logger.warning(f"AniList search failed: {e}")
-
-        return self._get_filename_metadata(media_info)
+        return self._get_filename_metadata(media_info, info_hash, file_hash)
 
     @retry_api_call(max_retries=3, backoff_factor=1.0)
-    def _fetch_jikan_metadata2(self, media_info: Dict[str, Any]) -> Dict[str, Any]:
+    def _fetch_jikan_metadata2(self, media_info: Dict[str, Any], info_hash:str, file_hash:str) -> Dict[str, Any]:
         """Fetch anime metadata from MyAnimeList"""
+        source = self._build_progress_source(media_info)
+        self.torrent_metadata.send_progress_update(
+            info_hash,
+            file_hash,
+            "metadata",
+            10,
+            status="processing",
+            extra=source
+        )
         anime_title = media_info.get("title", media_info["filename"])
         episode_number = media_info.get("episode", 1)
         media_type = "movie" if media_info.get('media_type') == "movie" else "series"
 
         if hasattr(self, "jikan_client") and self.api_clients.get("jikan", False):
             try:
+                self.torrent_metadata.send_progress_update(
+                    info_hash,
+                    file_hash,
+                    "metadata",
+                    25,
+                    status="processing",
+                    extra=source
+                )
                 anime_data = self.jikan_client.search_anime2(anime_title)
+                self.torrent_metadata.send_progress_update(
+                    info_hash,
+                    file_hash,
+                    "metadata",
+                    50,
+                    status="processing",
+                    extra=source
+                )
                 if anime_data:
                     episode_deta = self.jikan_client.get_episode_details2(
                         anime_title,
@@ -694,6 +1045,14 @@ class MetadataFetcher:
                         anime_data,
                     )
                     if episode_deta:
+                        self.torrent_metadata.send_progress_update(
+                            info_hash,
+                            file_hash,
+                            "metadata",
+                            75,
+                            status="processing",
+                            extra=source
+                        )
                         if episode_deta.get("episode_title") and media_info.get("episode_title"):
                             data = [
                                 {
@@ -709,18 +1068,34 @@ class MetadataFetcher:
                                     "score": 0
                                 }
                             if best.get("score") > 90:
+                                self.torrent_metadata.send_progress_update(
+                                    info_hash,
+                                    file_hash,
+                                    "metadata",
+                                    95,
+                                    status="processing",
+                                    extra=source
+                                )
                                 return episode_deta
                             else:
-                                return self._get_filename_metadata(media_info)
+                                return self._get_filename_metadata(media_info, info_hash, file_hash)
 
                         else:
+                            self.torrent_metadata.send_progress_update(
+                                info_hash,
+                                file_hash,
+                                "metadata",
+                                95,
+                                status="processing",
+                                extra=source
+                            )
                             return episode_deta
             except Exception as e:
                 self.logger.warning(f"Jikan search failed: {e}")
 
-        return self._get_filename_metadata(media_info)
+        return self._get_filename_metadata(media_info, info_hash, file_hash)
 
-    def _fetch_music_metadata(self, media_info: Dict[str, Any]) -> Dict[str, Any]:
+    def _fetch_music_metadata(self, media_info: Dict[str, Any], info_hash:str, file_hash:str) -> Dict[str, Any]:
         """
         Extract music metadata using MusicMetadataExtractor.
         Fallback order:
@@ -728,26 +1103,68 @@ class MetadataFetcher:
           2. Filename parsing
           3. Spotify search (including anime-boosted search)
         """
+        source = self._build_progress_source(media_info)
+        self.torrent_metadata.send_progress_update(
+            info_hash,
+            file_hash,
+            "metadata",
+            10,
+            status="processing",
+            extra=source
+        )
         filename = media_info.get("filename")
         guessit_info = dict(media_info.get("guessit_info", {}))
         filepath = guessit_info.get("original_file_path")
 
         # Parent folder often contains album name
-        parent_folder = os.path.basename(os.path.dirname(filepath))
+        self.torrent_metadata.send_progress_update(
+            info_hash,
+            file_hash,
+            "metadata",
+            25,
+            status="processing",
+            extra=source
+        )
+        # parent_folder = os.path.basename(os.path.dirname(filepath))
 
         # Initialize extractor
         extractor = MusicMetadataExtractor(getattr(self, "config", {}))
+
+        self.torrent_metadata.send_progress_update(
+            info_hash,
+            file_hash,
+            "metadata",
+            50,
+            status="processing",
+            extra=source
+        )
 
         # Extract metadata
         metadata = extractor.extract_metadata(media_info)
 
         # Ensure search_title & original_filename are preserved
+        self.torrent_metadata.send_progress_update(
+            info_hash,
+            file_hash,
+            "metadata",
+            75,
+            status="processing",
+            extra=source
+        )
         search_title = metadata.get("title") or guessit_info.get("search_title")
         original_filename = guessit_info.get("original_filename", filename)
 
+        self.torrent_metadata.send_progress_update(
+            info_hash,
+            file_hash,
+            "metadata",
+            95,
+            status="processing",
+            extra=source
+        )
+
         if metadata is None:
             return {}
-
         return {
             "artist": metadata.get("artist"),
             "album": metadata.get("album"),
@@ -761,11 +1178,11 @@ class MetadataFetcher:
             "source": metadata.get("source"),
         }
 
-    def _get_filename_metadata(self, media_info: Dict[str, Any]) -> Dict[str, Any]:
+    def _get_filename_metadata(self, media_info: Dict[str, Any], info_hash:str, file_hash:str) -> Dict[str, Any]:
         """Extract metadata from filename as fallback"""
         title = str(media_info["title"]).strip()
         media_type = media_info['media_type']
-        guessit_info = dict(media_info.get("guessit_info"))
+        guessit_info = dict(media_info.get("guessit_info") or {})
         search_title = guessit_info.get("search_title")
         metadata_title = guessit_info.get("metadata_title")
         original_filename = guessit_info.get("original_filename")
