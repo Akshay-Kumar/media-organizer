@@ -392,6 +392,14 @@ class MetadataFetcher:
 
         if tmdb_id:
             details = self.tmdb_movie.details(tmdb_id)
+            self.torrent_metadata.send_progress_update(
+                info_hash,
+                file_hash,
+                "metadata",
+                95,
+                status="processing",
+                extra=source
+            )
             return self._format_movie_metadata(details)
 
         if hasattr(self, 'tmdb') and self.tmdb:
@@ -792,6 +800,14 @@ class MetadataFetcher:
                 )
                 if tvdb_id:
                     episode_data = self.tvdb_client.search_episode2(tvdb_id, season, episode)
+                    self.torrent_metadata.send_progress_update(
+                        info_hash,
+                        file_hash,
+                        "metadata",
+                        95,
+                        status="processing",
+                        extra=source
+                    )
                     return self._format_tv_metadata(episode_data)
                 elif not absolute_episode_number:
                     episode_data = self.tvdb_client.search_episode(title, season, episode)

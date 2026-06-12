@@ -141,6 +141,11 @@ class TorrentMetadata:
             return False
 
         file_info = report.get("file_info", {})
+        file_hash = file_info.get("hash")
+        info_hash = report.get("info_hash")
+
+        if not info_hash or not file_hash:
+            return False
 
         safe_report = json.loads(
             json.dumps(
@@ -150,8 +155,8 @@ class TorrentMetadata:
         )
 
         payload = {
-            "info_hash": report.get("info_hash"),
-            "file_hash": file_info.get("hash"),
+            "info_hash": info_hash,
+            "file_hash": file_hash,
 
             "media_type": report.get("media_type"),
 
