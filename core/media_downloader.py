@@ -6,6 +6,7 @@ from typing import Dict, Any, Optional
 import time
 import requests
 from opensubtitlescom import OpenSubtitles
+from tmdbv3api import List
 
 
 class MediaDownloader:
@@ -95,11 +96,17 @@ class MediaDownloader:
         raw = zlib.decompress(base64.b64decode(data), 16 + zlib.MAX_WBITS)
         return raw.decode('utf-8', errors='ignore')
 
-    def download_subtitles(self, destination: Path, metadata: Dict[str, Any]) -> Optional[str]:
+    def download_subtitles(self, destination: Path, metadata: Dict[str, Any]):
         if not self.config['download']['subtitles']:
             return None
 
+        languages = self.config["download"].get(
+            "subtitle_languages",
+            ["en"]
+        )
+
         media_type = metadata.get("media_type")
+        subtitle_paths = []
         query = ""
         year = None
         episode_number = None
@@ -114,25 +121,27 @@ class MediaDownloader:
             episode_number = metadata.get("episode")
 
         try:
-            subtitle_path = self.download_subtitle(
-                query=query,
-                media_type=media_type,
-                episode_number=episode_number,
-                season_number=season_number,
-                year=year,
-                language="en",
-                destination=destination
-            )
-            if subtitle_path:
-                self.logger.info(f"Downloaded subtitles: {subtitle_path}")
-                return str(subtitle_path)
-            else:
-                self.logger.info(f"No subtitles found for {destination.stem}")
+            for language in languages:
+                results = self.download_subtitle(
+                    query=query,
+                    media_type=media_type,
+                    episode_number=episode_number,
+                    season_number=season_number,
+                    year=year,
+                    language=language,
+                    destination=destination
+                )
+                if results:
+                    self.logger.info(f"Downloaded subtitles: {results}")
+                    subtitle_paths.extend(results)
+                else:
+                    self.logger.info(f"No subtitles found for {destination.stem}")
 
         except Exception as e:
             self.logger.error(f"Error downloading subtitles for {destination.name}: {e}")
+            return None
 
-        return None
+        return subtitle_paths
 
     def download_subtitle(self, query: str, media_type: str, destination: Path, season_number: int = None,
                           episode_number: int = None,
@@ -142,6 +151,7 @@ class MediaDownloader:
         Search and download the first subtitle for a given IMDb ID
         """
         response = {}
+        subtitle_paths = []
         if media_type in ["tv_show", "anime"]:
             response = self.client.search(type=media_type, query=query, season_number=season_number,
                                           episode_number=episode_number,
@@ -150,28 +160,38 @@ class MediaDownloader:
             response = self.client.search(type=media_type, query=query, year=year, languages=language)
 
         subtitles = response.to_dict().get('data', [])
+        max_count = self.config["download"].get(
+            "max_subtitles_per_language",
+            3
+        )
+        selected_subs = subtitles[:max_count]
 
-        if not subtitles:
+        if not selected_subs:
             print(f"No subtitles found for IMDb ID {query}")
             return None
 
-        # Pick first subtitle
-        first_sub = subtitles[0]
-        file_id = first_sub.file_id
-        # file_name = first_sub.file_name
+        for sub in selected_subs:
+            # pick the subtitle file_id
+            file_id = sub.file_id
+            file_name = sub.file_name
+            language = sub.language or language
 
-        # Download subtitle
-        subtitle_data = self.client.download(file_id)
+            # Download subtitle
+            subtitle_data = self.client.download(file_id)
 
-        # Save to disk
-        output_folder = str(destination.parent)
-        file_name = str(destination.name)
-        output_path = Path(output_folder) / (Path(file_name).stem + ".srt")
-        with open(output_path, "wb") as srt:
-            srt.write(subtitle_data)
+            # Save to disk
+            output_folder = str(destination.parent)
+            output_path = Path(output_folder) / (Path(file_name).stem + "." + language + ".srt")
+            with open(output_path, "wb") as srt:
+                srt.write(subtitle_data)
 
-        self.logger.info(f"Saved subtitle: {output_path}")
-        return output_path
+            if output_path.exists():
+                subtitle_paths.append(str(output_path))
+                self.logger.info(f"Saved subtitle: {str(output_path)}")
+            else:
+                self.logger.info(f"Unable to write subtitles to disk, for: {query}")
+
+        return subtitle_paths
 
     def _download_image(self, url: str, save_path: str) -> Optional[str]:
         try:
@@ -187,16 +207,3 @@ class MediaDownloader:
         except Exception as e:
             self.logger.error(f"Error downloading image {url}: {e}")
             return None
-
-    def download_all_media(self, media_info: Dict[str, Any], metadata: Dict[str, Any],
-                           file_path: Path, output_folder: str) -> Dict[str, Any]:
-        results = {'artwork': {}, 'subtitles': None, 'success': False}
-        try:
-            results['artwork'] = self.download_artwork(metadata, media_info['media_type'], Path(output_folder))
-            if media_info['media_type'] in ['movie', 'tv_show', 'anime']:
-                results['subtitles'] = self.download_subtitles(Path(output_folder), metadata)
-            results['success'] = True
-        except Exception as e:
-            self.logger.error(f"Error downloading media files: {e}")
-            results['error'] = str(e)
-        return results

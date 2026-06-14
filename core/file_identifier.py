@@ -1105,7 +1105,7 @@ class MediaFileIdentifier:
                         break
 
         # send progress update to organizerr
-        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 95, status="processing", extra=source)
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 90, status="processing", extra=source)
         return path_data
 
     def smart_guess(self, guess: Dict[str, Any]) -> Dict[str, Any]:

@@ -320,9 +320,9 @@ class MediaOrganizer:
 
                     # SUBTITLES
                     self.torrent_metadata.send_progress_update(info_hash, file_hash, "subtitles", 0, status="processing", extra=source)
-                    subtitle_path = self.downloader.download_subtitles(destination, metadata)
-                    if subtitle_path is not None:
-                        result['subtitle_path'] = subtitle_path
+                    subtitle_paths = self.downloader.download_subtitles(destination, metadata)
+                    result['subtitle_paths'] = subtitle_paths
+                    if subtitle_paths is not None:
                         # SUBTITLES
                         self.torrent_metadata.send_progress_update(info_hash, file_hash, "subtitles", 100, status="completed", success=True)
                     else:
