@@ -1,17 +1,21 @@
 import base64
 import logging
+import math
+import time
 import zlib
 from pathlib import Path
 from typing import Dict, Any, Optional
-import time
+
 import requests
 from opensubtitlescom import OpenSubtitles
-from tmdbv3api import List
+
+from utils.torrent_metadata import TorrentMetadata
 
 
 class MediaDownloader:
     def __init__(self, config: Dict[str, Any]):
         self.config = config
+        self.torrent_metadata = TorrentMetadata(self.config)
         self.logger = logging.getLogger(__name__)
         self.session = requests.Session()
 
@@ -44,7 +48,14 @@ class MediaDownloader:
         self.token_expiry = resp.get("exp", now + 23 * 3600)  # fallback: ~23h
         self.logger.info(f"OpenSubtitles login OK, token expires at {self.token_expiry}")
 
-    def download_artwork(self, metadata: Dict[str, Any], media_type: str, destination: Path) -> Dict[str, str]:
+    def download_artwork(self,
+                         metadata: Dict[str, Any],
+                         media_type: str,
+                         destination: Path,
+                         info_hash: str | None,
+                         file_hash: str | None,
+                         source: Dict[str, Any]
+                         ) -> Dict[str, str]:
         """
         Download artwork (poster, backdrop) to the same folder as the media file.
         Supports movies (TMDb) and TV shows (TVDB).
@@ -56,6 +67,8 @@ class MediaDownloader:
         try:
             # --- Movie (TMDb) ---
             if media_type == 'movie':
+                self.torrent_metadata.send_progress_update(info_hash, file_hash, "artwork", 10, status="processing",
+                                                           extra=source)
                 # Poster
                 if metadata.get('poster_path'):
                     poster_url = f"https://image.tmdb.org/t/p/{self.config['download']['artwork_sizes']['poster']}{metadata['poster_path']}"
@@ -64,6 +77,9 @@ class MediaDownloader:
                                                            destination.stem) + "_poster" + ".jpg")
                     if poster_path:
                         artwork_paths['poster'] = str(poster_path)
+                        self.torrent_metadata.send_progress_update(info_hash, file_hash, "artwork", 50,
+                                                                   status="processing",
+                                                                   extra=source)
 
                 # Backdrop
                 if metadata.get('backdrop_path'):
@@ -73,9 +89,14 @@ class MediaDownloader:
                                                              destination.stem) + "_backdrop" + ".jpg")
                     if backdrop_path:
                         artwork_paths['backdrop'] = str(backdrop_path)
+                        self.torrent_metadata.send_progress_update(info_hash, file_hash, "artwork", 70,
+                                                                   status="processing",
+                                                                   extra=source)
 
             # --- TV Show (TVDB) ---
             elif media_type in ['tv_show', 'anime']:
+                self.torrent_metadata.send_progress_update(info_hash, file_hash, "artwork", 10, status="processing",
+                                                           extra=source)
                 # Series poster
                 # series_image = metadata.get('series', {}).get('image')
                 series_image = metadata.get('image')
@@ -84,6 +105,9 @@ class MediaDownloader:
                                                        str(destination.parent) + "/" + str(destination.stem) + ".jpg")
                     if poster_path:
                         artwork_paths['poster'] = str(poster_path)
+                        self.torrent_metadata.send_progress_update(info_hash, file_hash, "artwork", 70,
+                                                                   status="processing",
+                                                                   extra=source)
 
         except Exception as e:
             self.logger.error(f"Error downloading artwork: {e}")
@@ -96,9 +120,20 @@ class MediaDownloader:
         raw = zlib.decompress(base64.b64decode(data), 16 + zlib.MAX_WBITS)
         return raw.decode('utf-8', errors='ignore')
 
-    def download_subtitles(self, destination: Path, metadata: Dict[str, Any]):
+    def download_subtitles(self,
+                           destination: Path,
+                           metadata: Dict[str, Any],
+                           info_hash: str | None,
+                           file_hash: str | None,
+                           source: Dict[str, Any]
+                           ):
         if not self.config['download']['subtitles']:
             return None
+
+        progress = 10
+
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "subtitles", progress, status="processing",
+                                                   extra=source)
 
         languages = self.config["download"].get(
             "subtitle_languages",
@@ -120,6 +155,16 @@ class MediaDownloader:
             season_number = metadata.get("season")
             episode_number = metadata.get("episode")
 
+        progress += 10
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "subtitles", progress, status="processing",
+                                                   extra=source)
+
+        remaining_progress = abs(100 - progress)
+        language_count = max(len(languages), 1)
+
+        each_loop_progress = math.ceil(
+            remaining_progress / language_count
+        )
         try:
             for language in languages:
                 results = self.download_subtitle(
@@ -134,6 +179,11 @@ class MediaDownloader:
                 if results:
                     self.logger.info(f"Downloaded subtitles: {results}")
                     subtitle_paths.extend(results)
+                    progress += each_loop_progress
+                    final_progress = min(progress, 100)
+                    self.torrent_metadata.send_progress_update(info_hash, file_hash, "subtitles", final_progress,
+                                                               status="processing",
+                                                               extra=source)
                 else:
                     self.logger.info(f"No subtitles found for {destination.stem}")
 

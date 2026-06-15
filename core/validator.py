@@ -3,14 +3,21 @@ from pathlib import Path
 from typing import Dict, Any, List
 import logging
 from utils.file_utils import FileUtils
+from utils.torrent_metadata import TorrentMetadata
 
 
 class MediaValidator:
     def __init__(self, config: Dict[str, Any]):
         self.config = config
+        self.torrent_metadata = TorrentMetadata(self.config)
         self.logger = logging.getLogger(__name__)
 
-    def validate(self, process_result: Dict[str, Any]) -> Dict[str, Any]:
+    def validate(self,
+                 process_result: Dict[str, Any],
+                 info_hash: str | None,
+                 file_hash: str | None,
+                 source: Dict[str, Any],
+                 ) -> Dict[str, Any]:
         """Comprehensive validation of the entire processing result"""
         validation = {
             'is_valid': True,
@@ -21,21 +28,33 @@ class MediaValidator:
 
         # Check 1: Metadata validation
         self._validate_metadata(process_result, validation)
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "validation", 10, status="processing",
+                                                   extra=source)
 
         # Check 2: File operation validation
         self._validate_file_operations(process_result, validation)
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "validation", 20, status="processing",
+                                                   extra=source)
 
         # Check 3: Destination validation
         self._validate_destination(process_result, validation)
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "validation", 40, status="processing",
+                                                   extra=source)
 
         # Check 4: Integrity validation
         self._validate_integrity(process_result, validation)
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "validation", 60, status="processing",
+                                                   extra=source)
 
         # Check 5: Plex compatibility validation
         self._validate_plex_compatibility(process_result, validation)
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "validation", 80, status="processing",
+                                                   extra=source)
 
         # Determine overall validity
         validation['is_valid'] = len(validation['errors']) == 0
+        self.torrent_metadata.send_progress_update(info_hash, file_hash, "validation", 90, status="processing",
+                                                   extra=source)
 
         return validation
 

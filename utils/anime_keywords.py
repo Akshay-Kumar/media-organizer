@@ -14,7 +14,7 @@ def get_anime_keywords() -> dict:
             "Kaijū 8 Gō", "kaijū 8 gō", "kaijuu no 8", "Kaiju No. 8", "Sword of the Demon Hunter",
             "Kijin Gentosho", "Dr. Stone", "dr stone", "That Time I Got Reincarnated as a Slime",
             "Flame of Recca","Sentenced to Be a Hero", "High School of the Dead","Family Guy",
-            "Wistoria Wand and Sword", "Solo Leveling",
+            "Wistoria Wand and Sword", "Solo Leveling","Dark Gathering",
 
             # Popular Isekai
             "re:zero", "re zero", "konosuba", "kono subarashii", "mushoku tensei",

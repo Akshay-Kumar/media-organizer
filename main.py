@@ -305,10 +305,10 @@ class MediaOrganizer:
 
                 # ARTWORK
                 self.torrent_metadata.send_progress_update(info_hash, file_hash, "artwork", 0, status="processing", extra=source)
-                artwork_paths = self.downloader.download_artwork(metadata, media_info['media_type'], destination)
+                artwork_paths = self.downloader.download_artwork(metadata, media_info['media_type'], destination, info_hash, file_hash, source)
                 result['artwork_paths'] = artwork_paths
                 # call your artwork logic
-                if artwork_paths is not None:
+                if artwork_paths:
                     self.torrent_metadata.send_progress_update(info_hash, file_hash, "artwork", 100, status="completed", success=True)
                 else:
                     self.torrent_metadata.send_progress_update(info_hash, file_hash, "artwork", 100, status="failed", success=False)
@@ -320,9 +320,9 @@ class MediaOrganizer:
 
                     # SUBTITLES
                     self.torrent_metadata.send_progress_update(info_hash, file_hash, "subtitles", 0, status="processing", extra=source)
-                    subtitle_paths = self.downloader.download_subtitles(destination, metadata)
+                    subtitle_paths = self.downloader.download_subtitles(destination, metadata, info_hash, file_hash, source)
                     result['subtitle_paths'] = subtitle_paths
-                    if subtitle_paths is not None:
+                    if subtitle_paths:
                         # SUBTITLES
                         self.torrent_metadata.send_progress_update(info_hash, file_hash, "subtitles", 100, status="completed", success=True)
                     else:
@@ -335,7 +335,7 @@ class MediaOrganizer:
 
             # VALIDATION - Start
             self.torrent_metadata.send_progress_update(info_hash, file_hash, "validation", 0, status="processing", extra=source)
-            validation = self.validator.validate(result)
+            validation = self.validator.validate(result, info_hash, file_hash, source)
             result['validation'] = validation
 
             if validation['is_valid']:
@@ -350,7 +350,7 @@ class MediaOrganizer:
                     # library scan
                     self.torrent_metadata.send_progress_update(info_hash, file_hash, "library_scan", 0, status="processing", extra=source)
                     media_type = metadata.get('media_type')
-                    scan_results = self.library_scanner.scan_libraries(media_type)
+                    scan_results = self.library_scanner.scan_libraries(media_type, info_hash, file_hash, source)
                     result['library_scan'] = scan_results
                     result['scan_media_type'] = media_type
                     result['scan_duration'] = scan_results.get('duration', 0)
@@ -367,6 +367,7 @@ class MediaOrganizer:
                 self.audit_logger.info(f"Successfully processed: {file_path.name}")
             else:
                 result['errors'].extend(validation.get('errors', []))
+                self.torrent_metadata.send_progress_update(info_hash, file_hash, "validation", 100, status="failed", success=False)
                 if pbar:
                     pbar.set_description(f"✗ Failed: {file_path.name[:25]}...")
 

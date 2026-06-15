@@ -8,11 +8,12 @@ from typing import Dict, Any, Optional, List
 class TorrentMetadata:
     def __init__(self, config: Dict[str, Any]):
         self.session = requests.Session()
-        self.timeout = 2  # short timeout for progress updates
         self.config = config.get('organizerr', {})
         self.logger = logging.getLogger(__name__)
 
         self.api = self.config.get('api')
+        self.timeout = self.config.get('max_timeout', 2)
+        self.retry_count = self.config.get('retry_count', 3)
         self.torrents_endpoint = 'torrents'
         self.file_operations_endpoint = 'api/file-operations'
         self.processing_reports_endpoint = 'api/processing-reports'
@@ -33,6 +34,55 @@ class TorrentMetadata:
         except Exception:
             return {}
 
+    def _post_with_retry(
+            self,
+            url: str,
+            payload: dict,
+            timeout: int,
+            retries: int = 3
+    ) -> bool:
+
+        import time
+
+        for attempt in range(retries):
+            try:
+                response = self.session.post(
+                    url,
+                    json=payload,
+                    timeout=timeout
+                )
+                response.raise_for_status()
+                return True
+
+            except requests.HTTPError as e:
+                status_code = (
+                    e.response.status_code
+                    if e.response
+                    else None
+                )
+
+                #
+                # Don't retry permanent errors
+                #
+                if status_code and 400 <= status_code < 500:
+                    raise
+
+            except Exception:
+                pass
+
+            if attempt < retries - 1:
+                wait_time = 2 ** attempt
+
+                self.logger.warning(
+                    f"Retrying request in "
+                    f"{wait_time}s "
+                    f"(attempt {attempt + 2}/{retries})"
+                )
+
+                time.sleep(wait_time)
+
+        return False
+
     def check_api_health(self, force: bool = False) -> bool:
         now = datetime.utcnow().timestamp()
 
@@ -51,7 +101,7 @@ class TorrentMetadata:
         try:
             response = self.session.get(
                 url,
-                timeout=5
+                timeout=self.timeout
             )
 
             response.raise_for_status()
@@ -82,7 +132,7 @@ class TorrentMetadata:
 
         try:
             self.logger.info(f"Trying API: {url}")
-            resp = requests.get(url, timeout=5)
+            resp = requests.get(url, timeout=self.timeout)
             resp.raise_for_status()
             return resp.json()
 
@@ -95,7 +145,7 @@ class TorrentMetadata:
 
         try:
             self.logger.info(f"Trying API: {url}")
-            resp = requests.get(url, timeout=5)
+            resp = requests.get(url, timeout=self.timeout)
             resp.raise_for_status()
 
             return resp.json()
@@ -116,7 +166,7 @@ class TorrentMetadata:
         url = f"{self.api}/{self.file_operations_endpoint}"
 
         try:
-            response = self.session.post(url, json=record, timeout=5)
+            response = self.session.post(url, json=record, timeout=self.timeout)
 
             if response.status_code in (200, 201):
                 self.logger.info(f"✅ File op success: {record.get('destination')}")
@@ -193,13 +243,14 @@ class TorrentMetadata:
                 f"for {payload.get('file_hash')}"
             )
 
-            response = self.session.post(
+            success = self._post_with_retry(
                 url,
-                json=payload,
-                timeout=10
+                payload,
+                timeout=self.timeout,
+                retries=self.retry_count
             )
 
-            if response.status_code in (200, 201):
+            if success:
                 self.logger.info(
                     f"Processing report stored: "
                     f"{payload.get('file_hash')}"
@@ -207,9 +258,10 @@ class TorrentMetadata:
                 return True
 
             self.logger.error(
-                f"Processing report failed: "
-                f"{response.status_code}"
+                f"Processing report failed "
+                f"after retries"
             )
+            return False
 
         except Exception as e:
             self.logger.exception(
@@ -224,7 +276,7 @@ class TorrentMetadata:
 
         try:
             self.logger.info(f"Trying API: {url}")
-            response = requests.get(url, timeout=5)
+            response = requests.get(url, timeout=self.timeout)
             response.raise_for_status()
 
             if response.status_code in (200, 201):
@@ -260,10 +312,10 @@ class TorrentMetadata:
             self._stage_progress.pop(key, None)
 
         if not self.check_api_health():
-            self.logger.debug(
-                "Skipping progress update because API is unhealthy"
+            self.logger.warning(
+                "API marked unhealthy, "
+                "trying progress update anyway"
             )
-            return False
 
         if not info_hash or not file_hash:
             return False
@@ -307,24 +359,26 @@ class TorrentMetadata:
                     f"Skipped file: {file_hash}"
                 )
 
-            # 🔥 FAST + NON-BLOCKING (important)
-            response = self.session.post(
+            # 🔥 POST with retry logic to avoid incomplete progress updates
+            success = self._post_with_retry(
                 url,
-                json=payload,
-                timeout=self.timeout
+                payload,
+                timeout=self.timeout,
+                retries=self.retry_count
             )
 
-            if response.status_code not in (200, 201):
-                self.logger.debug(f"Progress update failed: {response.status_code}")
+            if success:
+                self.api_healthy = True
 
-            if not self.api_healthy:
-                self.logger.info(
-                    "API communication restored"
-                )
+                return True
 
-            self.api_healthy = True
+            self.logger.warning(
+                f"Failed progress update "
+                f"after retries: "
+                f"{stage}"
+            )
 
-            return True
+            return False
 
         except Exception as e:
             # ❗ DO NOT log as error (too noisy)

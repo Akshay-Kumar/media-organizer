@@ -208,12 +208,14 @@ class TVDBClient:
         page = 1
         limit = 10
         lang = 'eng'
-        series_results = self.tvdb_v4_official.get_series(id=int(tvdb_id))
-        if not series_results:
+        # series_results = self.tvdb_v4_official.get_series(id=int(tvdb_id))
+        series_result = self.tvdb_v4_official.get_series_translation(id=int(tvdb_id), lang=lang)
+        if not series_result:
             return None
 
-        series_title = series_results.get("name") or series_results.get("slug")
-        episodes_data = self.tvdb_v4_official.get_series_episodes(int(tvdb_id))
+        series_title = series_result.get("name") or series_result.get("slug")
+        # episodes_data = self.tvdb_v4_official.get_series_episodes(int(tvdb_id))
+        episodes_data = self.tvdb_v4_official.get_series_episodes(int(tvdb_id), lang=lang)
         episodes = list(episodes_data.get("episodes", None)) if episodes_data else None
 
         if episodes and len(episodes) > 0:

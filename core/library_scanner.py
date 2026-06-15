@@ -3,11 +3,15 @@ import requests
 import time
 from typing import Dict, Any, List, Optional
 from pathlib import Path
+from utils.torrent_metadata import TorrentMetadata
 
 
 class LibraryScanner:
     def __init__(self, config: Dict[str, Any]):
+        self.config = config
+        self.torrent_metadata = TorrentMetadata(self.config)
         self.config = config.get('library_scan', {})
+
         self.logger = logging.getLogger(__name__)
         self.audit_logger = logging.getLogger('audit')
         self._plex_libraries_cache = None
@@ -195,17 +199,20 @@ class LibraryScanner:
         return emby_scan_results
 
     # In LibraryScanner class, modify the scan methods to return duration
-    def scan_libraries(self, media_type: Optional[str] = None, info_hash=None, file_hash=None, torrent_metadata=None) -> Dict[str, Any]:
+    def scan_libraries(self,
+                       media_type: str | None,
+                       info_hash: str | None,
+                       file_hash: str | None,
+                       source: Dict[str, Any]) -> Dict[str, Any]:
         """Scan libraries based on media type and return results with duration"""
         def emit(progress):
-            if torrent_metadata:
-                torrent_metadata.send_progress_update(
-                    info_hash,
-                    file_hash,
-                    "library_scan",
-                    progress,
-                    status="processing"
-                )
+            self.torrent_metadata.send_progress_update(
+                info_hash,
+                file_hash,
+                "library_scan",
+                progress,
+                status="processing"
+            )
 
         if not self.config.get('enabled', True):
             return {'plex': False, 'emby': False, 'duration': 0}
@@ -236,6 +243,7 @@ class LibraryScanner:
             'duration': end_time - start_time
         }
 
+        emit(100)
         return results
 
     def get_available_libraries(self) -> Dict[str, List[str]]:
