@@ -148,7 +148,7 @@ class TitleMatcher:
         token_sort = fuzz.token_sort_ratio(query_norm, candidate_norm)
         partial = fuzz.partial_ratio(query_norm, candidate_norm)
 
-        combined_score = (ratio_score * 0.55) + (token_sort * 0.30) + (partial * 0.80)
+        combined_score = (ratio_score * 0.55) + (token_sort * 0.30) + (partial * 0.15)
 
         if query_norm == candidate_norm:
             combined_score += weights.get("title_match_boost", 0)

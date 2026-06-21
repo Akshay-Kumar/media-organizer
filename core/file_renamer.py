@@ -60,8 +60,11 @@ class FileRenamer:
             return self._get_fallback_pattern(media_type)
 
         # Choose pattern based on available metadata
+        values = {**media_info, **metadata}
+        prepared_values = self._prepare_format_values(values, media_info)
+
         for pattern in patterns:
-            if self._pattern_is_appropriate(pattern, media_info, metadata):
+            if self._pattern_is_appropriate(pattern, prepared_values, {}):
                 return pattern
 
         # If no pattern matches, use the first one
@@ -83,7 +86,7 @@ class FileRenamer:
         """Extract required fields from a pattern string"""
         # Simple extraction of {field} patterns
         import re
-        fields = re.findall(r'\{(\w+)\}', pattern)
+        fields = re.findall(r'\{(\w+)(?::[^}]*)?\}', pattern)
         return list(set(fields))  # Remove duplicates
 
     def _get_fallback_pattern(self, media_type: str) -> str:
@@ -120,6 +123,14 @@ class FileRenamer:
         """Prepare all values for pattern formatting, sanitized for Windows filenames"""
         title = self._clean_string(values.get('title', 'Unknown'))
         episode_title = self._clean_string(values.get('episode_title', 'Unknown'))
+        edition = self._clean_string(values.get('edition', ''))
+        quality = self._clean_string(values.get('quality', ''))
+
+        # Plex edition format
+        edition_suffix = f" {{edition-{edition}}}" if edition else ""
+
+        # quality pattern
+        quality_suffix = f" [{quality}]" if quality else ""
 
         # Clean title and capitalize
         title = self.media_identifier.fix_media_title(title=title)
@@ -145,11 +156,14 @@ class FileRenamer:
         format_values = {
             'title': title,
             'episode_title': episode_title,
+            'edition': edition,
+            'edition_suffix': edition_suffix,
             'year': str(values.get('year', ''))[:4] if values.get('year') else '',
             'season': season,
             'episode': episode,
             'episode_number': f"{episode:02d}",
-            'quality': self._clean_string(values.get('quality', '')),
+            'quality': quality,
+            'quality_suffix': quality_suffix,
             'resolution': self._clean_string(values.get('resolution', '')),
             'source': self._clean_string(values.get('source', '')),
             'artist': self._clean_string(values.get('artist', 'Unknown Artist')),

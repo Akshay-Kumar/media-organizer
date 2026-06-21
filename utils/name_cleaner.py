@@ -50,6 +50,15 @@ def clean_media_name(filename):
     audio_extensions = get_media_extensions().get("audio")
 
     raw = os.path.splitext(os.path.basename(filename))[0]  # filename
+    # Remove leading numbering like:
+    # 01.Movie
+    # 01 Movie
+    # 001 - Movie
+    raw = re.sub(
+        r'^\s*\d{1,3}(?:[\.\-_ ]+)',
+        '',
+        raw
+    )
     ext = os.path.splitext(os.path.basename(filename))[1]  # file extension
 
     # normalize separators
@@ -57,6 +66,7 @@ def clean_media_name(filename):
     norm = re.sub(r'\s+', ' ', norm).strip()
 
     version = None
+    edition = None
     season = None
     episodes = []
     year = None
@@ -66,6 +76,28 @@ def clean_media_name(filename):
     is_movie = False
     is_music = False
     is_episode = False
+
+    EDITION_PATTERNS = {
+        r'\bextended\s+version\b': 'Extended Version',
+        r'\bdirectors?\s+cut\b': "Director's Cut",
+        r'\bremastered\b': 'Remastered',
+        r'\buncut\b': 'Uncut',
+        r'\bimax\b': 'IMAX',
+        r'\bultimate\s+edition\b': 'Ultimate Edition',
+        r"\bcollector'?s\s+edition\b": "Collector's Edition",
+        r'\banniversary\s+edition\b': 'Anniversary Edition',
+        r'\bspecial\s+edition\b': 'Special Edition',
+        r'\bextended\s+cut\b': 'Extended Cut',
+        r'\bfinal\s+cut\b': 'Final Cut',
+    }
+
+    detected_editions = []
+
+    for pattern, edition_name in EDITION_PATTERNS.items():
+        if re.search(pattern, norm, re.IGNORECASE):
+            detected_editions.append(edition_name)
+
+    edition = " ".join(dict.fromkeys(detected_editions)) if detected_editions else None
 
     # --- 1) Smart Movie / OVA / Special detection ---
     movie_patterns = [
@@ -180,12 +212,7 @@ def clean_media_name(filename):
 
     # --- 4) Cleaning ---
     cleaned = raw
-
-    # ✅ Remove only square bracketed tags [ ... ]
-    cleaned = re.sub(r'\[[^\]]*\]', ' ', cleaned)
-
-    # Keep parentheses () and braces {} intact for now
-    # (optional – if you really want to remove them too, add similar lines)
+    cleaned = re.sub(r'[~]+', ' ', cleaned)
 
     # Normalize spacing
     cleaned = re.sub(r'\s+', ' ', cleaned).strip()
@@ -193,24 +220,50 @@ def clean_media_name(filename):
     # --- Load dynamic release groups ---
     custom_release_groups = load_release_groups()
 
-    # --- Static release group names ---
-    static_release_groups = {
-        "eztv", "rarbg", "yify", "yts", "horriblesubs", "subsplease", "ethel", "psa", "ntb",
-        "sva", "tbs", "fqm", "avi", "lol", "dimension", "immerse", "killers", "bae", "avs",
-        "ches", "qube", "monkee", "tgx", "qxr", "rtx", "vyndros", "joy", "ettv", "rarbgx",
-        "galaxyrg", "sparrow", "mkvhub", "ganool", "evo", "don", "trollhd", "uplg", "trollu",
-        "ihd", "deimos", "solstice", "sys", "viethd", "frenchteam", "otr", "greeksubs",
-        "xmf", "klaxxon", "w4f", "nimitz", "fov", "visum", "rartv", "warlord", "afm72", "iceblue"
-    }
+    # Remove only known release groups
+    for release_group in custom_release_groups:
+        cleaned = re.sub(re.escape(release_group), " ", cleaned, flags=re.IGNORECASE)
 
-    # --- Combine (only unique ones) ---
-    all_release_groups = static_release_groups.union(custom_release_groups)
+    # Remove common audio phrases BEFORE quality pattern processing
+    cleaned = re.sub(
+        r'\bDDP\s+EX\s+\d+\.\d+\b',
+        ' ',
+        cleaned,
+        flags=re.IGNORECASE
+    )
+
+    cleaned = re.sub(
+        r'\bDDP\s+\d+\.\d+\b',
+        ' ',
+        cleaned,
+        flags=re.IGNORECASE
+    )
+
+    cleaned = re.sub(
+        r'\bDD\s+\d+\.\d+\b',
+        ' ',
+        cleaned,
+        flags=re.IGNORECASE
+    )
 
     # --- 4a) Static quality + release group patterns ---
     quality_patterns = [
         # 0 -> Resolution / quality
         r'\b(?:4k|2160p|1080p|720p|480p|uhd)\b',
         r'\b(?:hdr|dv|dolby[\s-]*vision|10bit)\b',
+
+        # Edition tags
+        r'\bextended\s+version\b',
+        r'\bextended\b',
+        r'\bversion\b',
+        r'\bdirectors?\s+cut\b',
+        r'\bremastered\b',
+        r'\buncut\b',
+        r'\btheatrical\b',
+
+        # hindi language fragments
+        r'\bhindi\b',
+        r'\benglish\b',
 
         # 2 -> Source / rip type
         r'\b(?:bluray|bdrip|webrip|web[- ]?dl|hdtv|dvdrip|remux|brrip|web|bd)\b',
@@ -222,6 +275,27 @@ def clean_media_name(filename):
         r'\b(?:aac|ac3|dts|flac|mp3|opus|vorbis|(avc))\b',
         r'\b(?:5\.1|7\.1|2\.0|stereo|surround)\b',
 
+        # Streaming providers
+        r'\b(?:amzn|dsnp|nf|atvp|hmax)\b',
+
+        # Audio formats
+        r'\b(?:ddp(?:\s*ex)?\s*\d\.\d)\b',
+        r'\b(?:dd(?:p)?\s*\d\.\d)\b',
+        r'\b(?:truehd(?:\s*atmos)?)\b',
+
+        # Advanced audio formats
+        r'\b(?:ddp(?:\s+ex)?\s*\d\.\d)\b',
+        r'\b(?:dd(?:p)?\s*\d\.\d)\b',
+        r'\b(?:truehd(?:\s+atmos)?)\b',
+        r'\b(?:dts[- ]?hd(?:\s+ma)?)\b',
+        r'\bex\b',
+
+        # Edition tags
+        r'\b(?:extended\s+version)\b',
+        r'\b(?:extended)\b',
+        r'\b(?:directors?\s+cut)\b',
+        r'\b(?:remastered)\b',
+
         # 6 -> Multi-audio / subs
         r'\b(?:dual[\s-]*audio|multi[\s-]*audio|multi)\b',
         r'\b(?:ita|eng|jpn|ger|fre|spa|subbed|dubbed)\b',
@@ -229,14 +303,8 @@ def clean_media_name(filename):
         # 8 -> Misc
         r'\b(?:complete|proper|repack|remastered|rip)\b',
 
-        # Release groups (fixed single regex!)
-        # r'\b(?:eztv|rarbg|yify|yts|horriblesubs|subsplease|ethel|psa|ntb|sva|tbs|fqm|avi|lol|dimension|immerse'
-        # r'|killers|bae|avs|ches|qube|monkee|tgx|qxr|rtx|vyndros|joy|ettv|rarbgx|galaxyrg|sparrow|mkvhub|ganool|evo'
-        # r'|don|trollhd|uplg|trollu|ihd|deimos|solstice|sys|viethd|frenchteam|otr|greeksubs|xmf|klaxxon|w4f|nimitz|fov'
-        # r'|visum|rartv|warlord|afm72)\b',
-
         # 9 -> Release groups (fixed single regex!)
-        rf"\b(?:{'|'.join(sorted(all_release_groups))})\b",
+        # rf"\b(?:{'|'.join(sorted(all_release_groups))})\b",
 
         # 10 -> Resolution-style leftovers
         r'\b\d{3,4}[xX]\d{3,4}\b',
@@ -248,6 +316,7 @@ def clean_media_name(filename):
         r'\b(?:AAC\d(?:\.\d)?)\b',
         r'\b(?:DDP\d(?:\.\d)?)\b',
         r'\b(?:Atmos)\b',
+        r'\b(?:dsnp|esubs|msubs|tombdoc|org|uhd|ddp)\b',
 
         # 15 -> Extra cam/source variations and junk
         r'\b(?:hdcam|hdtc|camrip|telesync|ts|tc|line[\s-]?audio|hq)\b',
@@ -261,10 +330,6 @@ def clean_media_name(filename):
 
     for pattern in quality_patterns:
         cleaned = re.sub(pattern, ' ', cleaned, flags=re.IGNORECASE)
-
-    # --- 4b) Self-learning junk words ---
-    for junk in learned_junk_words:
-        cleaned = re.sub(r'\b' + re.escape(junk) + r'\b', ' ', cleaned, flags=re.IGNORECASE)
 
     # --- Language & Line cleanup ---
     # Remove standalone language markers
@@ -287,12 +352,17 @@ def clean_media_name(filename):
     cleaned = re.sub(r'(?:[-_.\s]|^)(line)(?:[-_.\s]|$)', ' ', cleaned, flags=re.IGNORECASE)
 
     # Remove remaining trailing junk (like unknown release groups)
-    m = re.search(r'[-\s]*\[(.*?)\]$', cleaned)
-    if m:
-        junk_word = m.group(1).strip()
-        cleaned = re.sub(r'[-\s]*\[' + re.escape(junk_word) + r'\]$', '', cleaned)
-        if junk_word.lower() not in (w.lower() for w in learned_junk_words):
-            learned_junk_words.add(junk_word)
+    for junk in learned_junk_words:
+        # ignore very short words
+        if len(junk) < 4:
+            continue
+
+        cleaned = re.sub(
+            r'\b' + re.escape(junk) + r'\b',
+            ' ',
+            cleaned,
+            flags=re.IGNORECASE
+        )
 
     # Replace separators, clean extra spaces
     cleaned = re.sub(r'[\._-]+', ' ', cleaned)
@@ -301,8 +371,30 @@ def clean_media_name(filename):
     # Generic trailing release group remover
     # cleaned = re.sub(r'[-\s]+[A-Za-z0-9]{2,}$', '', cleaned)
     # Only remove if it looks like a release tag / hash: usually uppercase letters/numbers only
-    cleaned = re.sub(r'[-\s]+\[[A-Za-z0-9]{2,}\]$', '', cleaned)  # for [HASH]
-    cleaned = re.sub(r'[-\s]+[A-Z0-9]{2,}$', '', cleaned)  # for uppercase-only release group
+    # cleaned = re.sub(r'[-\s]+\[[A-Za-z0-9]{2,}\]$', '', cleaned)  # for [HASH]
+    # cleaned = re.sub(r'[-\s]+[A-Z0-9]{2,}$', '', cleaned)  # for uppercase-only release group
+
+    SUSPICIOUS_TRAILING_WORDS = {
+        "AMZN",
+        "DSNP",
+        "NF",
+        "ATVP",
+        "HMAX"
+    }
+
+    words = cleaned.split()
+
+    if words:
+        last_word = words[-1].upper()
+
+        if last_word in SUSPICIOUS_TRAILING_WORDS:
+            logging.info(f"Learning junk word: {last_word}")
+
+            if last_word not in learned_junk_words:
+                learned_junk_words.add(last_word)
+                save_json_set(learned_junk_words, JUNK_JSON_FILE)
+
+            cleaned = " ".join(words[:-1])
 
     # --- 5) Final cleanup ---
     search_title = cleaned
@@ -382,6 +474,7 @@ def clean_media_name(filename):
     return {
         'search_title': search_title,
         'metadata_title': cleaned,
+        'edition': edition,
         'season': season,
         'episodes': episodes if episodes else None,
         'year': year,

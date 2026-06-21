@@ -1,6 +1,7 @@
 import json
 import os
 from pathlib import Path
+import json
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEXT_FILE = BASE_DIR / "release-groups.txt"
@@ -51,7 +52,6 @@ def parse_release_groups(text_file):
 
     return groups
 
-
 def save_groups(json_file, groups):
     """Save sorted release groups to JSON."""
     sorted_groups = sorted(groups, key=str.lower)
@@ -59,6 +59,33 @@ def save_groups(json_file, groups):
     with open(json_file, "w", encoding="utf-8") as f:
         json.dump(sorted_groups, f, indent=2, ensure_ascii=False)
 
+
+def update_release_groups(json_file):
+    groups = load_existing_groups(json_file)
+    converted = []
+
+    for group in groups:
+        group = str(group).strip()
+
+        if not group:
+            continue
+
+        # Already in [GROUP] format
+        if group.startswith("[") and group.endswith("]"):
+            converted.append(group)
+        else:
+            converted.append(f"[{group}]")
+
+    # Remove duplicates while preserving order
+    converted = list(dict.fromkeys(converted))
+
+    output_file = BASE_DIR / "release_groups_converted.txt"
+
+    with open(output_file, "w", encoding="utf-8") as f:
+        for group in converted:
+            f.write(f'"{group}",\n')
+
+    print(f"Saved {len(converted)} release groups to {output_file}")
 
 def main():
     print("Loading existing release groups...")
@@ -83,4 +110,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # update_release_groups(JSON_FILE)
+    print("Loading existing release groups...")
+    print(load_existing_groups(JSON_FILE))

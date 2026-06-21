@@ -139,7 +139,7 @@ class MediaFileIdentifier:
 
         return guess
 
-    def identify(self, file_path: Path, info_hash: str = None, file_info: Dict[str, Any] = None) -> Dict[str, Any]:
+    def identify(self, file_path: Path, info_hash: str = None, file_info: Dict[str, Any] = None, media_file_count: int = 0, skip_torrent_metadata: bool = False) -> Dict[str, Any]:
         """Identify media type and extract normalized information using GuessIt + custom logic"""
         filename = file_path.name
         result = {
@@ -164,7 +164,7 @@ class MediaFileIdentifier:
             self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 10, status="processing", extra=source)
 
             # Step 1: Parse + normalize metadata
-            guess = self.parse_filename(guess, file_path, info_hash=info_hash, file_info=file_info)
+            guess = self.parse_filename(guess, file_path, info_hash=info_hash, file_info=file_info, media_file_count=media_file_count, skip_torrent_metadata=skip_torrent_metadata)
 
             # Step 2: Enhance episodes with smart guessing and parent folder info
             if guess.get("type") == "episode":
@@ -859,7 +859,7 @@ class MediaFileIdentifier:
         # 3. Nothing found
         return None
 
-    def parse_filename(self, guess: Dict[str, Any], file_path: Path, info_hash: str = None, file_info: Dict[str, Any] = None) -> Dict[str, Any]:
+    def parse_filename(self, guess: Dict[str, Any], file_path: Path, info_hash: str = None, file_info: Dict[str, Any] = None, media_file_count: int = 0, skip_torrent_metadata: bool = False) -> Dict[str, Any]:
         """
         Parse filename with GuessIt, normalize quirks, and classify type.
         - Runs GuessIt with fallback (full path → filename only).
@@ -869,6 +869,7 @@ class MediaFileIdentifier:
 
         options = {}
         t_metadata = {}
+        override_metadata = True
         file_hash = file_info.get("hash")
         source = {
             "source": str(file_path)
@@ -966,9 +967,15 @@ class MediaFileIdentifier:
         if bool(clean_media.get("is_episode")):
             raw_data.update(guess)
 
-        # merge raw_data with torrent metadata from organizerr
-        if t_metadata:
-            raw_data = self.enrich_with_torrent_metadata(t_metadata=t_metadata, guess=raw_data)
+        if t_metadata and override_metadata:
+            # disable metadata override with torrent_metadata if media_type in(movie, unsorted) and media_file_count  > 1
+            if t_metadata.get("media_type") in("movie", "unsorted") and media_file_count > 1:
+                override_metadata = False
+
+        if not skip_torrent_metadata:
+            # merge raw_data with torrent metadata from organizerr
+            if t_metadata and override_metadata:
+                raw_data = self.enrich_with_torrent_metadata(t_metadata=t_metadata, guess=raw_data)
 
         # send progress update to organizerr
         self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 55, status="processing", extra=source)
@@ -1674,6 +1681,7 @@ class MediaFileIdentifier:
         """Extract movie information from guessit results"""
         return {
             'title': guess.get('title', 'Unknown'),
+            "edition": guess.get("edition", ""),
             'year': guess.get('year'),
             'quality': guess.get('screen_size'),
             'source': guess.get('source'),
@@ -1687,6 +1695,7 @@ class MediaFileIdentifier:
         """Extract TV show information from guessit results"""
         return {
             'title': guess.get('title', 'Unknown Series'),
+            "edition": guess.get("edition", ""),
             'season': guess.get('season'),
             'episode': guess.get('episode'),
             'episode_title': guess.get('episode_title'),
@@ -1700,6 +1709,7 @@ class MediaFileIdentifier:
         """Extract Special TV episode information from guessit results"""
         return {
             'title': guess.get('title', 'Unknown Series'),
+            "edition": guess.get("edition", ""),
             'season': guess.get('season', 0),  # special episode/season are always 0
             'episode': guess.get('episode', 0),  # special episode/season are always 0
             'episode_title': guess.get('episode_title'),
@@ -1716,6 +1726,7 @@ class MediaFileIdentifier:
         """Extract Unsorted media information from guessit results"""
         return {
             'title': guess.get('title', 'Unknown'),
+            "edition": guess.get("edition", ""),
             'year': guess.get('year'),
             'quality': guess.get('screen_size'),
             'source': guess.get('source'),
@@ -1729,6 +1740,7 @@ class MediaFileIdentifier:
         """Extract anime information from guessit results"""
         return {
             'title': guess.get('title', 'Unknown Anime'),
+            "edition": guess.get("edition", ""),
             'season': guess.get('season'),
             'episode': guess.get('episode'),
             'episode_title': guess.get('episode_title'),
@@ -1754,6 +1766,10 @@ class MediaFileIdentifier:
             except (ValueError, TypeError):
                 guess["year"] = None
 
+            # edition
+            guess["edition"] = guess.get("edition")
+
+            # media quality metadata
             guess["quality"] = guess.get("screen_size")
             guess["source"] = guess.get("source")
             guess["resolution"] = guess.get("screen_size")
@@ -1777,6 +1793,9 @@ class MediaFileIdentifier:
             guess["title"] = self.str_title_case(normalized_title)
             # str_fix_padding
             # guess["episode_title"] = self.str_title_case(self.str_scenify2(guess.get("episode_title")))
+
+            # edition
+            guess["edition"] = guess.get("edition")
 
             # Season number
             season = guess.get("season")
@@ -1811,6 +1830,9 @@ class MediaFileIdentifier:
             # str_fix_padding
             # guess["episode_title"] = self.str_title_case(self.str_scenify2(guess.get("episode_title")))
 
+            # edition
+            guess["edition"] = guess.get("edition")
+
             # Season number, special episode/season numbers are always 0
             season = guess.get("season")
             try:
@@ -1839,6 +1861,8 @@ class MediaFileIdentifier:
                 guess["year"] = int(year) if year is not None else None
             except (ValueError, TypeError):
                 guess["year"] = None
+
+            guess["edition"] = guess.get("edition")
             guess["quality"] = guess.get("screen_size")
             guess["source"] = guess.get("source")
             guess["resolution"] = guess.get("screen_size")

@@ -244,7 +244,7 @@ class TVDBClient:
     def search_episode_by_episode_number(self, series_name: str, episode: int) -> Optional[Dict[str, Any]]:
         """Find an episode by series name and absolute episode number."""
         page = 1
-        max_pages = 1
+        max_pages = 10
         limit = 10
         lang = 'eng'
 
@@ -260,10 +260,22 @@ class TVDBClient:
         # 1. Pick the best matching series
         best_match = None
         for result in series_results:
+
             slug = result.get("slug", "").lower().replace(":", "").strip() if result.get("slug") else None
             slug = self.normalize_title(slug)
+
             title = result.get("name", "").lower().replace(":", "").strip() if result.get("name") else None
             title = self.normalize_title(title)
+
+            translations = result.get("translations", {}) if isinstance(result.get("translations"), dict) else {}
+
+            title_eng = translations.get("eng", "").lower().replace(":", "").strip() if translations.get("eng") else None
+            title_eng = self.normalize_title(title_eng)
+
+            if title_eng:
+                if title_eng == query_norm:
+                    best_match = result
+                    break
 
             if slug:
                 if slug == query_norm:
@@ -283,6 +295,7 @@ class TVDBClient:
                 if aliases:
                     for alias in aliases:
                         alias_norm = str(alias).lower().replace(":", "").strip()
+                        alias_norm = self.normalize_title(alias_norm)
                         if alias_norm == query_norm:
                             best_match = result
                             break
@@ -301,7 +314,8 @@ class TVDBClient:
 
             if episodes and len(episodes) > 0:
                 for ep in episodes:
-                    if ep['absoluteNumber'] == episode:
+                    absolute_episode_number = ep['absoluteNumber'] if int(ep['absoluteNumber']) != 0 else ep['number']
+                    if absolute_episode_number == episode:
                         ep_data = self.get_episode_details(ep["id"])
                         season_number = ep['seasonNumber']
                         episode_number = ep['number']
