@@ -1,6 +1,10 @@
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 import requests
 import logging
+import re
+from pathlib import Path
+import shutil
+import json
 
 class StashDBClient:
     def __init__(self):
@@ -32,6 +36,35 @@ class StashDBClient:
         except requests.exceptions.RequestException as e:
             self.logger.error(f"StashDB request failed: {e}")
             return None
+
+    def _sanitize_filename(self, value):
+        if not value:
+            return "Unknown"
+        value = re.sub(r'[<>:"/\\|?*]', '', value)
+        value = re.sub(r'\s+', ' ', value)
+        return value.strip()
+
+    def build_scene_filename(self, scene, source_file):
+
+        title = scene.get("title")
+
+        if not title or not title.strip():
+            return None
+
+        title = self._sanitize_filename(title)
+
+        performer = self.get_primary_performer(scene)
+
+        scene_id = scene["id"]
+
+        extension = Path(source_file).suffix
+
+        filename = f"{title} [{scene_id}]{extension}"
+
+        return {
+            "performer": performer,
+            "filename": filename
+        }
 
     # -------------------------------
     # Scene Queries
@@ -169,20 +202,205 @@ class StashDBClient:
         """
         return self._make_request(query, {"id": studio_id})
 
+    def get_all_scenes(self):
+        query = """
+        query {
+          allScenes {
+            id
+            title
+            date
+            details
+
+            studio {
+              id
+              name
+            }
+
+            performers {
+              id
+              name
+            }
+
+            tags {
+              id
+              name
+            }
+
+            files {
+              id
+              path
+              size
+              duration
+            }
+          }
+        }
+        """
+
+        data = self._make_request(query)
+
+        if not data:
+            return []
+
+        return data["allScenes"]
+
+    def _get_unsorted_root(self, source_file: Path) -> Path:
+        current = source_file.parent
+
+        while current != current.parent:
+            if current.name.lower() == "unsorted":
+                return current
+
+            current = current.parent
+
+        # fallback
+        return source_file.parent
+
+    def organize_scene(self, scene, seen_targets, dry_run=True):
+
+        if not scene.get("title"):
+            return False
+
+        if not scene.get("files"):
+            return False
+
+        for file_info in scene["files"]:
+
+            source_file = Path(file_info["path"])
+
+            if not source_file.exists():
+                print(f"[MISSING] {source_file}")
+                continue
+
+            unsorted_root = self._get_unsorted_root(source_file)
+
+            # Skip files already inside performer folders
+            if source_file.parent != unsorted_root:
+                continue
+
+            metadata = self.build_scene_filename(
+                scene,
+                source_file
+            )
+
+            if not metadata:
+                continue
+
+            target_dir = (
+                    unsorted_root
+                    / metadata["performer"]
+            )
+
+            target_dir.mkdir(
+                parents=True,
+                exist_ok=True
+            )
+
+            target_file = (
+                    target_dir
+                    / metadata["filename"]
+            )
+
+            counter = 1
+
+            while (
+                    target_file.exists()
+                    or str(target_file).lower() in seen_targets
+            ):
+                target_file = (
+                        target_dir
+                        / f"{Path(metadata['filename']).stem}_{counter}"
+                          f"{Path(metadata['filename']).suffix}"
+                )
+
+                counter += 1
+
+            seen_targets.add(
+                str(target_file).lower()
+            )
+
+            print()
+            print("[MOVE]")
+            print(source_file)
+            print(" -> ")
+            print(target_file)
+
+            if not dry_run:
+                shutil.move(
+                    str(source_file),
+                    str(target_file)
+                )
+
+        return True
+
+    def metadata_scan(self):
+        mutation = """
+        mutation {
+          metadataScan(
+            input: {
+              scanGeneratePreviews: false
+              scanGenerateImagePreviews: false
+            }
+          )
+        }
+        """
+        return self._make_request(mutation)
+
+    def _has_valid_title(self, scene):
+        title = scene.get("title")
+
+        return (
+                title is not None
+                and str(title).strip() != ""
+        )
+
+    def get_primary_performer(self, scene):
+        performers = scene.get("performers", [])
+
+        if not performers:
+            return "Unknown Performer"
+
+        performer_names = []
+
+        for p in performers:
+            name = p.get("name", "").strip()
+
+            if not name:
+                continue
+
+            performer_names.append(name)
+
+        if performer_names:
+            return self._sanitize_filename(performer_names[0])
+
+        return "Unknown Performer"
+
 
 # ---------------- CLI Test ----------------
 if __name__ == "__main__":
     client = StashDBClient()
+    scenes = client.get_all_scenes()
 
-    # ✅ Performer search
-    performers = client.search_performer_by_name("Mia Malkova")
-    print(performers)
+    DRY_RUN = False
+    processed = 0
+    skipped = 0
+    counter = 1
+    seen_targets = set()
 
-    # ✅ Scene search
-    scenes = client.search_scene_by_title("JUX-182")
-    print(scenes)
+    for scene in scenes:
+        if client._has_valid_title(scene):
+            success = client.organize_scene(
+                scene,
+                seen_targets,
+                DRY_RUN
+            )
 
-    # fetch scena details
-    for scene in scenes["findScenes"]["scenes"]:
-        scene_details = client.get_scene_details(scene["id"])
-        print(scene_details)
+            if success:
+                processed += 1
+            else:
+                skipped += 1
+
+    print()
+    print(f"Processed: {processed}")
+    print(f"Skipped: {skipped}")
+
+    client.metadata_scan()

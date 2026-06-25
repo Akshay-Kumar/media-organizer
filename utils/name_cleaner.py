@@ -270,6 +270,12 @@ def clean_media_name(filename):
 
         # 3 -> Codecs
         r'\b(?:x264|x265|h264|h265|hevc|av1)\b',
+        r'\bblurayx26[45]\b',
+        r'\bwebripx26[45]\b',
+        r'\bweb[- ]?dlx26[45]\b',
+        r'\b\d+(?:\.\d+)?\s*gb\b',
+        r'\b\d+(?:\.\d+)?\s*mb\b',
+        r'\b\d+\s*kbps\b',
 
         # 4 -> Audio
         r'\b(?:aac|ac3|dts|flac|mp3|opus|vorbis|(avc))\b',
@@ -451,7 +457,7 @@ def clean_media_name(filename):
             cleaned = target_value
 
     # Normalize title
-    search_title = re.sub(r'\s+', ' ', search_title).strip().title()
+    search_title = re.sub(r'\s+', ' ', search_title).strip()
 
     # Extract version
     version_match = re.search(r'[Ss]\d{1,2}[Ee]\d{1,3}v(\d+)', filename)
@@ -584,7 +590,7 @@ def parse_media_file(file_path: Path) -> dict:
     title = merged.get("title")
     if title:
         title = sanitize_filename(title)
-        title = re.sub(r'\s+', ' ', title).strip().title()
+        title = re.sub(r'\s+', ' ', title).strip()
         merged["title"] = title
     else:
         merged["title"] = "Unknown"

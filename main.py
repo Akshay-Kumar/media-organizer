@@ -118,8 +118,8 @@ class MediaOrganizer:
         else:
             return f"{int(remaining_seconds)}s"
 
-    def process_single_file(self, file_path: Path, pbar: Optional[tqdm] = None, info_hash: str = None, skip_torrent_metadata: bool = False) -> Dict[str, Any]:
-        result = self.process_file(file_path, pbar, info_hash=info_hash, media_file_count=1, skip_torrent_metadata=skip_torrent_metadata)
+    def process_single_file(self, file_path: Path, pbar: Optional[tqdm] = None, info_hash: str = None) -> Dict[str, Any]:
+        result = self.process_file(file_path, pbar, info_hash=info_hash, media_file_count=1)
         self.processed_files.append(result)
         file_hash = result.get("file_info", {}).get("hash")
         source = {
@@ -163,7 +163,7 @@ class MediaOrganizer:
             )
         return result
 
-    def process_file(self, file_path: Path, pbar: Optional[tqdm] = None, info_hash: str = None, media_file_count: int = 0, skip_torrent_metadata: bool = False) -> Dict[str, Any]:
+    def process_file(self, file_path: Path, pbar: Optional[tqdm] = None, info_hash: str = None, media_file_count: int = 0) -> Dict[str, Any]:
         """Process a single media file through all steps with progress updates"""
         file_start_time = time.time()
         file_lock = acquire_file_lock(file_path)
@@ -217,7 +217,7 @@ class MediaOrganizer:
                 pbar.set_description(f"🔍 Identifying: {file_path.name[:25]}...")
 
             self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 0, status="processing", extra=source)
-            media_info = self.identifier.identify(file_path, info_hash=info_hash, file_info=result.get("file_info", None), media_file_count=media_file_count, skip_torrent_metadata=skip_torrent_metadata)
+            media_info = self.identifier.identify(file_path, info_hash=info_hash, file_info=result.get("file_info", None), media_file_count=media_file_count)
 
             if media_info is not None:
                 self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 100, status="completed", success=True, extra=source)
@@ -405,7 +405,7 @@ class MediaOrganizer:
 
         return result
 
-    def process_directory(self, directory: Path, info_hash: str = None, skip_torrent_metadata:bool = False) -> List[Dict[str, Any]]:
+    def process_directory(self, directory: Path, info_hash: str = None) -> List[Dict[str, Any]]:
         """Process all media files in a directory with comprehensive progress tracking"""
         processing_config = self.config.get('processing', {})
         min_size = processing_config.get('min_file_size_mb', 1) * 1024 * 1024
@@ -457,7 +457,7 @@ class MediaOrganizer:
                         'rate': f"{rate:.1f} files/s" if rate else "N/A"
                     })
 
-                    result = self.process_file(file_path, pbar=pbar, info_hash=info_hash, media_file_count=total, skip_torrent_metadata=skip_torrent_metadata)
+                    result = self.process_file(file_path, pbar=pbar, info_hash=info_hash, media_file_count=total)
                     results.append(result)
                     self.processed_files.append(result)
 
@@ -737,8 +737,8 @@ def main():
     parser.add_argument('--list-libraries', action='store_true',
                         help='List available Plex/Emby libraries and exit')
     parser.add_argument('--info-hash', help='Info hash of torrent file')
-    parser.add_argument('--skip-torrent-metadata', choices=['True', 'False'],
-                        default='False',help='Skip fetching metadata from organizerr')
+    parser.add_argument('--skip-torrent-metadata', action='store_true',
+                        help='Skip fetching metadata from organizerr')
 
     args = parser.parse_args()
 
@@ -803,7 +803,12 @@ def main():
 
     source_path = Path(args.source)
     info_hash = args.info_hash
-    skip_torrent_metadata = bool(args.skip_torrent_metadata)
+
+    if args.skip_torrent_metadata:
+        config['skip_torrent_metadata'] = True
+        logging.info("=== Skip torrent metadata mode ===")
+    else:
+        config['skip_torrent_metadata'] = False
 
     if not source_path.exists():
         logging.error(f"Source path does not exist: {source_path}")
@@ -861,9 +866,9 @@ def main():
 
     try:
         if source_path.is_file():
-            results = [organizer.process_single_file(source_path, info_hash=info_hash, skip_torrent_metadata=skip_torrent_metadata)]
+            results = [organizer.process_single_file(source_path, info_hash=info_hash)]
         else:
-            results = organizer.process_directory(source_path, info_hash=info_hash, skip_torrent_metadata=skip_torrent_metadata)
+            results = organizer.process_directory(source_path, info_hash=info_hash)
 
         report = organizer.generate_report()
 

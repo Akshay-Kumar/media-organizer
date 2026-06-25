@@ -29,6 +29,7 @@ from utils.special_media_detection import parse_path
 class MediaFileIdentifier:
     def __init__(self, config: Dict[str, Any], metadata_fetcher: MetadataFetcher, media_parser: MediaParser):
         self.config = config
+        self.skip_torrent_metadata = config.get('skip_torrent_metadata', False)
         self.logger = logging.getLogger(__name__)
         self.titleMatcher = TitleMatcher()
         self.metadata_fetcher = metadata_fetcher
@@ -69,7 +70,7 @@ class MediaFileIdentifier:
         else:
             return [*SERIES_RX, *SPECIAL_PREFIXES]
 
-    def enrich_with_torrent_metadata(self, t_metadata: dict, guess: dict):
+    def enrich_with_torrent_metadata(self, t_metadata: dict, guess: dict, override_metadata: bool = True, skip_torrent_metadata: bool = False) -> dict:
         # Step: Enrich + Override file metadata using torrent metadata
         if t_metadata and isinstance(t_metadata, dict):
             t_metadata = dict(t_metadata)
@@ -106,9 +107,12 @@ class MediaFileIdentifier:
                 logging.info(f"Organizerr: updating media_type from '{guess_media_type}' to '{media_type}'")
                 guess["type"] = media_type
 
-            if title and title != guess_title:
-                logging.info(f"Organizerr: updating title from '{guess_title}' to '{title}'")
-                guess["title"] = title
+            if override_metadata and not skip_torrent_metadata:
+                if title and title != guess_title:
+                    logging.info(f"Organizerr: updating title from '{guess_title}' to '{title}'")
+                    guess["title"] = title
+            else:
+                logging.info(f"Organizerr: skipping title override, keeping title as: '{guess_title}'")
 
             if year and year != guess_year:
                 logging.info(f"Organizerr: updating year from '{guess_year}' to '{year}'")
@@ -139,7 +143,7 @@ class MediaFileIdentifier:
 
         return guess
 
-    def identify(self, file_path: Path, info_hash: str = None, file_info: Dict[str, Any] = None, media_file_count: int = 0, skip_torrent_metadata: bool = False) -> Dict[str, Any]:
+    def identify(self, file_path: Path, info_hash: str = None, file_info: Dict[str, Any] = None, media_file_count: int = 0) -> Dict[str, Any]:
         """Identify media type and extract normalized information using GuessIt + custom logic"""
         filename = file_path.name
         result = {
@@ -164,7 +168,7 @@ class MediaFileIdentifier:
             self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 10, status="processing", extra=source)
 
             # Step 1: Parse + normalize metadata
-            guess = self.parse_filename(guess, file_path, info_hash=info_hash, file_info=file_info, media_file_count=media_file_count, skip_torrent_metadata=skip_torrent_metadata)
+            guess = self.parse_filename(guess, file_path, info_hash=info_hash, file_info=file_info, media_file_count=media_file_count)
 
             # Step 2: Enhance episodes with smart guessing and parent folder info
             if guess.get("type") == "episode":
@@ -859,7 +863,7 @@ class MediaFileIdentifier:
         # 3. Nothing found
         return None
 
-    def parse_filename(self, guess: Dict[str, Any], file_path: Path, info_hash: str = None, file_info: Dict[str, Any] = None, media_file_count: int = 0, skip_torrent_metadata: bool = False) -> Dict[str, Any]:
+    def parse_filename(self, guess: Dict[str, Any], file_path: Path, info_hash: str = None, file_info: Dict[str, Any] = None, media_file_count: int = 0) -> Dict[str, Any]:
         """
         Parse filename with GuessIt, normalize quirks, and classify type.
         - Runs GuessIt with fallback (full path → filename only).
@@ -870,6 +874,7 @@ class MediaFileIdentifier:
         options = {}
         t_metadata = {}
         override_metadata = True
+        skip_torrent_metadata = self.skip_torrent_metadata
         file_hash = file_info.get("hash")
         source = {
             "source": str(file_path)
@@ -967,15 +972,13 @@ class MediaFileIdentifier:
         if bool(clean_media.get("is_episode")):
             raw_data.update(guess)
 
-        if t_metadata and override_metadata:
-            # disable metadata override with torrent_metadata if media_type in(movie, unsorted) and media_file_count  > 1
-            if t_metadata.get("media_type") in("movie", "unsorted") and media_file_count > 1:
-                override_metadata = False
+        # disable metadata override with torrent_metadata if media_type in(movie, unsorted) and media_file_count  > 1
+        if t_metadata.get("media_type") in ("movie", "unsorted") and media_file_count > 1:
+            override_metadata = False
 
-        if not skip_torrent_metadata:
-            # merge raw_data with torrent metadata from organizerr
-            if t_metadata and override_metadata:
-                raw_data = self.enrich_with_torrent_metadata(t_metadata=t_metadata, guess=raw_data)
+        # merge raw_data with torrent metadata from organizerr
+        if t_metadata:
+            raw_data = self.enrich_with_torrent_metadata(t_metadata=t_metadata, guess=raw_data, override_metadata=override_metadata, skip_torrent_metadata=skip_torrent_metadata)
 
         # send progress update to organizerr
         self.torrent_metadata.send_progress_update(info_hash, file_hash, "media_info", 55, status="processing", extra=source)
